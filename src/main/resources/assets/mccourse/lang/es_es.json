@@ -1,6 +1,11 @@
 {
   "item.mccourse.fluorite": "Fluorita",
-  "item.mccourse.fluorite": "Fluorita en crudo",
+  "item.mccourse.raw_fluorite": "Fluorita en crudo",
 
-  "itemgroup.fluorite": "Items de Fluorita"
+  "block.mccourse.fluorite_block": "Bloque de fluorita",
+  "block.mccourse.fluorite_ore": "Mena de fluorita",
+  "block.mccourse.fluorite_deepslate_ore": "Mena de fluorita de pizarra profunda",
+
+  "itemgroup.fluorite": "Items de Fluorita",
+  "itemgroup.fluorite_blocks": "Bloques de fluorita"
 }

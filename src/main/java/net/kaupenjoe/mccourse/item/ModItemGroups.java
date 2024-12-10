@@ -2,6 +2,7 @@ package net.kaupenjoe.mccourse.item;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.kaupenjoe.mccourse.MCCourseMod;
+import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -17,6 +18,16 @@ public class ModItemGroups {
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.FLUORITE);
                         entries.add(ModItems.RAW_FLUORITE);
+                    }).build());
+
+    public static final ItemGroup FLUORITE_BLOCK_GROUP = Registry.register(Registries.ITEM_GROUP,
+            Identifier.of(MCCourseMod.MOD_ID, "fluorite_blocks"),
+            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.fluorite_blocks"))
+                    .icon(() -> new ItemStack(ModBlocks.FLUORITE_BLOCK))
+                    .entries((displayContext, entries) -> {
+                        entries.add(ModBlocks.FLUORITE_BLOCK);
+                        entries.add(ModBlocks.FLUORITE_ORE);
+                        entries.add(ModBlocks.FLUORITE_DEEPSLATE_ORE);
                     }).build());
 
     public static void registerItemGroup(){
