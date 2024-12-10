@@ -27,6 +27,14 @@ public class ModBlocks {
             new ExperienceDroppingBlock(UniformIntProvider.create(3,6),
                     AbstractBlock.Settings.create()
                             .strength(6f).requiresTool()));
+    public static final Block FLUORITE_NETHER_ORE = registerBlock("fluorite_nether_ore",
+            new ExperienceDroppingBlock(UniformIntProvider.create(4,6),
+                    AbstractBlock.Settings.create()
+                            .strength(3f).requiresTool()));
+    public static final Block FLUORITE_END_ORE = registerBlock("fluorite_end_ore",
+            new ExperienceDroppingBlock(UniformIntProvider.create(5,7),
+                    AbstractBlock.Settings.create()
+                            .strength(5f).requiresTool()));
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);
