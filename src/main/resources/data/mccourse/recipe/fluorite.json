@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "buolding",
+  "ingredients": [
+    {
+      "item": "mccourse:fluorite_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "mccourse:fluorite"
+  }
+}
