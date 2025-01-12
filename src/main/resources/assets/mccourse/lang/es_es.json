@@ -13,5 +13,12 @@
   "block.mccourse.magic_block": "Bloque mágico",
 
   "itemgroup.fluorite": "Items de Fluorita",
-  "itemgroup.fluorite_blocks": "Bloques de fluorita"
+  "itemgroup.fluorite_blocks": "Bloques de fluorita",
+
+  "tooltip.mccourse.chainsaw.tooltip.shift": "¡Presiona §eShift§r para más información!",
+  "tooltip.mccourse.chainsaw.tooltip.1": "¡Esta motosierra cortará árboles rápido!",
+  "tooltip.mccourse.chainsaw.tooltip.2": "§o¡La motosierra hacie brumm!§r",
+
+  "tooltip.mccourse.magic_block.tooltip.1": "¡Este bloque es §9Mágico§r!",
+  "tooltip.mccourse.strawberry.tooltip.1": "¡Sabe genial!"
 }
