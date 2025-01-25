@@ -2,7 +2,6 @@ package net.kaupenjoe.mccourse.item.custom;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.tooltip.TooltipType;
@@ -12,12 +11,13 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.world.World;
+import net.minecraft.item.Item;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class ChainSawItem extends Item{
+public class ChainSawItem extends Item {
     public ChainSawItem(Settings settings) {
         super(settings);
     }

@@ -1,6 +1,7 @@
 package net.kaupenjoe.mccourse.block.custom;
 
 import net.kaupenjoe.mccourse.item.ModItems;
+import net.kaupenjoe.mccourse.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -11,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -46,8 +46,9 @@ public class MagicBlock extends Block {
     }
 
     private boolean isValidItem(ItemStack stack) {
-        return stack.getItem() == ModItems.FLUORITE || stack.getItem() == ModItems.RAW_FLUORITE
-                || stack.getItem() == Items.COAL;
+        //return stack.getItem() == ModItems.FLUORITE || stack.getItem() == ModItems.RAW_FLUORITE
+                //|| stack.getItem() == Items.COAL;
+        return stack.isIn(ModTags.Items.TRANSFORMABLE_ITEMS);
     }
 
     @Override
