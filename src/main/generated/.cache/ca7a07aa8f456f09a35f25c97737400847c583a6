@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-13T15:00:06.7046366	MC Course Mod/Model Definitions
+// 1.21.1	2025-03-13T15:07:55.0814133	MC Course Mod/Model Definitions
 bdf92f7f7409d2b74257b9b0d0491c7d81c3bd05 assets\mccourse\models\item\fluorite_nether_ore.json
 f2aeca2040ea829b8b6878ebe3a168fcb74381d2 assets\mccourse\models\item\chainsaw.json
 b7d666bc87397258200dc27a96395ba532b6a945 assets\mccourse\models\block\fluorite_deepslate_ore.json
@@ -15,8 +15,8 @@ bace943a8327764bd96352cef8bd60a9a2a06db3 assets\mccourse\blockstates\fluorite_ne
 bc7d21f942c84b754066fc4a8c9f34dc61953149 assets\mccourse\blockstates\magic_block.json
 db22cc136c9699563c45dea7e2328049e01965fe assets\mccourse\models\item\fluorite.json
 2e733bdf4b43492d575670609456874dc6f97f75 assets\mccourse\models\item\starlight_ashes.json
-3f4c691525311c8cb54c14e4fb9676a449183eb1 assets\mccourse\blockstates\fluorite_block.json
 fb2864f902591619465af0b7095f8f2161f9a3dc assets\mccourse\blockstates\fluorite_end_ore.json
+3f4c691525311c8cb54c14e4fb9676a449183eb1 assets\mccourse\blockstates\fluorite_block.json
 81592028bd20273a9ad8afaf67ef7059fbe88e93 assets\mccourse\models\item\magic_block.json
 45404775a7f3307dcc1b9859c05aed6550496db6 assets\mccourse\models\item\fluorite_deepslate_ore.json
 3f0a8b85ebd837c54134a94cb8c1866091ef26e0 assets\mccourse\blockstates\fluorite_deepslate_ore.json
