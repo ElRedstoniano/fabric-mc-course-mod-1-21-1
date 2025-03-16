@@ -11,6 +11,8 @@
   "block.mccourse.fluorite_nether_ore": "Fluorite nether ore",
   "block.mccourse.fluorite_end_ore": "Fluorite end ore",
   "block.mccourse.magic_block": "Magic block",
+  "block.mccourse.fluorite_stairs": "Fluorite stairs",
+  "block.mccourse.fluorite_slab": "Fluorite slab",
 
   "itemgroup.fluorite": "Fluorite Group",
   "itemgroup.fluorite_blocks": "Fluorite Blocks Group",

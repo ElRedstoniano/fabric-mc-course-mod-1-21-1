@@ -11,6 +11,8 @@
   "block.mccourse.fluorite_nether_ore": "Mena de fluorita del Nether",
   "block.mccourse.fluorite_end_ore": "Mena de fluorita del End",
   "block.mccourse.magic_block": "Bloque mágico",
+  "block.mccourse.fluorite_stairs": "Escaleras de fluorita",
+  "block.mccourse.fluorite_slab": "Losa de fluorita",
 
   "itemgroup.fluorite": "Items de Fluorita",
   "itemgroup.fluorite_blocks": "Bloques de fluorita",

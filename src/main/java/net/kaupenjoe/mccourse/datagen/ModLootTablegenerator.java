@@ -38,6 +38,8 @@ public class ModLootTablegenerator extends FabricBlockLootTableProvider {
                 multipleOreDrops(ModBlocks.FLUORITE_END_ORE, ModItems.RAW_FLUORITE, 4, 8));
         addDrop(ModBlocks.FLUORITE_NETHER_ORE,
                 multipleOreDrops(ModBlocks.FLUORITE_NETHER_ORE, ModItems.RAW_FLUORITE, 1, 7));
+        addDrop(ModBlocks.FLUORITE_STAIRS);
+        addDrop(ModBlocks.FLUORITE_SLAB,  slabDrops(ModBlocks.FLUORITE_SLAB));
 
     }
 

@@ -5,11 +5,16 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.item.ModItems;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.data.server.recipe.RecipeExporter;
+import net.minecraft.data.server.recipe.RecipeProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
@@ -56,5 +61,29 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
                 .offerTo(recipeExporter, Identifier.of(MCCourseMod.MOD_ID, "raw_fluorite_2"));
         // La última línea señala una ruta alternativa para evitar una receta duplicada, señalando una id distinta para una nueva receta
+
+        //Slabs
+        generateSlabRecipes(ModBlocks.FLUORITE_SLAB, ModBlocks.FLUORITE_BLOCK, recipeExporter);
+        // Stairs
+        generateStairsRecipes(ModBlocks.FLUORITE_STAIRS, ModBlocks.FLUORITE_BLOCK, recipeExporter);
+    }
+
+    public static void generateStairsRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter){
+        if(outputBlock instanceof StairsBlock stairsBlock){
+
+            RecipeProvider.offerStonecuttingRecipe(recipeExporter, RecipeCategory.BUILDING_BLOCKS, stairsBlock,
+                    parentBlock, 1);
+            createStairsRecipe(stairsBlock, Ingredient.ofItems(parentBlock))
+                    .criterion("has_fluorite_block", conditionsFromItem(parentBlock))
+                    .offerTo(recipeExporter);
+        }
+    }
+
+    public static void generateSlabRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter) {
+        if (outputBlock instanceof SlabBlock slabBlock) {
+            RecipeProvider.offerStonecuttingRecipe(recipeExporter, RecipeCategory.BUILDING_BLOCKS, slabBlock,
+                    parentBlock, 1);
+            offerSlabRecipe(recipeExporter, RecipeCategory.BUILDING_BLOCKS, slabBlock, parentBlock);
+        }
     }
 }

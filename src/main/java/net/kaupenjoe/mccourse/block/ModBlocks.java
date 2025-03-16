@@ -2,10 +2,7 @@ package net.kaupenjoe.mccourse.block;
 
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.custom.MagicBlock;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ExperienceDroppingBlock;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -38,6 +35,11 @@ public class ModBlocks {
                             .strength(5f).requiresTool()));
     public static final Block MAGIC_BLOCK = registerBlock("magic_block",
             new MagicBlock(AbstractBlock.Settings.create().strength(1f).requiresTool()));
+    public static final Block FLUORITE_STAIRS = registerBlock("fluorite_stairs",
+            new StairsBlock(ModBlocks.FLUORITE_BLOCK.getDefaultState(),
+                    AbstractBlock.Settings.create().strength(2f).requiresTool()));
+    public static final Block FLUORITE_SLAB = registerBlock("fluorite_slab",
+            new SlabBlock(AbstractBlock.Settings.create().strength(2f).requiresTool()));
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);
