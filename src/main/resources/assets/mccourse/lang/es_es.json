@@ -13,6 +13,8 @@
   "block.mccourse.magic_block": "Bloque mágico",
   "block.mccourse.fluorite_stairs": "Escaleras de fluorita",
   "block.mccourse.fluorite_slab": "Losa de fluorita",
+  "block.mccourse.fluorite_button": "Botón de fluorita",
+  "block.mccourse.fluorite_pressure_plate": "Placa de presión de fluorita",
 
   "itemgroup.fluorite": "Items de Fluorita",
   "itemgroup.fluorite_blocks": "Bloques de fluorita",

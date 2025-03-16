@@ -12,6 +12,7 @@ import net.minecraft.block.StairsBlock;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.RecipeProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -66,6 +67,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         generateSlabRecipes(ModBlocks.FLUORITE_SLAB, ModBlocks.FLUORITE_BLOCK, recipeExporter);
         // Stairs
         generateStairsRecipes(ModBlocks.FLUORITE_STAIRS, ModBlocks.FLUORITE_BLOCK, recipeExporter);
+        // Button
+        generateButtonRecipe(ModBlocks.FLUORITE_BUTTON, ModBlocks.FLUORITE_BLOCK, recipeExporter);
+        // Pressure plate
+        offerPressurePlateRecipe(recipeExporter, ModBlocks.FLUORITE_PRESSURE_PLATE, ModBlocks.FLUORITE_BLOCK);
     }
 
     public static void generateStairsRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter){
@@ -86,4 +91,13 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
             offerSlabRecipe(recipeExporter, RecipeCategory.BUILDING_BLOCKS, slabBlock, parentBlock);
         }
     }
+
+    public static void generateButtonRecipe(Block outputBlock, Block inputblock, RecipeExporter recipeExporter){
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, outputBlock, 1)
+                .input(inputblock)
+                .group("fluorite_buttons")
+                .criterion("has_fluorite_block", conditionsFromItem(ModBlocks.FLUORITE_BLOCK))
+                .offerTo(recipeExporter);
+    }
+
 }

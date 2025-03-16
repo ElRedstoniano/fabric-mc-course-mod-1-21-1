@@ -28,6 +28,9 @@ public class ModModelProvider extends FabricModelProvider {
 
         fluoriteTexturePool.stairs(ModBlocks.FLUORITE_STAIRS);
         fluoriteTexturePool.slab(ModBlocks.FLUORITE_SLAB);
+
+        fluoriteTexturePool.button(ModBlocks.FLUORITE_BUTTON);
+        fluoriteTexturePool.pressurePlate(ModBlocks.FLUORITE_PRESSURE_PLATE);
     }
 
     @Override
