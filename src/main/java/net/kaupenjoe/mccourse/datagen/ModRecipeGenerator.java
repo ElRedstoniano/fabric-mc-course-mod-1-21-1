@@ -71,6 +71,12 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         generateButtonRecipe(ModBlocks.FLUORITE_BUTTON, ModBlocks.FLUORITE_BLOCK, recipeExporter);
         // Pressure plate
         offerPressurePlateRecipe(recipeExporter, ModBlocks.FLUORITE_PRESSURE_PLATE, ModBlocks.FLUORITE_BLOCK);
+        // Fences
+        offerFenceRecipe(ModBlocks.FLUORITE_BLOCK, ModBlocks.FLUORITE_FENCE, recipeExporter);
+        // Fence gate
+        offerFenceGateRecipe(ModBlocks.FLUORITE_BLOCK, ModBlocks.FLUORITE_FENCE_GATE, recipeExporter);
+        // Wall
+        offerWallRecipe(recipeExporter, RecipeCategory.BUILDING_BLOCKS,ModBlocks.FLUORITE_WALL, ModBlocks.FLUORITE_BLOCK);
     }
 
     public static void generateStairsRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter){
@@ -97,6 +103,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .input(inputblock)
                 .group("fluorite_buttons")
                 .criterion("has_fluorite_block", conditionsFromItem(ModBlocks.FLUORITE_BLOCK))
+                .offerTo(recipeExporter);
+    }
+
+    public static void offerFenceRecipe(Block inputBlock, Block outputBlock, RecipeExporter recipeExporter){
+        createFenceRecipe(outputBlock, Ingredient.ofItems(inputBlock))
+                .criterion(hasItem(inputBlock), conditionsFromItem(inputBlock))
+                .offerTo(recipeExporter);
+    }
+    public static void offerFenceGateRecipe(Block inputBlock, Block outputBlock, RecipeExporter recipeExporter){
+        createFenceGateRecipe(outputBlock, Ingredient.ofItems(inputBlock))
+                .criterion(hasItem(inputBlock), conditionsFromItem(inputBlock))
                 .offerTo(recipeExporter);
     }
 

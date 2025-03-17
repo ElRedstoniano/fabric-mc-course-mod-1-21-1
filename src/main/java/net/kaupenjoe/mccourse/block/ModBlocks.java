@@ -44,6 +44,12 @@ public class ModBlocks {
             new ButtonBlock( BlockSetType.IRON, 10, AbstractBlock.Settings.copy(Blocks.STONE_BUTTON)));
     public static final Block FLUORITE_PRESSURE_PLATE = registerBlock("fluorite_pressure_plate",
             new PressurePlateBlock( BlockSetType.IRON, AbstractBlock.Settings.copy(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE)));
+    public static final Block FLUORITE_FENCE = registerBlock("fluorite_fence",
+            new FenceBlock( AbstractBlock.Settings.copy(Blocks.OAK_FENCE)));
+    public static final Block FLUORITE_FENCE_GATE = registerBlock("fluorite_fence_gate",
+            new FenceGateBlock(  WoodType.ACACIA,AbstractBlock.Settings.copy(Blocks.WARPED_FENCE_GATE)));
+    public static final Block FLUORITE_WALL = registerBlock("fluorite_wall",
+            new WallBlock(  AbstractBlock.Settings.copy(Blocks.COBBLESTONE_WALL)));
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);

@@ -15,6 +15,9 @@
   "block.mccourse.fluorite_slab": "Losa de fluorita",
   "block.mccourse.fluorite_button": "Botón de fluorita",
   "block.mccourse.fluorite_pressure_plate": "Placa de presión de fluorita",
+  "block.mccourse.fluorite_fence": "Valla de fluorita",
+  "block.mccourse.fluorite_fence_gate": "Puerta de valla de fluorita",
+  "block.mccourse.fluorite_wall": "Muro de fluorita",
 
   "itemgroup.fluorite": "Items de Fluorita",
   "itemgroup.fluorite_blocks": "Bloques de fluorita",
