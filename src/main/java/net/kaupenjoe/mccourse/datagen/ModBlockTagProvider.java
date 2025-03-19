@@ -22,12 +22,20 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         ModBlocks.FLUORITE_ORE,
                         ModBlocks.FLUORITE_DEEPSLATE_ORE,
                         ModBlocks.FLUORITE_END_ORE,
-                        ModBlocks.FLUORITE_NETHER_ORE);
+                        ModBlocks.FLUORITE_NETHER_ORE,
+                        ModBlocks.FLUORITE_BUTTON,
+                        ModBlocks.FLUORITE_PRESSURE_PLATE,
+                        ModBlocks.FLUORITE_SLAB,
+                        ModBlocks.FLUORITE_STAIRS,
+                        ModBlocks.FLUORITE_DOOR,
+                        ModBlocks.FLUORITE_TRAPDOOR);
         getOrCreateTagBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(ModBlocks.FLUORITE_END_ORE,
                         ModBlocks.FLUORITE_NETHER_ORE);
         getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
-                .add(ModBlocks.FLUORITE_DEEPSLATE_ORE);
+                .add(ModBlocks.FLUORITE_DEEPSLATE_ORE)
+                .add(ModBlocks.FLUORITE_DOOR)
+                .add(ModBlocks.FLUORITE_TRAPDOOR);
 
         getOrCreateTagBuilder(BlockTags.FENCES).add(ModBlocks.FLUORITE_FENCE);
         getOrCreateTagBuilder(BlockTags.FENCE_GATES).add(ModBlocks.FLUORITE_FENCE_GATE);

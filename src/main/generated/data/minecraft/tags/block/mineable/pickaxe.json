@@ -4,6 +4,10 @@
     "mccourse:fluorite_ore",
     "mccourse:fluorite_deepslate_ore",
     "mccourse:fluorite_end_ore",
-    "mccourse:fluorite_nether_ore"
+    "mccourse:fluorite_nether_ore",
+    "mccourse:fluorite_button",
+    "mccourse:fluorite_pressure_plate",
+    "mccourse:fluorite_door",
+    "mccourse:fluorite_trapdoor"
   ]
 }

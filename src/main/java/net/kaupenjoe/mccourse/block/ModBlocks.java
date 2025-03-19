@@ -50,6 +50,10 @@ public class ModBlocks {
             new FenceGateBlock(  WoodType.ACACIA,AbstractBlock.Settings.copy(Blocks.WARPED_FENCE_GATE)));
     public static final Block FLUORITE_WALL = registerBlock("fluorite_wall",
             new WallBlock(  AbstractBlock.Settings.copy(Blocks.COBBLESTONE_WALL)));
+    public static final Block FLUORITE_DOOR = registerBlock("fluorite_door",
+            new DoorBlock( BlockSetType.IRON, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque()));
+    public static final Block FLUORITE_TRAPDOOR = registerBlock("fluorite_trapdoor",
+            new TrapdoorBlock( BlockSetType.IRON, AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR).nonOpaque()));
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);

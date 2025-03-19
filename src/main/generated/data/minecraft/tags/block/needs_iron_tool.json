@@ -1,5 +1,7 @@
 {
   "values": [
-    "mccourse:fluorite_deepslate_ore"
+    "mccourse:fluorite_deepslate_ore",
+    "mccourse:fluorite_door",
+    "mccourse:fluorite_trapdoor"
   ]
 }

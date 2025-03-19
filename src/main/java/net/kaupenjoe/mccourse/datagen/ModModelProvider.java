@@ -34,6 +34,9 @@ public class ModModelProvider extends FabricModelProvider {
         fluoriteTexturePool.fence(ModBlocks.FLUORITE_FENCE);
         fluoriteTexturePool.fenceGate(ModBlocks.FLUORITE_FENCE_GATE);
         fluoriteTexturePool.wall(ModBlocks.FLUORITE_WALL);
+
+        blockStateModelGenerator.registerDoor(ModBlocks.FLUORITE_DOOR);
+        blockStateModelGenerator.registerTrapdoor(ModBlocks.FLUORITE_TRAPDOOR);
     }
 
     @Override

@@ -77,6 +77,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         offerFenceGateRecipe(ModBlocks.FLUORITE_BLOCK, ModBlocks.FLUORITE_FENCE_GATE, recipeExporter);
         // Wall
         offerWallRecipe(recipeExporter, RecipeCategory.BUILDING_BLOCKS,ModBlocks.FLUORITE_WALL, ModBlocks.FLUORITE_BLOCK);
+        // Door
+        offerDoorRecipe(ModBlocks.FLUORITE_DOOR, ModBlocks.FLUORITE_BLOCK, recipeExporter);
+        // Trapdoor
+        offerTrapdoorRecipe(ModBlocks.FLUORITE_TRAPDOOR, ModBlocks.FLUORITE_BLOCK, recipeExporter);
     }
 
     public static void generateStairsRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter){
@@ -111,10 +115,22 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .criterion(hasItem(inputBlock), conditionsFromItem(inputBlock))
                 .offerTo(recipeExporter);
     }
+
     public static void offerFenceGateRecipe(Block inputBlock, Block outputBlock, RecipeExporter recipeExporter){
         createFenceGateRecipe(outputBlock, Ingredient.ofItems(inputBlock))
                 .criterion(hasItem(inputBlock), conditionsFromItem(inputBlock))
                 .offerTo(recipeExporter);
     }
 
+    private void offerDoorRecipe(Block output, Block input, RecipeExporter recipeExporter) {
+        createDoorRecipe(output, Ingredient.ofItems(input))
+                .criterion(hasItem(input), conditionsFromItem(input))
+                .offerTo(recipeExporter);
+    }
+
+    private void offerTrapdoorRecipe(Block output, Block input, RecipeExporter recipeExporter) {
+        createTrapdoorRecipe(output, Ingredient.ofItems(input))
+                .criterion(hasItem(input), conditionsFromItem(input))
+                .offerTo(recipeExporter);
+    }
 }

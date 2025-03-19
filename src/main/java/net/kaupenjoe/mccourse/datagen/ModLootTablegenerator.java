@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
@@ -45,6 +46,8 @@ public class ModLootTablegenerator extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.FLUORITE_FENCE);
         addDrop(ModBlocks.FLUORITE_FENCE_GATE);
         addDrop(ModBlocks.FLUORITE_WALL);
+        addDrop(ModBlocks.FLUORITE_DOOR, this::doorDrops);
+        addDrop(ModBlocks.FLUORITE_TRAPDOOR);
 
     }
 
