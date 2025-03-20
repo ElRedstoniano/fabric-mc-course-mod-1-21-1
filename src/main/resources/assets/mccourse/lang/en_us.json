@@ -4,6 +4,11 @@
   "item.mccourse.chainsaw": "Chainsaw",
   "item.mccourse.strawberry": "Strawberry",
   "item.mccourse.starlight_ashes": "Starlight ashes",
+  "item.mccourse.fluorite_sword": "Fluorite sword",
+  "item.mccourse.fluorite_pickaxe": "Fluorite pickaxe",
+  "item.mccourse.fluorite_shovel": "Fluorite shovel",
+  "item.mccourse.fluorite_axe": "Fluorite axe",
+  "item.mccourse.fluorite_hoe": "Fluorite hoe",
 
   "block.mccourse.fluorite_block": "Fluorite block",
   "block.mccourse.fluorite_ore": "Fluorite ore",

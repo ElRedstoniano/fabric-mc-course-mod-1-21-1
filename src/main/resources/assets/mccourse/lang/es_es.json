@@ -4,6 +4,11 @@
   "item.mccourse.chainsaw": "Motosierra",
   "item.mccourse.strawberry": "Fresa",
   "item.mccourse.starlight_ashes": "Cenizas de luz de estrellas",
+  "item.mccourse.fluorite_sword": "Espada de fluorita",
+  "item.mccourse.fluorite_pickaxe": "Pico de fluorita",
+  "item.mccourse.fluorite_shovel": "Pala de fluorita",
+  "item.mccourse.fluorite_axe": "Hacha de fluorita",
+  "item.mccourse.fluorite_hoe": "Azada de fluorita",
 
   "block.mccourse.fluorite_block": "Bloque de fluorita",
   "block.mccourse.fluorite_ore": "Mena de fluorita",

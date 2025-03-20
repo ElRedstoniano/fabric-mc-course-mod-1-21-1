@@ -81,6 +81,53 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         offerDoorRecipe(ModBlocks.FLUORITE_DOOR, ModBlocks.FLUORITE_BLOCK, recipeExporter);
         // Trapdoor
         offerTrapdoorRecipe(ModBlocks.FLUORITE_TRAPDOOR, ModBlocks.FLUORITE_BLOCK, recipeExporter);
+
+
+        // Sword
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.FLUORITE_SWORD)
+                .input('#', Items.STICK)
+                .input('X', ModItems.FLUORITE)
+                .pattern("XX")
+                .pattern(" #")
+                .pattern(" #")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
+        // Pickaxe
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.FLUORITE_PICKAXE)
+                .input('#', Items.STICK)
+                .input('X', ModItems.FLUORITE)
+                .pattern("XXX")
+                .pattern(" # ")
+                .pattern(" # ")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
+        // Shovel
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.FLUORITE_SHOVEL)
+                .input('#', Items.STICK)
+                .input('X', ModItems.FLUORITE)
+                .pattern("X")
+                .pattern("#")
+                .pattern("#")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
+        // Axe
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.FLUORITE_AXE)
+                .input('#', Items.STICK)
+                .input('X', ModItems.FLUORITE)
+                .pattern("XX")
+                .pattern("X#")
+                .pattern(" #")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
+        // Hoe
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.FLUORITE_HOE)
+                .input('#', Items.STICK)
+                .input('X', ModItems.FLUORITE)
+                .pattern("XX")
+                .pattern(" #")
+                .pattern(" #")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
     }
 
     public static void generateStairsRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter){
