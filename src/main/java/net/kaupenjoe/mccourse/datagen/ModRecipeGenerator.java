@@ -128,6 +128,25 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .pattern(" #")
                 .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
                 .offerTo(recipeExporter);
+
+        // Paxel
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.FLUORITE_PAXEL)
+                .input('#', Items.STICK)
+                .input('X', ModItems.FLUORITE)
+                .pattern("XXX")
+                .pattern("X# ")
+                .pattern(" # ")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
+        // Paxel 2
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.FLUORITE_PAXEL)
+                .input('#', Items.STICK)
+                .input('X', ModItems.FLUORITE)
+                .pattern("XXX")
+                .pattern(" #X")
+                .pattern(" # ")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter, Identifier.of(MCCourseMod.MOD_ID, "paxel_2"));
     }
 
     public static void generateStairsRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter){

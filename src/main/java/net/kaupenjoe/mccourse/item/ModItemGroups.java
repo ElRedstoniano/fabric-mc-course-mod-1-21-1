@@ -29,6 +29,8 @@ public class ModItemGroups {
                         entries.add(ModItems.FLUORITE_SHOVEL);
                         entries.add(ModItems.FLUORITE_AXE);
                         entries.add(ModItems.FLUORITE_HOE);
+
+                        entries.add(ModItems.FLUORITE_PAXEL);
                     }).build());
 
     public static final ItemGroup FLUORITE_BLOCK_GROUP = Registry.register(Registries.ITEM_GROUP,
