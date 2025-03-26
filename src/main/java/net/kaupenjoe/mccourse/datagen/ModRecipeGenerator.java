@@ -147,6 +147,15 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .pattern(" # ")
                 .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
                 .offerTo(recipeExporter, Identifier.of(MCCourseMod.MOD_ID, "paxel_2"));
+        // Hammer
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.FLUORITE_HAMMER)
+                .input('#', Items.STICK)
+                .input('X', ModItems.FLUORITE)
+                .pattern("XXX")
+                .pattern("X#X")
+                .pattern(" # ")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
     }
 
     public static void generateStairsRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter){

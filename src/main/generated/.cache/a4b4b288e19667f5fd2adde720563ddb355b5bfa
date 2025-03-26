@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-22T20:23:31.2967653	MC Course Mod/Recipes
+// 1.21.1	2025-03-26T09:10:41.27396	MC Course Mod/Recipes
 633767c5d48d005c99b25272d3ca1678cc645051 data\mccourse\advancement\recipes\tools\fluorite_shovel.json
 2b5585cb1b6e271882773d3e0973d6e38762c7fc data\mccourse\advancement\recipes\decorations\fluorite_block.json
 5626359c058d961a1781d21ebd0a382e88557aed data\mccourse\recipe\fluorite_paxel.json
@@ -9,6 +9,7 @@ d6dc72beeed3e54882b08ae10ae2fb9aebe5c785 data\mccourse\advancement\recipes\misc\
 5be75d08d3767566f213a099e791b1e891a9d342 data\mccourse\recipe\fluorite_from_blasting_fluorite_deepslate_ore.json
 4b89c77f0475d793b886d37628a3c44ee9435efd data\mccourse\advancement\recipes\misc\fluorite_from_blasting_raw_fluorite.json
 1d41a8035093915fdf12e46cf798f3e4dc3633cc data\mccourse\recipe\fluorite_hoe.json
+235c841aef862b45d2a244a07f48708986a359b5 data\mccourse\recipe\fluorite_hammer.json
 b449aec29bcccfb224bddeabb06617893164b7f6 data\mccourse\advancement\recipes\building_blocks\fluorite_stairs_from_fluorite_block_stonecutting.json
 8dde8640076bbc027c23e04088d809fc7a58864c data\mccourse\recipe\fluorite_wall.json
 0edcae6df050ed4fc8fe21b41b6cee26da9e06db data\mccourse\recipe\fluorite_trapdoor.json
@@ -29,6 +30,7 @@ b86c140aa6cce8835f335c2b1422697043fdfff0 data\mccourse\advancement\recipes\tools
 60206743a1634afe522a9cd64b73129347c415bc data\mccourse\advancement\recipes\redstone\fluorite_pressure_plate.json
 cc77963c158c17df5e73464820f49eb59bb61200 data\mccourse\recipe\fluorite.json
 971fc867024f837fb7cd17bf15e569b65888aad3 data\mccourse\recipe\fluorite_from_blasting_raw_fluorite.json
+983c33e81f6796a2a7e9d4596b654db448ddc54e data\mccourse\advancement\recipes\tools\fluorite_hammer.json
 dff3d0b42e35a89a3c647f0035582f5a1ab15efe data\mccourse\advancement\recipes\decorations\fluorite_fence.json
 52d7a0141830e413d4a2883d00aae94bed7892b2 data\mccourse\recipe\fluorite_door.json
 9c30c63e50a6ce77e95628c6506ac48cf3eeb421 data\mccourse\advancement\recipes\misc\fluorite_from_blasting_fluorite_nether_ore.json
