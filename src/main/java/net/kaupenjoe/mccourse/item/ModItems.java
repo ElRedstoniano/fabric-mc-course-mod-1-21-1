@@ -5,7 +5,10 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.item.custom.ChainSawItem;
 import net.kaupenjoe.mccourse.item.custom.HammerItem;
+import net.kaupenjoe.mccourse.item.custom.ModEffectSwordItem;
 import net.kaupenjoe.mccourse.item.custom.ModFoodComponents;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
@@ -33,9 +36,10 @@ public class ModItems {
             });
     public static final Item STARLIGHT_ASHES = registerItem("starlight_ashes",new Item(new Item.Settings()));
     public static final Item FLUORITE_SWORD = registerItem("fluorite_sword",
-            new SwordItem(ModToolMaterials.FLUORITE,
+            new ModEffectSwordItem(ModToolMaterials.FLUORITE,
                     new Item.Settings().attributeModifiers(
-                            SwordItem.createAttributeModifiers(ModToolMaterials.FLUORITE, 3, -2.4f))));
+                            SwordItem.createAttributeModifiers(ModToolMaterials.FLUORITE, 3, -2.4f)),
+                    StatusEffects.LEVITATION));
     public static final Item FLUORITE_PICKAXE = registerItem("fluorite_pickaxe",
             new PickaxeItem(ModToolMaterials.FLUORITE,
                     new Item.Settings().attributeModifiers(
