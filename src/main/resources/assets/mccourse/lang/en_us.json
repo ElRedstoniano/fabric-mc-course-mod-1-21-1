@@ -12,6 +12,11 @@
   "item.mccourse.fluorite_paxel": "Fluorite paxel",
   "item.mccourse.fluorite_hammer": "Fluorite hammer",
 
+  "item.mccourse.fluorite_helmet": "Fluorite helmet",
+  "item.mccourse.fluorite_chestplate": "Fluorite chestplate",
+  "item.mccourse.fluorite_leggings": "Fluorite leggings",
+  "item.mccourse.fluorite_boots": "Fluorite boots",
+
   "block.mccourse.fluorite_block": "Fluorite block",
   "block.mccourse.fluorite_ore": "Fluorite ore",
   "block.mccourse.fluorite_deepslate_ore": "Fluorite deepslate ore",

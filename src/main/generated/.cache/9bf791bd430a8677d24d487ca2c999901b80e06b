@@ -1,7 +1,7 @@
-// 1.21.1	2025-03-26T09:10:41.2734632	MC Course Mod/Tags for minecraft:block
+// 1.21.1	2025-03-26T13:02:26.0621364	MC Course Mod/Tags for minecraft:block
 6b4faac4ec5dcc75695c2584cc2922aa76557f3c data\minecraft\tags\block\mineable\pickaxe.json
-470bec0afd29fe43bf1667ea283e1706164ea4be data\minecraft\tags\block\fences.json
 f7195f176d8f383d5dafa778fccf8c74db194eac data\minecraft\tags\block\fence_gates.json
+470bec0afd29fe43bf1667ea283e1706164ea4be data\minecraft\tags\block\fences.json
 82362cfbd1836db13c7e9d36c8712821e795ac55 data\mccourse\tags\block\paxel_mineable.json
 dc1b4409beff154ab683281af6c24167fc0ed0e7 data\minecraft\tags\block\walls.json
 0c5bde9fb3b76d2a73f518cfd1e91f5009a38f83 data\minecraft\tags\block\needs_iron_tool.json

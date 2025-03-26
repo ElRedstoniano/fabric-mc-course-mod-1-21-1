@@ -12,6 +12,11 @@
   "item.mccourse.fluorite_paxel": "Picholeta de fluorita",
   "item.mccourse.fluorite_hammer": "Martillo de fluorita",
 
+  "item.mccourse.fluorite_helmet": "Casco de fluorita",
+  "item.mccourse.fluorite_chestplate": "Peto de fluorita",
+  "item.mccourse.fluorite_leggings": "Pantalones de fluorita",
+  "item.mccourse.fluorite_boots": "Botas de fluorita",
+
   "block.mccourse.fluorite_block": "Bloque de fluorita",
   "block.mccourse.fluorite_ore": "Mena de fluorita",
   "block.mccourse.fluorite_deepslate_ore": "Mena de fluorita de pizarra profunda",

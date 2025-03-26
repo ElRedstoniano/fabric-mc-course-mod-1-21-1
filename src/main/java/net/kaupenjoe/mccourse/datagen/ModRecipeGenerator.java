@@ -156,6 +156,39 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .pattern(" # ")
                 .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
                 .offerTo(recipeExporter);
+
+        // Helmet
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.FLUORITE_HELMET)
+                .input('X', ModItems.FLUORITE)
+                .pattern("XXX")
+                .pattern("X X")
+                //.pattern(" # ")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
+        //Chestplate
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.FLUORITE_CHESTPLATE)
+                .input('X', ModItems.FLUORITE)
+                .pattern("X X")
+                .pattern("XXX")
+                .pattern("XXX")
+                //.pattern(" # ")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
+        //Leggings
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.FLUORITE_LEGGINGS)
+                .input('X', ModItems.FLUORITE)
+                .pattern("XXX")
+                .pattern("X X")
+                .pattern("X X")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
+        //Boots
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.FLUORITE_BOOTS)
+                .input('X', ModItems.FLUORITE)
+                .pattern("X X")
+                .pattern("X X")
+                .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
+                .offerTo(recipeExporter);
     }
 
     public static void generateStairsRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter){
