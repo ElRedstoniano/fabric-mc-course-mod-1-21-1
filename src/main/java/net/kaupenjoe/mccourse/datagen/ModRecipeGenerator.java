@@ -189,6 +189,9 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .pattern("X X")
                 .criterion(hasItem(ModItems.FLUORITE), conditionsFromItem(ModItems.FLUORITE))
                 .offerTo(recipeExporter);
+
+        // Kaupen template armor
+        offerSmithingTrimRecipe(recipeExporter, ModItems.KAUPEN_SMITHING_TEMPLATE, Identifier.of(MCCourseMod.MOD_ID, "kaupen"));
     }
 
     public static void generateStairsRecipes(Block outputBlock, Block parentBlock, RecipeExporter recipeExporter){

@@ -1,0 +1,9 @@
+{
+  "asset_name": "fluorite",
+  "description": {
+    "color": "#B03FE0",
+    "translate": "trim_material.mccourse.fluorite"
+  },
+  "ingredient": "mccourse:fluorite",
+  "item_model_index": 1.0
+}

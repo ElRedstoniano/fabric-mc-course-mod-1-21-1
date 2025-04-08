@@ -18,6 +18,7 @@
   "item.mccourse.fluorite_boots": "Botas de fluorita",
 
   "item.mccourse.fluorite_horse_armor": "Armadura para caballo de fluorita",
+  "item.mccourse.kaupen_armor_trim_smithing_template": "Molde de herrería Kaupen",
 
   "block.mccourse.fluorite_block": "Bloque de fluorita",
   "block.mccourse.fluorite_ore": "Mena de fluorita",
@@ -43,5 +44,7 @@
   "tooltip.mccourse.chainsaw.tooltip.2": "§o¡La motosierra hacie brumm!§r",
 
   "tooltip.mccourse.magic_block.tooltip.1": "¡Este bloque es §9Mágico§r!",
-  "tooltip.mccourse.strawberry.tooltip.1": "¡Sabe genial!"
+  "tooltip.mccourse.strawberry.tooltip.1": "¡Sabe genial!",
+  "trim_material.mccourse.fluorite": "Material de fluorita",
+  "trim_pattern.mccourse.kaupen": "Patrón de armadura Kaupen"
 }

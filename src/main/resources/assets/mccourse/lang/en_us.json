@@ -18,6 +18,7 @@
   "item.mccourse.fluorite_boots": "Fluorite boots",
 
   "item.mccourse.fluorite_horse_armor": "Fluorite horse armor",
+  "item.mccourse.kaupen_armor_trim_smithing_template": "Kaupen smithing template",
 
   "block.mccourse.fluorite_block": "Fluorite block",
   "block.mccourse.fluorite_ore": "Fluorite ore",
@@ -43,5 +44,8 @@
   "tooltip.mccourse.chainsaw.tooltip.2": "§oChainsaw go vroom!§r",
 
   "tooltip.mccourse.magic_block.tooltip.1": "This block is §9Magical§r!",
-  "tooltip.mccourse.strawberry.tooltip.1": "Tastes great!"
+  "tooltip.mccourse.strawberry.tooltip.1": "Tastes great!",
+
+  "trim_material.mccourse.fluorite": "Fluorite material",
+  "trim_pattern.mccourse.kaupen": "Kaupen armor pattern"
 }

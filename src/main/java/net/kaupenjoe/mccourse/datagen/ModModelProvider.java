@@ -69,5 +69,6 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.registerArmor((ArmorItem) ModItems.FLUORITE_BOOTS);
 
         itemModelGenerator.register(ModItems.FLUORITE_HORSE_ARMOR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.KAUPEN_SMITHING_TEMPLATE, Models.GENERATED);
     }
 }

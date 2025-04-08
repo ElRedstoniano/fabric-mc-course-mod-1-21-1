@@ -33,5 +33,10 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.FLUORITE_LEGGINGS);
         getOrCreateTagBuilder(ItemTags.FOOT_ARMOR)
                 .add(ModItems.FLUORITE_BOOTS);
+
+        getOrCreateTagBuilder(ItemTags.TRIM_MATERIALS)
+                .add(ModItems.FLUORITE);
+        getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
+                .add(ModItems.KAUPEN_SMITHING_TEMPLATE);
     }
 }

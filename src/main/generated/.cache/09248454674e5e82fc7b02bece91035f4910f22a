@@ -1,6 +1,8 @@
-// 1.21.1	2025-03-29T13:49:02.9148838	MC Course Mod/Tags for minecraft:item
+// 1.21.1	2025-04-08T13:24:17.0824311	MC Course Mod/Tags for minecraft:item
 a3dd2be9543f1d3d65745189df75bdc89374c135 data\mccourse\tags\item\transformable_items.json
 606f0e09092636045b0b3b1c5b3847d894f97d14 data\minecraft\tags\item\chest_armor.json
 e6ea4e8f102352ec7631e38a37689be0c55347e1 data\minecraft\tags\item\leg_armor.json
 b6c9e839ee644a102b34a2864c522582310e44aa data\minecraft\tags\item\foot_armor.json
+f47b9f1d92280907d6167a544a50c41c1fce1788 data\minecraft\tags\item\trim_materials.json
+4604a2436b1811e8f84815fe50ec8cf9deaa453a data\minecraft\tags\item\trim_templates.json
 caca4c50e37996258b1f47625853e2f47cfdb68d data\minecraft\tags\item\head_armor.json

@@ -39,6 +39,7 @@ public class ModItemGroups {
                         entries.add(ModItems.FLUORITE_BOOTS);
 
                         entries.add(ModItems.FLUORITE_HORSE_ARMOR);
+                        entries.add(ModItems.KAUPEN_SMITHING_TEMPLATE);
 
                     }).build());
 
