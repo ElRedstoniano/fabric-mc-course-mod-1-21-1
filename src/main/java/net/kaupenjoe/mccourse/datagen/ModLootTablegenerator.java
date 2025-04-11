@@ -49,6 +49,8 @@ public class ModLootTablegenerator extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.FLUORITE_DOOR, this::doorDrops);
         addDrop(ModBlocks.FLUORITE_TRAPDOOR);
 
+        addDrop(ModBlocks.FLUORITE_LAMP);
+
     }
 
     // Copiado desde BlockLootTableGenerator > copperOreDrops, luego modificado

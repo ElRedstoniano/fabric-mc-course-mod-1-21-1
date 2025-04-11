@@ -1,6 +1,7 @@
 package net.kaupenjoe.mccourse.block;
 
 import net.kaupenjoe.mccourse.MCCourseMod;
+import net.kaupenjoe.mccourse.block.custom.FluoriteLampBlock;
 import net.kaupenjoe.mccourse.block.custom.MagicBlock;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
@@ -54,6 +55,9 @@ public class ModBlocks {
             new DoorBlock( BlockSetType.IRON, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque()));
     public static final Block FLUORITE_TRAPDOOR = registerBlock("fluorite_trapdoor",
             new TrapdoorBlock( BlockSetType.IRON, AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR).nonOpaque()));
+    public static final Block FLUORITE_LAMP = registerBlock("fluorite_lamp",
+            new FluoriteLampBlock( AbstractBlock.Settings.create().strength(1f).requiresTool()
+                    .luminance(state -> state.get(FluoriteLampBlock.CLICKED) ? 15 : 0)));
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);
