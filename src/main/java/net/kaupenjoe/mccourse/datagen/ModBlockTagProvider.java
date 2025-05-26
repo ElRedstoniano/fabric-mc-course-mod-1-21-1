@@ -2,9 +2,9 @@ package net.kaupenjoe.mccourse.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.util.ModTags;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 
@@ -21,6 +21,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.FLUORITE_BLOCK,
                         ModBlocks.FLUORITE_ORE,
+                        ModBlocks.RAW_FLUORITE_BLOCK,
                         ModBlocks.FLUORITE_DEEPSLATE_ORE,
                         ModBlocks.FLUORITE_END_ORE,
                         ModBlocks.FLUORITE_NETHER_ORE,
@@ -46,5 +47,22 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .forceAddTag(BlockTags.PICKAXE_MINEABLE)
                 .forceAddTag(BlockTags.AXE_MINEABLE)
                 .forceAddTag(BlockTags.SHOVEL_MINEABLE);
+
+        getOrCreateTagBuilder(ModTags.Blocks.FLUORITE_ORES)
+                .add(ModBlocks.FLUORITE_ORE)
+                .add(ModBlocks.FLUORITE_DEEPSLATE_ORE)
+                .add(ModBlocks.FLUORITE_NETHER_ORE)
+                .add(ModBlocks.FLUORITE_END_ORE);
+
+        getOrCreateTagBuilder(ModTags.Blocks.STORAGE_BLOCKS_FLUORITE_C)
+                .forceAddTag(ModTags.Blocks.FLUORITE_ORES)
+                .add(ModBlocks.RAW_FLUORITE_BLOCK);
+
+        getOrCreateTagBuilder(ModTags.Blocks.METAL_DETECTOR_DETECTABLE_BLOCKS)
+                .forceAddTag(ConventionalBlockTags.ORES)
+                .forceAddTag(ModTags.Blocks.STORAGE_VALUABLE_BLOCKS);
+
+        /*getOrCreateTagBuilder(ConventionalBlockTags.ORES)
+                .forceAddTag(ModTags.Blocks.FLUORITE_ORES);*/
     }
 }

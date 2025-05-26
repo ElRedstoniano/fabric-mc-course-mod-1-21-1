@@ -5,13 +5,10 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.ApplyBonusLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
@@ -33,6 +30,7 @@ public class ModLootTablegenerator extends FabricBlockLootTableProvider {
 
         addDrop(ModBlocks.FLUORITE_ORE,  oreDrops(ModBlocks.FLUORITE_ORE,
                 ModItems.RAW_FLUORITE));
+        addDrop(ModBlocks.RAW_FLUORITE_BLOCK);
         addDrop(ModBlocks.FLUORITE_DEEPSLATE_ORE,
                 multipleOreDrops(ModBlocks.FLUORITE_DEEPSLATE_ORE, ModItems.RAW_FLUORITE, 2, 5));
         addDrop(ModBlocks.FLUORITE_END_ORE,

@@ -20,19 +20,23 @@ public class ModBlocks {
                     .strength(4f).requiresTool()));
     public static final Block FLUORITE_ORE = registerBlock("fluorite_ore",
             new ExperienceDroppingBlock(UniformIntProvider.create(2,4),
-                    AbstractBlock.Settings.create()
+                    AbstractBlock.Settings.create().mapColor(Blocks.BLUE_ORCHID.getDefaultMapColor())
+                            .strength(4f).requiresTool()));
+    public static final Block RAW_FLUORITE_BLOCK = registerBlock("raw_fluorite_block",
+            new Block(AbstractBlock.Settings.copy(Blocks.RAW_IRON_BLOCK)
+                    .mapColor(Blocks.DIAMOND_BLOCK.getDefaultMapColor())
                             .strength(4f).requiresTool()));
     public static final Block FLUORITE_DEEPSLATE_ORE = registerBlock("fluorite_deepslate_ore",
             new ExperienceDroppingBlock(UniformIntProvider.create(3,6),
-                    AbstractBlock.Settings.create()
+                    AbstractBlock.Settings.create().mapColor(Blocks.WARPED_PLANKS.getDefaultMapColor())
                             .strength(6f).requiresTool()));
     public static final Block FLUORITE_NETHER_ORE = registerBlock("fluorite_nether_ore",
             new ExperienceDroppingBlock(UniformIntProvider.create(4,6),
-                    AbstractBlock.Settings.create()
+                    AbstractBlock.Settings.create().mapColor(Blocks.NETHER_GOLD_ORE.getDefaultMapColor())
                             .strength(3f).requiresTool()));
     public static final Block FLUORITE_END_ORE = registerBlock("fluorite_end_ore",
             new ExperienceDroppingBlock(UniformIntProvider.create(5,7),
-                    AbstractBlock.Settings.create()
+                    AbstractBlock.Settings.create().mapColor(Blocks.BLUE_ORCHID.getDefaultMapColor())
                             .strength(5f).requiresTool()));
     public static final Block MAGIC_BLOCK = registerBlock("magic_block",
             new MagicBlock(AbstractBlock.Settings.create().strength(1f).requiresTool()));

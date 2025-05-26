@@ -63,6 +63,15 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .offerTo(recipeExporter, Identifier.of(MCCourseMod.MOD_ID, "raw_fluorite_2"));
         // La última línea señala una ruta alternativa para evitar una receta duplicada, señalando una id distinta para una nueva receta
 
+        // Bloque de fluorita en crudo
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.RAW_FLUORITE_BLOCK)
+                .pattern("RRR")
+                .pattern("RRR")
+                .pattern("RRR")
+                .input('R', ModItems.RAW_FLUORITE)
+                .criterion(hasItem(ModItems.RAW_FLUORITE), conditionsFromItem(ModItems.RAW_FLUORITE)) // criterion hace que la receta se desbloquee si se cumple una de las condiciones que se especifican
+                .offerTo(recipeExporter);
+
         //Slabs
         generateSlabRecipes(ModBlocks.FLUORITE_SLAB, ModBlocks.FLUORITE_BLOCK, recipeExporter);
         // Stairs

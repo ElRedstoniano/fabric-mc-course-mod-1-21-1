@@ -21,6 +21,7 @@
   "item.mccourse.kaupen_armor_trim_smithing_template": "Molde de herrería Kaupen",
 
   "block.mccourse.fluorite_block": "Bloque de fluorita",
+  "block.mccourse.raw_fluorite_block": "Bloque de fluorita en bruto",
   "block.mccourse.fluorite_ore": "Mena de fluorita",
   "block.mccourse.fluorite_deepslate_ore": "Mena de fluorita de pizarra profunda",
   "block.mccourse.fluorite_nether_ore": "Mena de fluorita del Nether",
@@ -41,9 +42,16 @@
   "itemgroup.fluorite": "Items de Fluorita",
   "itemgroup.fluorite_blocks": "Bloques de fluorita",
 
+  "item.mccourse.metal_detector": "Detector de metales",
+  "item.mccourse.data_tablet": "Tablet de datos",
+
+  "item.mccourse.metal_detector.no_valuables": "¡No se han encontrado tesoros!",
+  "item.mccourse.metal_detector.valuable_found": "¡Se ha encontrado {%s} en las coordenadas %s!",
+
   "tooltip.mccourse.chainsaw.tooltip.shift": "¡Presiona §eShift§r para más información!",
   "tooltip.mccourse.chainsaw.tooltip.1": "¡Esta motosierra cortará árboles rápido!",
-  "tooltip.mccourse.chainsaw.tooltip.2": "§o¡La motosierra hacie brumm!§r",
+  "tooltip.mccourse.chainsaw.tooltip.2": "§o¡La motosierra hace brumm!§r",
+  "tooltip.mccourse.chainsaw.last_chopped_tree": "§bÚltimo árbol talado en %s",
 
   "tooltip.mccourse.magic_block.tooltip.1": "¡Este bloque es §9Mágico§r!",
   "tooltip.mccourse.strawberry.tooltip.1": "¡Sabe genial!",

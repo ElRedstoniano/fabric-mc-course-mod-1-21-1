@@ -21,6 +21,7 @@
   "item.mccourse.kaupen_armor_trim_smithing_template": "Kaupen smithing template",
 
   "block.mccourse.fluorite_block": "Fluorite block",
+  "block.mccourse.raw_fluorite_block": "Fluorite raw block",
   "block.mccourse.fluorite_ore": "Fluorite ore",
   "block.mccourse.fluorite_deepslate_ore": "Fluorite deepslate ore",
   "block.mccourse.fluorite_nether_ore": "Fluorite nether ore",
@@ -41,9 +42,16 @@
   "itemgroup.fluorite": "Fluorite Group",
   "itemgroup.fluorite_blocks": "Fluorite Blocks Group",
 
+  "item.mccourse.metal_detector": "Metal detector",
+  "item.mccourse.data_tablet": "Data tablet",
+
+  "item.mccourse.metal_detector.no_valuables": "No valuables found!",
+  "item.mccourse.metal_detector.valuable_found": "Found {%s} in the coordinates %s!",
+
   "tooltip.mccourse.chainsaw.tooltip.shift": "Press §eShift§r for more Information!",
   "tooltip.mccourse.chainsaw.tooltip.1": "This Chainsaw will cut down trees fast!",
   "tooltip.mccourse.chainsaw.tooltip.2": "§oChainsaw go vroom!§r",
+  "tooltip.mccourse.chainsaw.last_chopped_tree": "§bLast chopped tree at %s",
 
   "tooltip.mccourse.magic_block.tooltip.1": "This block is §9Magical§r!",
   "tooltip.mccourse.strawberry.tooltip.1": "Tastes great!",
