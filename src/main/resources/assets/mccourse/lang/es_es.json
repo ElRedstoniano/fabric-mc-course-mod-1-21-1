@@ -19,6 +19,10 @@
 
   "item.mccourse.kaupen_bow": "Arco Kaupen",
 
+  "events.hit_metal_detector_entity": "¡%s ha intentado detectar una oveja con el Detector de Metales!",
+  "events.hit_strawberry_entity": "¡%s ha atacado a una oveja con una Fresa!",
+  "events.hit_end_rod_entity": "¡%s ha atacado a una oveja con una Vara del End!",
+
   "item.mccourse.fluorite_horse_armor": "Armadura para caballo de fluorita",
   "item.mccourse.kaupen_armor_trim_smithing_template": "Molde de herrería Kaupen",
 
