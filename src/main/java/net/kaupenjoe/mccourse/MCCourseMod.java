@@ -11,6 +11,7 @@ import net.kaupenjoe.mccourse.event.AttackEntityHandler;
 import net.kaupenjoe.mccourse.item.ModItemGroups;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.kaupenjoe.mccourse.util.HammerUsageEvent;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,9 @@ public class MCCourseMod implements ModInitializer {
 		PlayerBlockBreakEvents.BEFORE.register(new HammerUsageEvent());
 
 		AttackEntityCallback.EVENT.register(new AttackEntityHandler());
+
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModItems.STRAWBERRY, 0.5f);
+		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(ModItems.STRAWBERRY_SEEDS, 0.25f);
 	}
 
 	public static Identifier id(String path){
