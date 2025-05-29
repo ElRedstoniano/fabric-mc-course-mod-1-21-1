@@ -3,6 +3,7 @@
   "item.mccourse.raw_fluorite": "Raw fluorite",
   "item.mccourse.chainsaw": "Chainsaw",
   "item.mccourse.strawberry": "Strawberry",
+  "item.mccourse.strawberry_seeds": "Strawberry seeds",
   "item.mccourse.starlight_ashes": "Starlight ashes",
   "item.mccourse.fluorite_sword": "Fluorite sword",
   "item.mccourse.fluorite_pickaxe": "Fluorite pickaxe",
@@ -42,8 +43,8 @@
   "block.mccourse.fluorite_wall": "Fluorite wall",
   "block.mccourse.fluorite_door": "Fluorite door",
   "block.mccourse.fluorite_trapdoor": "Fluorite trapdoor",
-
   "block.mccourse.fluorite_lamp": "Fluorite lamp",
+  "block.mccourse.strawberry_crop": "Strawberry crops",
 
   "itemgroup.fluorite": "Fluorite Group",
   "itemgroup.fluorite_blocks": "Fluorite Blocks Group",

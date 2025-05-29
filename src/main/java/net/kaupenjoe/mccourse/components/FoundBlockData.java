@@ -1,6 +1,7 @@
 package net.kaupenjoe.mccourse.components;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.kaupenjoe.mccourse.util.ColorUtil;
 import net.minecraft.block.BlockState;
@@ -20,6 +21,7 @@ public class FoundBlockData {
             instance.group(BlockState.CODEC.fieldOf("block").forGetter(FoundBlockData::getBlock),
                     BlockPos.CODEC.fieldOf("position").forGetter(FoundBlockData::getPosition))
                     .apply(instance, FoundBlockData::new /* Equivalente a poner (block, pos) -> new FoundBlockData(block, pos)*/));
+
 
     public FoundBlockData(BlockState block, BlockPos position) {
         this.block = block;

@@ -3,6 +3,7 @@
   "item.mccourse.raw_fluorite": "Fluorita en bruto",
   "item.mccourse.chainsaw": "Motosierra",
   "item.mccourse.strawberry": "Fresa",
+  "item.mccourse.strawberry_seeds": "Semillas de fresa",
   "item.mccourse.starlight_ashes": "Cenizas de luz de estrellas",
   "item.mccourse.fluorite_sword": "Espada de fluorita",
   "item.mccourse.fluorite_pickaxe": "Pico de fluorita",
@@ -42,8 +43,8 @@
   "block.mccourse.fluorite_wall": "Muro de fluorita",
   "block.mccourse.fluorite_door": "Puerta de fluorita",
   "block.mccourse.fluorite_trapdoor": "Trampilla de fluorita",
-
   "block.mccourse.fluorite_lamp": "Lámpara de fluorita",
+  "block.mccourse.strawberry_crop": "Cultivo de fresas",
 
   "itemgroup.fluorite": "Items de Fluorita",
   "itemgroup.fluorite_blocks": "Bloques de fluorita",

@@ -6,7 +6,6 @@ import net.kaupenjoe.mccourse.datagen.*;
 import net.kaupenjoe.mccourse.trim.ModTrimMaterials;
 import net.kaupenjoe.mccourse.trim.ModTrimPatterns;
 import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 
 public class MCCourseModDataGenerator implements DataGeneratorEntrypoint {
@@ -16,7 +15,7 @@ public class MCCourseModDataGenerator implements DataGeneratorEntrypoint {
 
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
-		pack.addProvider(ModLootTablegenerator::new);
+		pack.addProvider(ModLootTableGenerator::new);
 		pack.addProvider(ModModelProvider::new);
 		pack.addProvider(ModRecipeGenerator::new);
 		pack.addProvider(ModRegistryDataGenerator::new);

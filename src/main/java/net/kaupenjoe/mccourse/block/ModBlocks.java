@@ -3,6 +3,7 @@ package net.kaupenjoe.mccourse.block;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.custom.FluoriteLampBlock;
 import net.kaupenjoe.mccourse.block.custom.MagicBlock;
+import net.kaupenjoe.mccourse.block.custom.StrawberryCropBlock;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -62,6 +63,12 @@ public class ModBlocks {
     public static final Block FLUORITE_LAMP = registerBlock("fluorite_lamp",
             new FluoriteLampBlock( AbstractBlock.Settings.create().strength(1f).requiresTool()
                     .luminance(state -> state.get(FluoriteLampBlock.CLICKED) ? 15 : 0)));
+    public static final Block STRAWBERRY_CROP = registerBlockWithoutBlockItem("strawberry_crop",
+            new StrawberryCropBlock(AbstractBlock.Settings.copy(Blocks.WHEAT)));
+
+    private static Block registerBlockWithoutBlockItem(String name, Block block){
+        return Registry.register(Registries.BLOCK, Identifier.of(MCCourseMod.MOD_ID, name), block);
+    }
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);

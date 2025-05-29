@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.custom.FluoriteLampBlock;
+import net.kaupenjoe.mccourse.block.custom.StrawberryCropBlock;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.data.client.*;
@@ -56,6 +57,8 @@ public class ModModelProvider extends FabricModelProvider {
         Identifier lamp_on_identifier = blockStateModelGenerator.createSubModel(ModBlocks.FLUORITE_LAMP, "_on", Models.CUBE_ALL, TextureMap::all);
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.FLUORITE_LAMP)
                 .coordinate(BlockStateModelGenerator.createBooleanModelMap(FluoriteLampBlock.CLICKED, lamp_on_identifier, lamp_off_identifier)));
+
+        blockStateModelGenerator.registerCrop(ModBlocks.STRAWBERRY_CROP, StrawberryCropBlock.AGE, 0, 1, 2, 3, 4, 5);
     }
 
     @Override
@@ -95,6 +98,7 @@ public class ModModelProvider extends FabricModelProvider {
         registerDataTablet(itemModelGenerator,ModItems.DATA_TABLET);
 
         registerBow(itemModelGenerator, ModItems.KAUPEN_BOW);
+        //itemModelGenerator.register(ModItems.STRAWBERRY_SEEDS, Models.GENERATED);
     }
 
     // Took a look from ItemModelGenerator.registerArmor() method
