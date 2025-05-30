@@ -66,5 +66,9 @@
   "tooltip.mccourse.magic_block.tooltip.1": "¡Este bloque es §9Mágico§r!",
   "tooltip.mccourse.strawberry.tooltip.1": "¡Sabe genial!",
   "trim_material.mccourse.fluorite": "Material de fluorita",
-  "trim_pattern.mccourse.kaupen": "Patrón de armadura Kaupen"
+  "trim_pattern.mccourse.kaupen": "Patrón de armadura Kaupen",
+
+  "mccourse.command.set_homepos": "Hogar establecido en %s",
+  "mccourse.player_returned_home": "Jugador devuelto al hogar",
+  "mccourse.no_home_pos": "¡No se ha establecido una posición de hogar!"
 }

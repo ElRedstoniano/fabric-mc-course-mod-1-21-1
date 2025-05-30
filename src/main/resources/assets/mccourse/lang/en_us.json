@@ -67,5 +67,9 @@
   "tooltip.mccourse.strawberry.tooltip.1": "Tastes great!",
 
   "trim_material.mccourse.fluorite": "Fluorite material",
-  "trim_pattern.mccourse.kaupen": "Kaupen armor pattern"
+  "trim_pattern.mccourse.kaupen": "Kaupen armor pattern",
+
+  "mccourse.command.set_homepos": "Set home at %s",
+  "mccourse.player_returned_home": "Player returned home",
+  "mccourse.no_home_pos": "No home position has been set!"
 }
