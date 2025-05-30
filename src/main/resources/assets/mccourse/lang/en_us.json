@@ -45,6 +45,8 @@
   "block.mccourse.fluorite_trapdoor": "Fluorite trapdoor",
   "block.mccourse.fluorite_lamp": "Fluorite lamp",
   "block.mccourse.strawberry_crop": "Strawberry crops",
+  "block.mccourse.dahlia": "Dahlia",
+  "block.mccourse.potted_dahlia": "Potted dahlia",
 
   "itemgroup.fluorite": "Fluorite Group",
   "itemgroup.fluorite_blocks": "Fluorite Blocks Group",

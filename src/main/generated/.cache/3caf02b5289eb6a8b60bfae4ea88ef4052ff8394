@@ -1,6 +1,7 @@
-// 1.21.1	2025-05-29T17:18:51.3413791	MC Course Mod/Block Loot Tables
-a31857ab8b8ff379b6726cca5a45cc7b943f7c6e data\mccourse\loot_table\blocks\fluorite_block.json
+// 1.21.1	2025-05-30T16:41:07.8770676	MC Course Mod/Block Loot Tables
 f5b6b3c27e2daed548bbcf3cfb87197c1acee0f1 data\mccourse\loot_table\blocks\fluorite_end_ore.json
+a31857ab8b8ff379b6726cca5a45cc7b943f7c6e data\mccourse\loot_table\blocks\fluorite_block.json
+a57da03e320f1721e8931fc6a6418f773a849bb4 data\mccourse\loot_table\blocks\potted_dahlia.json
 8afceac5d1772702ea24abafd1b38ea30009a036 data\mccourse\loot_table\blocks\fluorite_stairs.json
 35f7d21bdbdb0a5e7c18b2babb968e6068cd7907 data\mccourse\loot_table\blocks\raw_fluorite_block.json
 8069c5f53def1734ad924dcef5fefbcfaaa2c0e4 data\mccourse\loot_table\blocks\fluorite_button.json
@@ -17,3 +18,4 @@ f3ee765bb7e1d2901da1ff910bf72aa2dea099fd data\mccourse\loot_table\blocks\fluorit
 48c7b959785623d28f690251e17743e378a9a74f data\mccourse\loot_table\blocks\fluorite_slab.json
 127aa2b6adcc5f7032b5ba86e18e42f75e77def7 data\mccourse\loot_table\blocks\fluorite_pressure_plate.json
 cf11af404804b1b71ac21f26bbf6c1ea52ef294c data\mccourse\loot_table\blocks\fluorite_fence.json
+8f6e5b124c81b89489df3efa33076e55b20203dd data\mccourse\loot_table\blocks\dahlia.json
