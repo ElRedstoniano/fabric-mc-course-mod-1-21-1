@@ -71,5 +71,8 @@
 
   "mccourse.command.set_homepos": "Set home at %s",
   "mccourse.player_returned_home": "Player returned home",
-  "mccourse.no_home_pos": "No home position has been set!"
+  "mccourse.no_home_pos": "No home position has been set!",
+
+  "sounds.mccourse.chainsaw_cut": "Chainsaw sounds",
+  "sounds.mccourse.chainsaw_pull": "Pulling chainsaw sounds"
 }

@@ -70,5 +70,8 @@
 
   "mccourse.command.set_homepos": "Hogar establecido en %s",
   "mccourse.player_returned_home": "Jugador devuelto al hogar",
-  "mccourse.no_home_pos": "¡No se ha establecido una posición de hogar!"
+  "mccourse.no_home_pos": "¡No se ha establecido una posición de hogar!",
+
+  "sounds.mccourse.chainsaw_cut": "Sonidos de motosierra",
+  "sounds.mccourse.chainsaw_pull": "Sonidos de motosierra arrancando"
 }

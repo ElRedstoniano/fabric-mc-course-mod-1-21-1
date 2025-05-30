@@ -15,6 +15,7 @@ import net.kaupenjoe.mccourse.event.AttackEntityHandler;
 import net.kaupenjoe.mccourse.event.PlayerCopyHandler;
 import net.kaupenjoe.mccourse.item.ModItemGroups;
 import net.kaupenjoe.mccourse.item.ModItems;
+import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.kaupenjoe.mccourse.util.HammerUsageEvent;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.util.Identifier;
@@ -41,6 +42,8 @@ public class MCCourseMod implements ModInitializer {
 
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
+
+		ModSounds.registerSounds();
 
 		ModDataComponentTypes.registerDataComponentsTypes();
 
