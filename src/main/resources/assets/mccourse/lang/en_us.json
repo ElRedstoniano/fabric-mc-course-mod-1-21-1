@@ -87,5 +87,7 @@
   "sounds.mccourse.magic_block_fall": "Falling on magic block",
   "sounds.mccourse.magic_block_hit": "Hitting magic block",
   "sounds.mccourse.magic_block_place": "Placing magic block",
-  "sounds.mccourse.magic_block_step": "Stepping on magic block"
+  "sounds.mccourse.magic_block_step": "Stepping on magic block",
+
+  "effect.mccourse.slimey": "Slimey"
 }
