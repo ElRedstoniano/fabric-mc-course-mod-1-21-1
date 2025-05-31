@@ -23,6 +23,8 @@
   "item.mccourse.bar_brawl_music_disc": "Disco de música Bar Brawl",
   "item.mccourse.bar_brawl_music_disc.desc": "Bryan Tech - Bar Brawl (CC0)",
 
+  "item.mccourse.spectre_staff": "Báculo espectral",
+
   "events.hit_metal_detector_entity": "¡%s ha intentado detectar una oveja con el Detector de Metales!",
   "events.hit_strawberry_entity": "¡%s ha atacado a una oveja con una Fresa!",
   "events.hit_end_rod_entity": "¡%s ha atacado a una oveja con una Vara del End!",
