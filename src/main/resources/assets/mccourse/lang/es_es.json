@@ -25,6 +25,10 @@
 
   "item.mccourse.spectre_staff": "Báculo espectral",
 
+  "item.minecraft.potion.effect.slimey_potion": "Poción de Slimoso",
+  "item.minecraft.splash_potion.effect.slimey_potion": "Poción arrojadiza de Slimoso",
+  "item.minecraft.lingering_potion.effect.slimey_potion": "Poción persistente de Slimoso",
+
   "events.hit_metal_detector_entity": "¡%s ha intentado detectar una oveja con el Detector de Metales!",
   "events.hit_strawberry_entity": "¡%s ha atacado a una oveja con una Fresa!",
   "events.hit_end_rod_entity": "¡%s ha atacado a una oveja con una Vara del End!",

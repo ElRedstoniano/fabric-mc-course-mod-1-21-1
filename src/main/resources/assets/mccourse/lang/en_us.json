@@ -25,6 +25,10 @@
 
   "item.mccourse.spectre_staff": "Spectre staff",
 
+  "item.minecraft.potion.effect.slimey_potion": "Slimey potion",
+  "item.minecraft.splash_potion.effect.slimey_potion": "Slimey splash potion",
+  "item.minecraft.lingering_potion.effect.slimey_potion": "Slimey lingering potion",
+
   "events.hit_metal_detector_entity": "%s tried metal detecting a Sheep!",
   "events.hit_strawberry_entity": "%s attack Sheep with a strawberry!",
   "events.hit_end_rod_entity": "%s attack Sheep with an End Rod!",
