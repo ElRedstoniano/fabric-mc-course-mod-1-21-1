@@ -16,6 +16,12 @@ public class ModSoundDefinitionProvider extends CustomFabricSoundProvider {
     public void generateSounds(SoundGenerator soundGenerator) {
         generateCustomSoundWithSubtitles(soundGenerator, ModSounds.CHAINSAW_CUT, false);
         generateCustomSoundWithSubtitles(soundGenerator, ModSounds.CHAINSAW_PULL, false);
+
+        generateCustomSoundWithSubtitles(soundGenerator, ModSounds.MAGIC_BLOCK_BREAK, false);
+        generateCustomSoundWithSubtitles(soundGenerator, ModSounds.MAGIC_BLOCK_STEP, false);
+        generateCustomSoundWithSubtitles(soundGenerator, ModSounds.MAGIC_BLOCK_PLACE, false);
+        generateCustomSoundWithSubtitles(soundGenerator, ModSounds.MAGIC_BLOCK_HIT, false);
+        generateCustomSoundWithSubtitles(soundGenerator, ModSounds.MAGIC_BLOCK_FALL, false);
     }
 
     // Took a look from https://github.com/FabricMC/fabric/pull/2759 and used the classes for custom sound datagen

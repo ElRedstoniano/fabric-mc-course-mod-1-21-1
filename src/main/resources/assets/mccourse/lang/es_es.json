@@ -73,5 +73,11 @@
   "mccourse.no_home_pos": "¡No se ha establecido una posición de hogar!",
 
   "sounds.mccourse.chainsaw_cut": "Sonidos de motosierra",
-  "sounds.mccourse.chainsaw_pull": "Sonidos de motosierra arrancando"
+  "sounds.mccourse.chainsaw_pull": "Sonidos de motosierra arrancando",
+
+  "sounds.mccourse.magic_block_break": "Rompiendo bloque mágico",
+  "sounds.mccourse.magic_block_fall": "Cayendo en bloque mágico",
+  "sounds.mccourse.magic_block_hit": "Golpeando bloque mágico",
+  "sounds.mccourse.magic_block_place": "Colocando bloque mágico",
+  "sounds.mccourse.magic_block_step": "Caminando sobre bloque mágico"
 }

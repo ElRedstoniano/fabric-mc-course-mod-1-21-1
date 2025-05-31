@@ -74,5 +74,11 @@
   "mccourse.no_home_pos": "No home position has been set!",
 
   "sounds.mccourse.chainsaw_cut": "Chainsaw sounds",
-  "sounds.mccourse.chainsaw_pull": "Pulling chainsaw sounds"
+  "sounds.mccourse.chainsaw_pull": "Pulling chainsaw sounds",
+
+  "sounds.mccourse.magic_block_break": "Breaking magic block",
+  "sounds.mccourse.magic_block_fall": "Falling on magic block",
+  "sounds.mccourse.magic_block_hit": "Hitting magic block",
+  "sounds.mccourse.magic_block_place": "Placing magic block",
+  "sounds.mccourse.magic_block_step": "Stepping on magic block"
 }
