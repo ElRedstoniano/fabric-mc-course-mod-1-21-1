@@ -20,6 +20,9 @@
 
   "item.mccourse.kaupen_bow": "Kaupen bow",
 
+  "item.mccourse.bar_brawl_music_disc": "Bar Brawl Music Disc",
+  "item.mccourse.bar_brawl_music_disc.desc": "Bryan Tech - Bar Brawl (CC0)",
+
   "events.hit_metal_detector_entity": "%s tried metal detecting a Sheep!",
   "events.hit_strawberry_entity": "%s attack Sheep with a strawberry!",
   "events.hit_end_rod_entity": "%s attack Sheep with an End Rod!",

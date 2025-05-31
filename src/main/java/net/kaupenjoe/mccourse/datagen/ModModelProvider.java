@@ -101,6 +101,8 @@ public class ModModelProvider extends FabricModelProvider {
         registerDataTablet(itemModelGenerator,ModItems.DATA_TABLET);
 
         registerBow(itemModelGenerator, ModItems.KAUPEN_BOW);
+
+        itemModelGenerator.register(ModItems.BAR_BRAWL_MUSIC_DISC, Models.GENERATED);
         //itemModelGenerator.register(ModItems.STRAWBERRY_SEEDS, Models.GENERATED);
     }
 

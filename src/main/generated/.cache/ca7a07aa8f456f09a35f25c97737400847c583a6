@@ -1,4 +1,4 @@
-// 1.21.1	2025-05-31T13:00:33.1770833	MC Course Mod/Model Definitions
+// 1.21.1	2025-05-31T14:02:51.1607329	MC Course Mod/Model Definitions
 3cf04be6addbc47db0574ee074fca82b74ca95fc assets\mccourse\models\item\strawberry_seeds.json
 f2aeca2040ea829b8b6878ebe3a168fcb74381d2 assets\mccourse\models\item\chainsaw.json
 faea40b98cbb7269c546a7d3e42c40858c74ad52 assets\mccourse\models\block\fluorite_door_top_left.json
@@ -52,8 +52,8 @@ e6fc48f58bef61ebac04a2e34156ad2d475179fc assets\mccourse\models\item\fluorite_bl
 bcf4b976fe728be415b73509bf038cf8d8ad7895 assets\mccourse\models\item\fluorite_helmet_iron_trim.json
 9e31e2da11428997ad02b78e124072a308038ff5 assets\mccourse\models\item\fluorite_leggings.json
 26dd52443a272238777ae190636a7b25a8ebe4b7 assets\mccourse\models\block\strawberry_crop_stage4.json
-f99948d4089c78a993e0252e1e821d091394da75 assets\mccourse\blockstates\fluorite_ore.json
 082c8481cfb145454117ff145fbdf90c25e0973b assets\mccourse\blockstates\fluorite_trapdoor.json
+f99948d4089c78a993e0252e1e821d091394da75 assets\mccourse\blockstates\fluorite_ore.json
 e669820a0ae72ec6fa3afc28fb183ff147f63b92 assets\mccourse\models\block\fluorite_door_bottom_right.json
 01f4bb22f4a346330cd2a812b25547738bd796ea assets\mccourse\models\block\strawberry_crop_stage1.json
 930f82d5a5bd6727fe1f152cf739bc366d6dd858 assets\mccourse\models\item\fluorite_chestplate_diamond_trim.json
@@ -98,6 +98,7 @@ d6b49d4ab6d8ab08c5375a314f2badc2156cb25b assets\mccourse\models\item\fluorite_pr
 40dfd1479b3651d9d1cd92ac08b4854c3c596f29 assets\mccourse\models\item\fluorite_fence.json
 eac3449dd2f9df65a33456b5098c130c1e050c03 assets\mccourse\models\item\data_tablet_on.json
 ac4c0141d8a866bcbbef9ffa3ac7105ba3a59c80 assets\mccourse\models\item\fluorite_boots_lapis_trim.json
+882c909d777501be9a665907319c212c6837ebd6 assets\mccourse\models\item\bar_brawl_music_disc.json
 03f4842030b2a99a217943abcea1f87d1d0c78b3 assets\mccourse\models\item\fluorite_chestplate_lapis_trim.json
 2589c75ceb07135a45d19abdcd017c453396e0b2 assets\mccourse\models\item\raw_fluorite_block.json
 34ce4e294d5bcd164c138e01f78c976a55eec6bb assets\mccourse\models\item\fluorite_leggings_emerald_trim.json

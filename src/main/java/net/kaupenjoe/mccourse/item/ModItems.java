@@ -1,12 +1,11 @@
 package net.kaupenjoe.mccourse.item;
 
-import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.item.custom.*;
-import net.minecraft.entity.effect.StatusEffect;
+import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.item.tooltip.TooltipType;
@@ -97,6 +96,9 @@ public class ModItems {
 
     public static final Item STRAWBERRY_SEEDS = registerItem("strawberry_seeds",
             new AliasedBlockItem(ModBlocks.STRAWBERRY_CROP, new Item.Settings()));
+
+    public static final Item BAR_BRAWL_MUSIC_DISC = registerItem("bar_brawl_music_disc",
+            new Item(new Item.Settings().jukeboxPlayable(ModSounds.BAR_BRAWL_KEY).maxCount(1)));
 
 
     private static Item registerItem(String name, Item item){

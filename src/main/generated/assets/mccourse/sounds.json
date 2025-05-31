@@ -1,4 +1,12 @@
 {
+  "bar_brawl": {
+    "sounds": [
+      {
+        "name": "mccourse:bar_brawl",
+        "stream": true
+      }
+    ]
+  },
   "chainsaw_cut": {
     "sounds": [
       "mccourse:chainsaw_cut"
