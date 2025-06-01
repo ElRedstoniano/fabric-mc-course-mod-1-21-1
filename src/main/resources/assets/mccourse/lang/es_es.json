@@ -36,6 +36,8 @@
   "item.mccourse.fluorite_horse_armor": "Armadura para caballo de fluorita",
   "item.mccourse.kaupen_armor_trim_smithing_template": "Molde de herrería Kaupen",
 
+  "item.mccourse.fluorite_water_bucket": "Cubo de agua de fluorita",
+
   "block.mccourse.fluorite_block": "Bloque de fluorita",
   "block.mccourse.raw_fluorite_block": "Bloque de fluorita en bruto",
   "block.mccourse.fluorite_ore": "Mena de fluorita",
@@ -101,5 +103,7 @@
   "painting.mccourse.shrimp.title": "Shrimp",
   "painting.mccourse.shrimp.author": "NanoAttack",
   "painting.mccourse.saw_them.title": "Saw Them",
-  "painting.mccourse.saw_them.author": "NanoAttack"
+  "painting.mccourse.saw_them.author": "NanoAttack",
+  "painting.mccourse.wanderer.title": "Wanderer",
+  "painting.mccourse.wanderer.author": "NanoAttack"
 }

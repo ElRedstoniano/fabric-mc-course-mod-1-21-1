@@ -24,6 +24,7 @@ public class AddVillagerGatherableItemsMixin {
                 .addAll(GATHERABLE_ITEMS)
                 .add(Items.MELON)
                 .add(ModItems.STRAWBERRY_SEEDS)
+                .add(ModItems.STRAWBERRY)
                 .build();
     }
 }
