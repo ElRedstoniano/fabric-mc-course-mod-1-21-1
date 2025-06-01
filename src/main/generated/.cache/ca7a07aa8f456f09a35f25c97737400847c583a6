@@ -1,4 +1,4 @@
-// 1.21.1	2025-06-01T14:00:34.6549851	MC Course Mod/Model Definitions
+// 1.21.1	2025-06-01T17:03:54.1885284	MC Course Mod/Model Definitions
 3cf04be6addbc47db0574ee074fca82b74ca95fc assets\mccourse\models\item\strawberry_seeds.json
 f2aeca2040ea829b8b6878ebe3a168fcb74381d2 assets\mccourse\models\item\chainsaw.json
 faea40b98cbb7269c546a7d3e42c40858c74ad52 assets\mccourse\models\block\fluorite_door_top_left.json
@@ -32,8 +32,8 @@ e3c5fd79e773bb83f9929c33a5b7e803d88ff9a9 assets\mccourse\models\item\fluorite_pa
 0ffa82912cbed12b33f221270ac40b3f419721c2 assets\mccourse\models\block\fluorite_slab.json
 e30c257072f6b8c55b071291199d45ee9e0a6243 assets\mccourse\models\item\fluorite_chestplate_netherite_trim.json
 e64f2617cc93e77f8689d545bac91576ff0a40b5 assets\mccourse\models\item\fluorite_helmet.json
-bdf92f7f7409d2b74257b9b0d0491c7d81c3bd05 assets\mccourse\models\item\fluorite_nether_ore.json
 debe6f6bcb914efab78c5104e81a96d3143111b0 assets\mccourse\blockstates\fluorite_door.json
+bdf92f7f7409d2b74257b9b0d0491c7d81c3bd05 assets\mccourse\models\item\fluorite_nether_ore.json
 34e7cb330863d845c1df8c6cb32931089fcb9fd4 assets\mccourse\models\item\data_tablet.json
 acbe5f7c449be4df4b444142fe152ad69c6dc5cf assets\mccourse\models\item\fluorite_lamp.json
 e14bd3b6409c70e48f5a4099ca46f9b4ce1b8c0d assets\mccourse\models\item\fluorite_fence_gate.json

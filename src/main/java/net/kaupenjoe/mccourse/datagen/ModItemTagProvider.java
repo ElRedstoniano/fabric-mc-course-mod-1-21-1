@@ -38,5 +38,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.FLUORITE);
         getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
                 .add(ModItems.KAUPEN_SMITHING_TEMPLATE);
+
+        getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
+                .add(ModItems.STRAWBERRY_SEEDS);
     }
 }
