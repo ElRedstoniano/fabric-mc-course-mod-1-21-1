@@ -80,6 +80,7 @@ public class ModItemGroups {
                         entries.add(ModBlocks.DAHLIA);
                         entries.add(ModBlocks.COLORED_LEAVES);
                         entries.add(ModBlocks.PEDESTAL);
+                        entries.add(ModBlocks.CRYSTALLIZER);
                     }).build());
 
     public static void registerItemGroup(){
