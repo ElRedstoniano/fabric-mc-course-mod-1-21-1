@@ -93,5 +93,7 @@
   "sounds.mccourse.magic_block_place": "Placing magic block",
   "sounds.mccourse.magic_block_step": "Stepping on magic block",
 
-  "effect.mccourse.slimey": "Slimey"
+  "effect.mccourse.slimey": "Slimey",
+
+  "entity.minecraft.villager.kaupenger": "Kaupenger"
 }

@@ -92,5 +92,7 @@
   "sounds.mccourse.magic_block_place": "Colocando bloque mágico",
   "sounds.mccourse.magic_block_step": "Caminando sobre bloque mágico",
 
-  "effect.mccourse.slimey": "Slimoso"
+  "effect.mccourse.slimey": "Slimoso",
+
+  "entity.minecraft.villager.kaupenger": "El magias"
 }

@@ -21,6 +21,7 @@ import net.kaupenjoe.mccourse.potion.ModPotionRecipes;
 import net.kaupenjoe.mccourse.potion.ModPotions;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.kaupenjoe.mccourse.util.HammerUsageEvent;
+import net.kaupenjoe.mccourse.villager.ModVillagers;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -74,7 +75,8 @@ public class MCCourseMod implements ModInitializer {
 		ModPotions.registerPotions();
 		ModPotionRecipes.createPotionsRecipes();
 
-		registerCustomTrades();
+		ModVillagers.registerVillagers();
+		ModVillagers.registerCustomTrades();
 	}
 
 	public static Identifier id(String path){
@@ -86,23 +88,5 @@ public class MCCourseMod implements ModInitializer {
 		return  Identifier.of("minecraft", path);
 	}
 
-	private static void registerCustomTrades(){
-		TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 1, factories -> {
-			factories.add((entity, random) -> new TradeOffer(
-					new TradedItem(Items.EMERALD, 2),
-					new ItemStack(ModItems.STRAWBERRY, 6), 6, 2, 0.04f
-			));
-			factories.add((entity, random) -> new TradeOffer(
-					new TradedItem(Items.EMERALD, 9),
-					new ItemStack(ModItems.CHAINSAW, 1), 1, 6, 0.09f
-			));
-		});
 
-		TradeOfferHelper.registerVillagerOffers(VillagerProfession.TOOLSMITH, 2, factories -> {
-			factories.add((entity, random) -> new TradeOffer(
-					new TradedItem(Items.DIAMOND, 6),
-					new ItemStack(ModItems.FLUORITE, 19), 4, 1, 0.04f
-			));
-		});
-	}
 }
