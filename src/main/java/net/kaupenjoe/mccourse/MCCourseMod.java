@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.command.ReturnHomeCommand;
@@ -21,7 +22,12 @@ import net.kaupenjoe.mccourse.potion.ModPotions;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.kaupenjoe.mccourse.util.HammerUsageEvent;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
+import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradedItem;
+import net.minecraft.village.VillagerProfession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,6 +73,8 @@ public class MCCourseMod implements ModInitializer {
 
 		ModPotions.registerPotions();
 		ModPotionRecipes.createPotionsRecipes();
+
+		registerCustomTrades();
 	}
 
 	public static Identifier id(String path){
@@ -76,5 +84,25 @@ public class MCCourseMod implements ModInitializer {
 	@SuppressWarnings("unused")
 	public static Identifier mcId(String path){
 		return  Identifier.of("minecraft", path);
+	}
+
+	private static void registerCustomTrades(){
+		TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 1, factories -> {
+			factories.add((entity, random) -> new TradeOffer(
+					new TradedItem(Items.EMERALD, 2),
+					new ItemStack(ModItems.STRAWBERRY, 6), 6, 2, 0.04f
+			));
+			factories.add((entity, random) -> new TradeOffer(
+					new TradedItem(Items.EMERALD, 9),
+					new ItemStack(ModItems.CHAINSAW, 1), 1, 6, 0.09f
+			));
+		});
+
+		TradeOfferHelper.registerVillagerOffers(VillagerProfession.TOOLSMITH, 2, factories -> {
+			factories.add((entity, random) -> new TradeOffer(
+					new TradedItem(Items.DIAMOND, 6),
+					new ItemStack(ModItems.FLUORITE, 19), 4, 1, 0.04f
+			));
+		});
 	}
 }
