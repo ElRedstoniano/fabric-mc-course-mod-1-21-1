@@ -1,8 +1,8 @@
-// 1.21.1	2025-06-02T00:38:06.4097701	MC Course Mod/Tags for minecraft:block
+// 1.21.1	2025-06-02T18:04:10.8501375	MC Course Mod/Tags for minecraft:block
 6b5f7a6aa220ca73cd76e145e377ff4f89235b60 data\mccourse\tags\block\metal_detector_detectable_blocks.json
 3fa54f84422561dd21a44396c89e26701b814d6d data\minecraft\tags\block\mineable\pickaxe.json
-f7195f176d8f383d5dafa778fccf8c74db194eac data\minecraft\tags\block\fence_gates.json
 470bec0afd29fe43bf1667ea283e1706164ea4be data\minecraft\tags\block\fences.json
+f7195f176d8f383d5dafa778fccf8c74db194eac data\minecraft\tags\block\fence_gates.json
 4f344e60cafd2991a2f54d6d32bd2667350f368b data\c\tags\block\storage_blocks\fluorite.json
 82362cfbd1836db13c7e9d36c8712821e795ac55 data\mccourse\tags\block\paxel_mineable.json
 dc1b4409beff154ab683281af6c24167fc0ed0e7 data\minecraft\tags\block\walls.json
