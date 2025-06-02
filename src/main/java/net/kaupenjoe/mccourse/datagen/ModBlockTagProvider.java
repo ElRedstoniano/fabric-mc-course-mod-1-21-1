@@ -62,6 +62,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .forceAddTag(ConventionalBlockTags.ORES)
                 .forceAddTag(ModTags.Blocks.STORAGE_VALUABLE_BLOCKS);
 
+        /*getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
+                .add(ModBlocks.BLACKWOOD_LOG, ModBlocks.BLACKWOOD_WOOD, ModBlocks.STRIPPED_BLACKWOOD_LOG, ModBlocks.STRIPPED_BLACKWOOD_WOOD);*/
+
         /*getOrCreateTagBuilder(ConventionalBlockTags.ORES)
                 .forceAddTag(ModTags.Blocks.FLUORITE_ORES);*/
     }

@@ -23,6 +23,7 @@ import net.kaupenjoe.mccourse.potion.ModPotions;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.kaupenjoe.mccourse.util.HammerUsageEvent;
 import net.kaupenjoe.mccourse.villager.ModVillagers;
+import net.kaupenjoe.mccourse.world.gen.ModWorldGeneration;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -80,6 +81,8 @@ public class MCCourseMod implements ModInitializer {
 		ModVillagers.registerCustomTrades();
 
 		ModEnchantmentEffects.registerEnchantmentEffects();
+
+		ModWorldGeneration.generateModWorldGeneration();
 	}
 
 	public static Identifier id(String path){

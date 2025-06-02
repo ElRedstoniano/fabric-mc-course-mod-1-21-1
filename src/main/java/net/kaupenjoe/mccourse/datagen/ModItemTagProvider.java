@@ -41,5 +41,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
                 .add(ModItems.STRAWBERRY_SEEDS);
+
+        //getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN)
+
     }
 }
