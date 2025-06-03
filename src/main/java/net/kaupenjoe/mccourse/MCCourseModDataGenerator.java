@@ -2,6 +2,7 @@ package net.kaupenjoe.mccourse;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.kaupenjoe.mccourse.datagen.*;
 import net.kaupenjoe.mccourse.enchantment.ModEnchantments;
 import net.kaupenjoe.mccourse.trim.ModTrimMaterials;
@@ -16,8 +17,12 @@ public class MCCourseModDataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-		pack.addProvider(ModBlockTagProvider::new);
-		pack.addProvider(ModItemTagProvider::new);
+		FabricTagProvider.BlockTagProvider blockTagProvider = pack.addProvider(ModBlockTagProvider::new);
+		//pack.addProvider(ModItemTagProvider::new);
+		pack.addProvider( // Para poder usar el .copy() de los tags de los bloques a los items
+				(fabricDataOutput, completableFuture) -> new ModItemTagProvider(fabricDataOutput, completableFuture, blockTagProvider));
+		// https://discord.com/channels/507304429255393322/507982478276034570/1326508261180051487
+
 		pack.addProvider(ModLootTableGenerator::new);
 		pack.addProvider(ModModelProvider::new);
 		pack.addProvider(ModRecipeGenerator::new);

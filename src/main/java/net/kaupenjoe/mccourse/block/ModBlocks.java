@@ -3,6 +3,7 @@ package net.kaupenjoe.mccourse.block;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.custom.*;
 import net.kaupenjoe.mccourse.sound.ModSounds;
+import net.kaupenjoe.mccourse.world.tree.ModSaplingGenerators;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
@@ -78,11 +79,11 @@ public class ModBlocks {
     public static final Block PEDESTAL = registerBlock("pedestal",
             new PedestalBlock(AbstractBlock.Settings.create().strength(4f).requiresTool().nonOpaque()));
 
-    /*public static final Block CRYSTALLIZER = registerBlock("crystallizer",
+    public static final Block CRYSTALLIZER = registerBlock("crystallizer",
             new CrystallizerBlock(AbstractBlock.Settings.create().strength(2f).requiresTool()));
-    public static final Block BLACKWOOD_LOG = registerBlock("blackwood_wood",
+    public static final Block BLACKWOOD_LOG = registerBlock("blackwood_log",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).strength(3f)));
-    public static final Block BLACKWOOD_WOOD = registerBlock("blackwood_log",
+    public static final Block BLACKWOOD_WOOD = registerBlock("blackwood_wood",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_WOOD).strength(3f)));
     public static final Block STRIPPED_BLACKWOOD_LOG = registerBlock("stripped_blackwood_log",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.STRIPPED_OAK_LOG).strength(3f)));
@@ -95,7 +96,7 @@ public class ModBlocks {
             new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)));
 
     public static final Block BLACKWOOD_SAPLING = registerBlock("blackwood_sapling",
-            new SaplingBlock(, AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)));*/
+            new SaplingBlock(ModSaplingGenerators.BLACKWOOD, AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)));
 
     private static Block registerBlockWithoutBlockItem(String name, Block block){
         return Registry.register(Registries.BLOCK, Identifier.of(MCCourseMod.MOD_ID, name), block);

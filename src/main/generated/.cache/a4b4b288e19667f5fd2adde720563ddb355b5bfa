@@ -1,4 +1,4 @@
-// 1.21.1	2025-06-02T18:04:10.8506373	MC Course Mod/Recipes
+// 1.21.1	2025-06-03T02:20:59.4711155	MC Course Mod/Recipes
 633767c5d48d005c99b25272d3ca1678cc645051 data\mccourse\advancement\recipes\tools\fluorite_shovel.json
 2b5585cb1b6e271882773d3e0973d6e38762c7fc data\mccourse\advancement\recipes\decorations\fluorite_block.json
 5626359c058d961a1781d21ebd0a382e88557aed data\mccourse\recipe\fluorite_paxel.json
@@ -20,6 +20,7 @@ b449aec29bcccfb224bddeabb06617893164b7f6 data\mccourse\advancement\recipes\build
 904bbe41b52ba7067c635d612ecc6eea3a753faa data\mccourse\recipe\paxel_2.json
 030be1ab5bb42ec166ee427d9f4f9dfb132a2505 data\mccourse\advancement\recipes\tools\fluorite_pickaxe.json
 203257b6f820a0fa47b7de16ac88f67f92397063 data\mccourse\recipe\fluorite_from_blasting_fluorite_nether_ore.json
+011f4452dcb9902b8a622c510d145e1ec2ac595f data\mccourse\recipe\blackwood_planks.json
 64bdaa0c11a09a9fc2c689053b4bf1dff628a2bf data\mccourse\advancement\recipes\tools\fluorite_hoe.json
 c2428c7d20873d94e686a6ab849b98887e772dc5 data\mccourse\recipe\fluorite_button.json
 baa3b798d2cb68004cbd3a2cb143f304b8e6f24c data\mccourse\recipe\fluorite_leggings.json
@@ -44,6 +45,7 @@ dff3d0b42e35a89a3c647f0035582f5a1ab15efe data\mccourse\advancement\recipes\decor
 b0292cb6ae5d64109f41a6bab9dc51a54af7a12d data\mccourse\advancement\recipes\misc\fluorite_from_smelting_fluorite_nether_ore.json
 e90cb1f3d90fe7b405a9ce567c31aefdb1793cfa data\mccourse\recipe\fluorite_slab.json
 ebb3c4234424d7de20d60dc8b25bd29fd006c04f data\mccourse\recipe\fluorite_from_blasting_fluorite_end_ore.json
+85a88eed86fc5cd14d0396a7fe53288e22450f68 data\mccourse\advancement\recipes\building_blocks\blackwood_planks.json
 b082a293a3f38b7fef8df2da18027ad524a6386c data\mccourse\advancement\recipes\misc\fluorite_from_blasting_fluorite_end_ore.json
 b962833dc4bc23b8184da72e4af0ce54a6152c6d data\mccourse\recipe\fluorite_helmet.json
 2a2774b1df66ccfc06bbce470689e09c05efe0b3 data\mccourse\recipe\fluorite_from_smelting_raw_fluorite.json

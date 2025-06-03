@@ -17,6 +17,8 @@ public class ModTags {
 
         public static final TagKey<Block> STORAGE_VALUABLE_BLOCKS = createTag("storage_valuable_blocks");
         public static final TagKey<Block> STORAGE_BLOCKS_FLUORITE_C = createCommonTag("storage_blocks/fluorite");
+
+        public static final TagKey<Block> BLACKWOOD_LOGS = createCommonTag("blackwood_logs");
         // https://wiki.fabricmc.net/community:common_tags
 
         private static TagKey<Block> createTag(String name){
@@ -30,6 +32,8 @@ public class ModTags {
     public static class Items {
         public static final TagKey<Item> TRANSFORMABLE_ITEMS =
                 createTag("transformable_items");
+        public static final TagKey<Item> BLACKWOOD_LOGS = createCommonTag("blackwood_logs");
+
         private static TagKey<Item> createTag(String name){
             return TagKey.of(RegistryKeys.ITEM, MCCourseMod.id(name));
         }

@@ -81,6 +81,16 @@ public class ModItemGroups {
                         entries.add(ModBlocks.COLORED_LEAVES);
                         entries.add(ModBlocks.PEDESTAL);
                         entries.add(ModBlocks.CRYSTALLIZER);
+
+                        entries.add(ModBlocks.BLACKWOOD_LOG);
+                        entries.add(ModBlocks.BLACKWOOD_WOOD);
+                        entries.add(ModBlocks.STRIPPED_BLACKWOOD_LOG);
+                        entries.add(ModBlocks.STRIPPED_BLACKWOOD_WOOD);
+
+                        entries.add(ModBlocks.BLACKWOOD_PLANKS);
+                        entries.add(ModBlocks.BLACKWOOD_LEAVES);
+
+                        entries.add(ModBlocks.BLACKWOOD_SAPLING);
                     }).build());
 
     public static void registerItemGroup(){

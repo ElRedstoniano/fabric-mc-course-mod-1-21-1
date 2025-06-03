@@ -57,6 +57,15 @@ public class ModLootTableGenerator extends FabricBlockLootTableProvider {
 
         addDrop(ModBlocks.DAHLIA);
         addDrop(ModBlocks.POTTED_DAHLIA, pottedPlantDrops(ModBlocks.DAHLIA));
+
+        addDrop(ModBlocks.BLACKWOOD_LOG);
+        addDrop(ModBlocks.BLACKWOOD_WOOD);
+        addDrop(ModBlocks.STRIPPED_BLACKWOOD_LOG);
+        addDrop(ModBlocks.STRIPPED_BLACKWOOD_WOOD);
+        addDrop(ModBlocks.BLACKWOOD_PLANKS);
+        addDrop(ModBlocks.BLACKWOOD_SAPLING);
+
+        addDrop(ModBlocks.BLACKWOOD_LEAVES, leavesDrops(ModBlocks.BLACKWOOD_LEAVES, ModBlocks.BLACKWOOD_SAPLING, 0.0625f));
     }
 
     // Copiado desde BlockLootTableGenerator > copperOreDrops, luego modificado
