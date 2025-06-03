@@ -1,4 +1,4 @@
-// 1.21.1	2025-06-03T02:20:59.4671155	MC Course Mod/Model Definitions
+// 1.21.1	2025-06-03T13:24:11.8134269	MC Course Mod/Model Definitions
 3cf04be6addbc47db0574ee074fca82b74ca95fc assets\mccourse\models\item\strawberry_seeds.json
 f2aeca2040ea829b8b6878ebe3a168fcb74381d2 assets\mccourse\models\item\chainsaw.json
 faea40b98cbb7269c546a7d3e42c40858c74ad52 assets\mccourse\models\block\fluorite_door_top_left.json
@@ -66,8 +66,8 @@ e669820a0ae72ec6fa3afc28fb183ff147f63b92 assets\mccourse\models\block\fluorite_d
 01f4bb22f4a346330cd2a812b25547738bd796ea assets\mccourse\models\block\strawberry_crop_stage1.json
 930f82d5a5bd6727fe1f152cf739bc366d6dd858 assets\mccourse\models\item\fluorite_chestplate_diamond_trim.json
 aa08b94cad372a26eec08f78c3ad4233655109ae assets\mccourse\models\item\fluorite_helmet_diamond_trim.json
-b90e845ea1fd12c0f005db99003bda8c9415002d assets\mccourse\models\item\blackwood_planks.json
 302471544874998071fd18ee45188fceee80ee82 assets\mccourse\models\block\stripped_blackwood_log.json
+b90e845ea1fd12c0f005db99003bda8c9415002d assets\mccourse\models\item\blackwood_planks.json
 483302df93318f655698cbe681ea9fd68efbdc04 assets\mccourse\models\block\fluorite_lamp_on.json
 e0f3351f661754d930ff894e7d09d1b2de37aa43 assets\mccourse\models\item\fluorite_chestplate_quartz_trim.json
 028514a96b9502d46b7eea7486e5b379d2964ed7 assets\mccourse\models\block\blackwood_wood.json
@@ -79,8 +79,8 @@ bb7223ce1a820ad3c67f2b7f68208a46627a58d8 assets\mccourse\models\item\fluorite_le
 69842044216127d8968a68452384b18f128fcefe assets\mccourse\models\item\fluorite_sword.json
 9461a9ff373c63099692a1df1159d4c8839691e4 assets\mccourse\models\item\fluorite_trapdoor.json
 7e0b0dd9a00e9fdd5849bf5ae0871476c6a5ccc1 assets\mccourse\models\item\fluorite_chestplate_iron_trim.json
-8a89f874eb4999742e4a635ad1b9cf7afaf63bbc assets\mccourse\blockstates\potted_dahlia.json
 4fee66a30481962e0c8acf49023e923adb321310 assets\mccourse\blockstates\dahlia.json
+8a89f874eb4999742e4a635ad1b9cf7afaf63bbc assets\mccourse\blockstates\potted_dahlia.json
 c846b43c627cee98c8d14046b67177b164a7ad55 assets\mccourse\models\item\fluorite_boots_emerald_trim.json
 db22cc136c9699563c45dea7e2328049e01965fe assets\mccourse\models\item\fluorite.json
 4cb884f732da5e08c21211f771318b34440b09c6 assets\mccourse\models\block\fluorite_door_top_left_open.json
@@ -100,8 +100,8 @@ bc626f9007aba2a36d3c2f8d21fa8c75546fee1c assets\mccourse\blockstates\strawberry_
 c9c009bbd53cde66b755d284aa86ec0cab4efa36 assets\mccourse\models\item\fluorite_helmet_redstone_trim.json
 e85e337e0ff0a90f4b7a77d7963b9910a1c1d3c2 assets\mccourse\models\item\fluorite_horse_armor.json
 4d6afdec82b55dffbe279fccc85e5dba189f49c3 assets\mccourse\models\block\fluorite_trapdoor_open.json
-0c557fa888aa588865ad6422a2e2cd196464ecfb assets\mccourse\models\block\fluorite_ore.json
 06c504730d503582befa4c61d7eff545ab48eb88 assets\mccourse\models\item\fluorite_leggings_copper_trim.json
+0c557fa888aa588865ad6422a2e2cd196464ecfb assets\mccourse\models\block\fluorite_ore.json
 b33795720760d977ee8e0debd1f45501d5941814 assets\mccourse\models\item\blackwood_wood.json
 6306761d8dd871ab59d0ca1696bfce70158fc245 assets\mccourse\models\item\fluorite_helmet_emerald_trim.json
 ffecf2734ff0a64ed0ed215212f8f169b519e72d assets\mccourse\models\item\fluorite_shovel.json
