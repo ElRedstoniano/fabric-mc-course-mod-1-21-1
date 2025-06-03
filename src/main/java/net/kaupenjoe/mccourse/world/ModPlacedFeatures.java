@@ -30,6 +30,7 @@ public class ModPlacedFeatures {
                         PlacedFeatures.createCountExtraModifier(2, 0.1f /* 1 / 0.1F = Nº que tiene que ser int*/, 2), ModBlocks.BLACKWOOD_SAPLING)
 
         );
+
         register(featureRegisterable, FLUORITE_ORE_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModConfiguredFeatures.FLUORITE_ORE_KEY),
                 ModOrePlacement.modifiersWithCount(14, // Veins per chunk
                         HeightRangePlacementModifier.uniform(YOffset.fixed(-80), YOffset.fixed(80)))
