@@ -5,5 +5,6 @@ public class ModWorldGeneration {
         ModOreGeneration.generateOres(); // Tiene que ir antes que ModTreeGeneration
 
         ModTreeGeneration.generatesTrees();
+        ModFlowerGeneration.generateFlowers();
     }
 }
