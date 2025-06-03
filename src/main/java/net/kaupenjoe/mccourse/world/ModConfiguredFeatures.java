@@ -76,7 +76,7 @@ public class ModConfiguredFeatures {
                 0.5D, 0.1D,
                 true, UniformIntProvider.create(3, 8),
                 UniformIntProvider.create(2, 6), UniformIntProvider.create(1, 2),
-                -18, 18, 0.075D, 1));
+                -16, 16, 0.075D, 1));
     }   // Mirar ejemplos de clases como ConfiguredFeatures, UndergroundConfiguredFeatures, etc... ^^
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registryKey(String name){
