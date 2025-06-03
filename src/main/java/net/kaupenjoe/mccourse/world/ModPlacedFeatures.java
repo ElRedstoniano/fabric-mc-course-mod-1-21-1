@@ -20,6 +20,7 @@ public class ModPlacedFeatures {
     public static final RegistryKey<PlacedFeature> END_FLUORITE_ORE_PLACED_KEY = registerKey("end_fluorite_ore_placed");
 
     public static final RegistryKey<PlacedFeature> DAHLIA_PLACED_KEY = registerKey("dahlia_placed");
+    public static final RegistryKey<PlacedFeature> FLUORITE_GEODE_PLACED_KEY = registerKey("fluorite_geode_placed");
     // Mirar ejemplos de clases como OrePlacedFeatures
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable){
         // RegistryEntryLookup<ConfiguredFeature<?, ?>>
@@ -39,13 +40,20 @@ public class ModPlacedFeatures {
         register(featureRegisterable, END_FLUORITE_ORE_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModConfiguredFeatures.END_FLUORITE_ORE_KEY),
                 ModOrePlacement.modifiersWithCount(14, HeightRangePlacementModifier.uniform(YOffset.fixed(-80), YOffset.fixed(80)))
         );
-
         register(featureRegisterable, DAHLIA_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModConfiguredFeatures.DAHLIA_KEY),
                 RarityFilterPlacementModifier.of(4),
                 SquarePlacementModifier.of(),
                 PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
                 BiomePlacementModifier.of()
         );
+
+        register(featureRegisterable, FLUORITE_GEODE_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModConfiguredFeatures.FLUORITE_GEODE_KEY),
+                RarityFilterPlacementModifier.of(42),
+                SquarePlacementModifier.of(),
+                HeightRangePlacementModifier.uniform(YOffset.aboveBottom(6), YOffset.fixed(40)),
+                BiomePlacementModifier.of()
+        );
+        // Mirar ejemplos de clases como PlacedFeatures, UndergroundPlacedFeatures, etc... ^^
     }
 
     // Mirar ejemplos de clases como OrePlacedFeatures
