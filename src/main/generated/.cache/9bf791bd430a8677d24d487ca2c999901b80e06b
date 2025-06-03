@@ -1,12 +1,12 @@
-// 1.21.1	2025-06-03T23:37:31.8682924	MC Course Mod/Tags for minecraft:block
+// 1.21.1	2025-06-04T00:48:35.0010626	MC Course Mod/Tags for minecraft:block
 3fa54f84422561dd21a44396c89e26701b814d6d data\minecraft\tags\block\mineable\pickaxe.json
 454e5d1dc8510538831161389241db31c659af44 data\c\tags\block\blackwood_logs.json
 470bec0afd29fe43bf1667ea283e1706164ea4be data\minecraft\tags\block\fences.json
 4f344e60cafd2991a2f54d6d32bd2667350f368b data\c\tags\block\storage_blocks\fluorite.json
 103e0cad061a77b2138c1751b2c12f2471db460d data\mccourse\tags\block\fluorite_ores.json
 0c5bde9fb3b76d2a73f518cfd1e91f5009a38f83 data\minecraft\tags\block\needs_iron_tool.json
-454e5d1dc8510538831161389241db31c659af44 data\minecraft\tags\block\logs_that_burn.json
 6b5f7a6aa220ca73cd76e145e377ff4f89235b60 data\mccourse\tags\block\metal_detector_detectable_blocks.json
+454e5d1dc8510538831161389241db31c659af44 data\minecraft\tags\block\logs_that_burn.json
 f7195f176d8f383d5dafa778fccf8c74db194eac data\minecraft\tags\block\fence_gates.json
 82362cfbd1836db13c7e9d36c8712821e795ac55 data\mccourse\tags\block\paxel_mineable.json
 dc1b4409beff154ab683281af6c24167fc0ed0e7 data\minecraft\tags\block\walls.json

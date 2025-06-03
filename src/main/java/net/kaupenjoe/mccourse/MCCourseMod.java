@@ -25,6 +25,8 @@ import net.kaupenjoe.mccourse.potion.ModPotions;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.kaupenjoe.mccourse.util.HammerUsageEvent;
 import net.kaupenjoe.mccourse.villager.ModVillagers;
+import net.kaupenjoe.mccourse.world.biome.ModBiomes;
+import net.kaupenjoe.mccourse.world.biome.ModMaterialRules;
 import net.kaupenjoe.mccourse.world.gen.ModWorldGeneration;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.ItemStack;
@@ -35,8 +37,10 @@ import net.minecraft.village.TradedItem;
 import net.minecraft.village.VillagerProfession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import terrablender.api.SurfaceRuleManager;
+import terrablender.api.TerraBlenderApi;
 
-public class MCCourseMod implements ModInitializer {
+public class MCCourseMod implements ModInitializer, TerraBlenderApi {
 	public static final String MOD_ID = "mccourse";
 
 	// This logger is used to write text to the console and the log file.
@@ -103,6 +107,17 @@ public class MCCourseMod implements ModInitializer {
 		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.BLACKWOOD_PLANKS, 5,20);
 		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.BLACKWOOD_LEAVES, 3,60);
 		// Mirar clase FireBlock
+	}
+
+	@Override
+	public void onTerraBlenderInitialized() {
+		ModBiomes.registerBiomes();
+
+		// Register our surface rules
+		SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MOD_ID, ModMaterialRules.makeKaupenValleyRules());
+		SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MOD_ID, ModMaterialRules.makeGlowstonePlainsRules());
+		SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.END, MOD_ID, ModMaterialRules.makeEndRotRules());
+		TerraBlenderApi.super.onTerraBlenderInitialized();
 	}
 
 	public static Identifier id(String path){
