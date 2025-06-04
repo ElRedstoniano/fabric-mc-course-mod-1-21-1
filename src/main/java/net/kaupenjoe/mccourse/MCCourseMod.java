@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.kaupenjoe.mccourse.block.ModBlocks;
+import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.command.ReturnHomeCommand;
 import net.kaupenjoe.mccourse.command.SetHomeCommand;
 import net.kaupenjoe.mccourse.components.ModDataComponentTypes;
@@ -91,6 +92,8 @@ public class MCCourseMod implements ModInitializer, TerraBlenderApi {
 		ModWorldGeneration.generateModWorldGeneration();
 		registerStrippables();
 		registerFlammables();
+
+		ModBlockEntities.registerBlockEntities();
 	}
 
 	private void registerStrippables(){
