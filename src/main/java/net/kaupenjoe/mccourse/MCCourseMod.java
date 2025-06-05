@@ -23,6 +23,7 @@ import net.kaupenjoe.mccourse.item.ModItemGroups;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.kaupenjoe.mccourse.potion.ModPotionRecipes;
 import net.kaupenjoe.mccourse.potion.ModPotions;
+import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.kaupenjoe.mccourse.util.HammerUsageEvent;
 import net.kaupenjoe.mccourse.villager.ModVillagers;
@@ -94,6 +95,8 @@ public class MCCourseMod implements ModInitializer, TerraBlenderApi {
 		registerFlammables();
 
 		ModBlockEntities.registerBlockEntities();
+
+		ModScreenHandlers.registerScreenHandlers();
 	}
 
 	private void registerStrippables(){

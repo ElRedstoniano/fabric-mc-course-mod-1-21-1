@@ -9,10 +9,12 @@ import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.block.entity.renderer.PedestalBlockEntityRenderer;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
+import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
+import net.kaupenjoe.mccourse.screen.custom.PedestalScreen;
 import net.kaupenjoe.mccourse.util.ModModelPredicates;
 import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.world.biome.FoliageColors;
 
@@ -39,5 +41,7 @@ public class MCCourseModClient implements ClientModInitializer {
         // https://wiki.fabricmc.net/tutorial:fluids para más ejemplos
 
         BlockEntityRendererFactories.register(ModBlockEntities.PEDESTAL_BE, PedestalBlockEntityRenderer::new);
+
+        HandledScreens.register(ModScreenHandlers.PEDESTAL_SCREEN_HANDLER, PedestalScreen::new);
     }
 }

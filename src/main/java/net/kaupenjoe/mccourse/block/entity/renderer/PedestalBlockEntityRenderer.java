@@ -31,9 +31,8 @@ public class PedestalBlockEntityRenderer implements BlockEntityRenderer<Pedestal
         // A partir de aquí los cambios que se hagan irán a  la MatrixStack, luego para terminar con los cambios se hace un .pop()
         matrices.translate(0.5f, 1.15f + entity.getRenderingLevitationOffset(tickDelta), 0.5f);
         matrices.scale(0.5f, 0.5f, 0.5f);
-        //MCCourseMod.LOGGER.info(entity.ticks + "assa");
+        //MCCourseMod.LOGGER.info(entity.ticks + "test");
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(entity.getRenderingRotation(tickDelta)));
-       // MCCourseMod.LOGGER.info("s " + entity.ticks);
 
         itemRenderer.renderItem(stack, ModelTransformationMode.GUI, getLightLevel(entity.getWorld(),
                 entity.getPos()), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), 1);

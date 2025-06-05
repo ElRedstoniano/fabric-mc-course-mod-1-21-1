@@ -116,5 +116,7 @@
   "painting.mccourse.saw_them.title": "Saw Them",
   "painting.mccourse.saw_them.author": "NanoAttack",
   "painting.mccourse.wanderer.title": "Wanderer",
-  "painting.mccourse.wanderer.author": "NanoAttack"
+  "painting.mccourse.wanderer.author": "NanoAttack",
+
+  "gui.mccourse.pedestal": "Pedestal"
 }
