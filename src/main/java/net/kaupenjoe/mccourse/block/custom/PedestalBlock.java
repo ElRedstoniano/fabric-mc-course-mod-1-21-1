@@ -3,9 +3,13 @@ package net.kaupenjoe.mccourse.block.custom;
 
 import com.jcraft.jorbis.DspState;
 import com.mojang.serialization.MapCodec;
+import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.block.entity.custom.PedestalBlockEntity;
+import net.kaupenjoe.mccourse.util.TickableBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -81,5 +85,12 @@ public class PedestalBlock extends BlockWithEntity implements BlockEntityProvide
             }
         }
         return ItemActionResult.SUCCESS;
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        //return TickableBlockEntity.getTicker(world);
+        return world.isClient ? validateTicker(type, ModBlockEntities.PEDESTAL_BE, TickableBlockEntity.getTicker(world)) : null;
+        // Este también sirve ^, es otra manera
     }
 }

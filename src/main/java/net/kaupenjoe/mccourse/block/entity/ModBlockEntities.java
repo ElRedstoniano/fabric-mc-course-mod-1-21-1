@@ -1,5 +1,6 @@
 package net.kaupenjoe.mccourse.block.entity;
 
+import com.mojang.datafixers.types.Type;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.entity.custom.PedestalBlockEntity;
@@ -10,7 +11,7 @@ import net.minecraft.registry.RegistryKey;
 
 public class ModBlockEntities {
     public static BlockEntityType<PedestalBlockEntity> PEDESTAL_BE =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, MCCourseMod.id("s"),
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, MCCourseMod.id("pedestal_be"),
                     BlockEntityType.Builder.create(PedestalBlockEntity::new, ModBlocks.PEDESTAL).build(null));
 
     public static void registerBlockEntities(){

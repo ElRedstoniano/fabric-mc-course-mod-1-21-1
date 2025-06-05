@@ -1,20 +1,31 @@
 package net.kaupenjoe.mccourse.block.entity.custom;
 
+import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
+import net.kaupenjoe.mccourse.util.TickableBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
-public class PedestalBlockEntity extends BlockEntity implements Inventory {
+public class PedestalBlockEntity extends BlockEntity implements Inventory, /*BlockEntityTicker<PedestalBlockEntity>,*/ TickableBlockEntity {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
+    public int ticks = 0;
+    //private float rotation = 0;
+    //private float levitationOffset = 0;
+    private final float ROTATION_SPEED = 2F;
+    private final float LEVITATION_SPEED = 0.05F;
+    private final float LEVITATION_RANGE_DIVISOR = 8F;
 
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PEDESTAL_BE, pos, state);
@@ -84,4 +95,40 @@ public class PedestalBlockEntity extends BlockEntity implements Inventory {
         super.readNbt(nbt, registryLookup);
         Inventories.readNbt(nbt, inventory, registryLookup);
     }
+
+    public float getRenderingRotation(float tickDelta){
+        /*rotation += (getWorld().getTime() + tickDelta) * ROTATION_SPEED;
+        if (rotation >= 360){
+            rotation = 0;
+        }*/
+        //return ((getWorld().getTime() + tickDelta) * ROTATION_SPEED) % 360; // También se podría hacer así
+        return ((this.ticks + tickDelta) * ROTATION_SPEED) % 360;
+    }
+
+    public float getRenderingLevitationOffset(float tickDelta){
+        //float val = 0.1F + MathHelper.sin((getWorld().getTime() + ticks) * 0.1F) * 0.01F;
+        //MCCourseMod.LOGGER.info(this.ticks + " s");
+        return LEVITATION_SPEED * (float) Math.sin((this.ticks + tickDelta) / LEVITATION_RANGE_DIVISOR);
+    }
+
+    @Override
+    public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        return createNbt(registryLookup);
+    }
+
+    @Override
+    public void tick() {
+        //if(this.world != null || !this.world.isClient)
+        this.ticks++;
+    }
+
+    //@Override
+    /*public static void tick(World world, BlockPos pos, BlockState state, PedestalBlockEntity blockEntity) {
+
+    }*/
 }
