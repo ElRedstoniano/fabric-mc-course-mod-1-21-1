@@ -5,6 +5,9 @@ import net.kaupenjoe.mccourse.block.custom.CrystallizerBlock;
 import net.kaupenjoe.mccourse.block.entity.ImplementedInventory;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.item.ModItems;
+import net.kaupenjoe.mccourse.recipe.CrystallizerRecipe;
+import net.kaupenjoe.mccourse.recipe.CrystallizerRecipeInput;
+import net.kaupenjoe.mccourse.recipe.ModRecipes;
 import net.kaupenjoe.mccourse.screen.custom.CrystallizerScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -17,6 +20,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -26,6 +30,8 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(4, ItemStack.EMPTY);
@@ -125,8 +131,12 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     private void craftItem() {
+        Optional<RecipeEntry<CrystallizerRecipe>> recipe = getCurrentRecipe();
+
         this.removeStack(INPUT_SLOT, 1);
-        this.setStack(OUTPUT_SLOT, new ItemStack(ModItems.FLUORITE,  this.getStack(OUTPUT_SLOT).getCount() + 1));
+        //this.setStack(OUTPUT_SLOT, new ItemStack(ModItems.FLUORITE,  this.getStack(OUTPUT_SLOT).getCount() + 1));
+        this.setStack(OUTPUT_SLOT, new ItemStack(recipe.get().value().output().getItem(),
+                this.getStack(OUTPUT_SLOT).getCount() + recipe.get().value().output().getCount()));
     }
 
     private boolean hasCraftingFinished() {
@@ -144,15 +154,30 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     private boolean hasRecipe() {
-        ItemStack input = new ItemStack(ModItems.RAW_FLUORITE);
+        /*ItemStack input = new ItemStack(ModItems.RAW_FLUORITE);
         ItemStack output = new ItemStack(ModItems.FLUORITE);
 
         return this.getStack(INPUT_SLOT).getItem() == input.getItem() &&
-               canInsertAmountIntoOutputSlot(output.getCount()) &&  canInsertItemIntoOutputSlot(output);
+               canInsertAmountIntoOutputSlot(output.getCount()) &&  canInsertItemIntoOutputSlot(output);*/
+        Optional<RecipeEntry<CrystallizerRecipe>> recipe = getCurrentRecipe();
+        if (recipe.isEmpty()){
+            return false;
+        }
+        //ItemStack output = recipe.get().value().output();
+        ItemStack output = recipe.get().value().getResult(null); // También sirve
+        return canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output);
+    }
+
+    private Optional<RecipeEntry<CrystallizerRecipe>> getCurrentRecipe() {
+        return this.getWorld().getRecipeManager().getFirstMatch(ModRecipes.CRYSTALLIZER_TYPE, new CrystallizerRecipeInput(inventory.get(INPUT_SLOT)), this.getWorld());
     }
 
     private boolean canInsertAmountIntoOutputSlot(int count) {
-        return this.getStack(OUTPUT_SLOT).getMaxCount() >= this.getStack(OUTPUT_SLOT).getCount() + count;
+        //return this.getStack(OUTPUT_SLOT).getMaxCount() >= this.getStack(OUTPUT_SLOT).getCount() + count;
+        int maxCount = this.getStack(OUTPUT_SLOT).isEmpty() ? 64 : this.getStack(OUTPUT_SLOT).getMaxCount(); // El aire lo cuenta como 1
+        int currentCount = this.getStack(OUTPUT_SLOT).getCount();
+
+        return maxCount >= currentCount + count;
     }
 
     private boolean canInsertItemIntoOutputSlot(ItemStack output) {
