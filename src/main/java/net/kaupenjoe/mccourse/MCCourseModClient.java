@@ -10,6 +10,7 @@ import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.block.entity.renderer.PedestalBlockEntityRenderer;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
+import net.kaupenjoe.mccourse.screen.custom.CrystallyzerScreen;
 import net.kaupenjoe.mccourse.screen.custom.PedestalScreen;
 import net.kaupenjoe.mccourse.util.ModModelPredicates;
 import net.minecraft.client.color.world.BiomeColors;
@@ -43,5 +44,6 @@ public class MCCourseModClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ModBlockEntities.PEDESTAL_BE, PedestalBlockEntityRenderer::new);
 
         HandledScreens.register(ModScreenHandlers.PEDESTAL_SCREEN_HANDLER, PedestalScreen::new);
+        HandledScreens.register(ModScreenHandlers.CRYSTALLIZER_SCREEN_HANDLER, CrystallyzerScreen::new);
     }
 }

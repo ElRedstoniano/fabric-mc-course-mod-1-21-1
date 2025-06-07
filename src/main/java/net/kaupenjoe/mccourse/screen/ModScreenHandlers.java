@@ -2,6 +2,7 @@ package net.kaupenjoe.mccourse.screen;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.kaupenjoe.mccourse.MCCourseMod;
+import net.kaupenjoe.mccourse.screen.custom.CrystallizerScreenHandler;
 import net.kaupenjoe.mccourse.screen.custom.PedestalScreenHandler;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -14,6 +15,9 @@ public class ModScreenHandlers {
     public static final ScreenHandlerType<PedestalScreenHandler> PEDESTAL_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER,
                 MCCourseMod.id("pedestal_screen_handler"),
                 new ExtendedScreenHandlerType<>(PedestalScreenHandler::new, BlockPos.PACKET_CODEC));
+    public static final ScreenHandlerType<CrystallizerScreenHandler> CRYSTALLIZER_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER,
+                MCCourseMod.id("crystallizer_screen_handler"),
+                new ExtendedScreenHandlerType<>(CrystallizerScreenHandler::new, BlockPos.PACKET_CODEC));
 
     /*public static final ScreenHandlerType<PedestalScreenHandler> PEDESTAL_SCREEN_HANDLER = register("pedestal_screen_handler",
                 new ExtendedScreenHandlerType<>(PedestalScreenHandler::new, BlockPos.PACKET_CODEC));*/
