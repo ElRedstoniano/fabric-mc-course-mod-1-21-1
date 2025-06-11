@@ -1,6 +1,7 @@
 package net.kaupenjoe.mccourse.block.entity.custom;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.custom.CrystallizerBlock;
 import net.kaupenjoe.mccourse.block.entity.ImplementedInventory;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
@@ -28,7 +29,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -74,6 +77,72 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
+        Direction localDir = this.getWorld().getBlockState(pos).get(CrystallizerBlock.FACING);
+
+        if(side == null) {
+            return false;
+        }
+
+        if (side == Direction.DOWN) {
+            return false;
+        }
+
+        if (side == Direction.UP) {
+            return slot == INPUT_SLOT;
+        }
+
+        return switch (localDir) {
+            default -> // NORTH
+                side == Direction.NORTH && INPUT_SLOT == slot ||
+                        side == Direction.EAST && INPUT_SLOT == slot ||
+                        side == Direction.WEST && INPUT_SLOT == slot;
+            case EAST ->
+            side.rotateYCounterclockwise() == Direction.NORTH && INPUT_SLOT == slot ||
+                    side.rotateYCounterclockwise() == Direction.EAST && INPUT_SLOT == slot ||
+                    side.rotateYCounterclockwise() == Direction.WEST && INPUT_SLOT == slot;
+            case SOUTH ->
+            side.getOpposite() == Direction.NORTH && INPUT_SLOT == slot ||
+                    side.getOpposite() == Direction.EAST && INPUT_SLOT == slot ||
+                    side.getOpposite() == Direction.WEST && INPUT_SLOT == slot;
+            case WEST ->
+            side.rotateYClockwise() == Direction.NORTH && INPUT_SLOT == slot ||
+                    side.rotateYClockwise() == Direction.EAST && INPUT_SLOT == slot ||
+                    side.rotateYClockwise() == Direction.WEST && INPUT_SLOT == slot;
+        };
+        //return ImplementedInventory.super.canInsert(slot, stack, side);
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction side) {
+        Direction localDir = this.getWorld().getBlockState(this.pos).get(CrystallizerBlock.FACING);
+
+        if (side == Direction.UP) {
+            return false;
+        }
+
+        // Down extract
+        if (side == Direction.DOWN) {
+            return slot == OUTPUT_SLOT;
+        }
+
+        // bottom extract
+        // right extract
+        return switch (localDir){
+            default -> side == Direction.SOUTH && slot == OUTPUT_SLOT ||
+                    side == Direction.EAST && slot == OUTPUT_SLOT;
+            case EAST -> side.rotateYCounterclockwise() == Direction.SOUTH && slot == OUTPUT_SLOT ||
+                    side.rotateYCounterclockwise() == Direction.EAST && slot == OUTPUT_SLOT;
+            case SOUTH -> side.getOpposite() == Direction.SOUTH && slot == OUTPUT_SLOT ||
+                    side.getOpposite() == Direction.EAST && slot == OUTPUT_SLOT;
+            case WEST -> side.rotateYClockwise() == Direction.SOUTH && slot == OUTPUT_SLOT ||
+                    side.rotateYClockwise() == Direction.EAST && slot == OUTPUT_SLOT;
+
+        };
+        //return ImplementedInventory.super.canExtract(slot, stack, side);
+    }
+
+    @Override
     public BlockPos getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
         return this.pos;
     }
@@ -110,9 +179,21 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     public void tick(World world, BlockPos blockPos, BlockState state){
+        if (world.isClient()){
+            return;
+        }
+
+        // Server side
+
         if(hasRecipe() && canInsertIntoOutputSlot()) {
             increaseCraftingProgress();
-            world.setBlockState(pos, state.with(CrystallizerBlock.LIT, true));
+
+            /*if(!world.getBlockState(pos).get(CrystallizerBlock.LIT)){
+                world.setBlockState(pos, state.with(CrystallizerBlock.LIT, true));
+            }*/
+            //if (!world.isClient()) {
+                world.setBlockState(pos, state.with(CrystallizerBlock.LIT, true));
+            //}
             markDirty(world, blockPos, state);
 
             if (hasCraftingFinished()){
@@ -120,7 +201,9 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
                 resetProgress();
             }
         } else {
-            world.setBlockState(pos, state.with(CrystallizerBlock.LIT, false));
+            //if (!world.isClient()) {
+                world.setBlockState(pos, state.with(CrystallizerBlock.LIT, false));
+            //}
             resetProgress();
         }
     }

@@ -3,15 +3,18 @@ package net.kaupenjoe.mccourse.block.entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A simple {@code Inventory} implementation with only default methods + an item list getter.
  *
  * @author Juuz
  */
-public interface ImplementedInventory extends Inventory {
+public interface ImplementedInventory extends SidedInventory {
 
     /**
      * Retrieves the item list of this inventory.
@@ -31,6 +34,56 @@ public interface ImplementedInventory extends Inventory {
      */
     static ImplementedInventory ofSize(int size) {
         return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
+    }
+
+    // SidedInventory
+
+    /**
+     * Gets the available slots to automation on the side.
+     *
+     * <p>The default implementation returns an array of all slots.
+     *
+     * @param side the side
+     * @return the available slots
+     */
+    @Override
+    default int[] getAvailableSlots(Direction side) {
+        int[] result = new int[getItems().size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = i;
+        }
+
+        return result;
+    }
+
+    /**
+     * Returns true if the stack can be inserted in the slot at the side.
+     *
+     * <p>The default implementation returns true.
+     *
+     * @param slot the slot
+     * @param stack the stack
+     * @param side the side
+     * @return true if the stack can be inserted
+     */
+    @Override
+    default boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
+        return true;
+    }
+
+    /**
+     * Returns true if the stack can be extracted from the slot at the side.
+     *
+     * <p>The default implementation returns true.
+     *
+     * @param slot the slot
+     * @param stack the stack
+     * @param side the side
+     * @return true if the stack can be extracted
+     */
+    @Override
+    default boolean canExtract(int slot, ItemStack stack, Direction side) {
+        return true;
     }
 
     /**
