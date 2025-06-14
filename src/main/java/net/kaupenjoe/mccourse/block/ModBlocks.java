@@ -99,6 +99,10 @@ public class ModBlocks {
             new ModSaplingBlock(ModSaplingGenerators.BLACKWOOD, AbstractBlock.Settings.copy(Blocks.OAK_SAPLING),
                     Blocks.END_STONE));
 
+    public static final Block COAL_GENERATOR = registerBlock("coal_generator",
+            new CoalGeneratorBlock(AbstractBlock.Settings.create().strength(2f).requiresTool()));
+
+
     private static Block registerBlockWithoutBlockItem(String name, Block block){
         return Registry.register(Registries.BLOCK, Identifier.of(MCCourseMod.MOD_ID, name), block);
     }

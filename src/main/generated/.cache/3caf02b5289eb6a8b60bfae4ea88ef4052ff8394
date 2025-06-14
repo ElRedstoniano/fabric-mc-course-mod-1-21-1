@@ -1,13 +1,16 @@
-// 1.21.1	2025-06-07T15:28:51.2894904	MC Course Mod/Block Loot Tables
-a31857ab8b8ff379b6726cca5a45cc7b943f7c6e data\mccourse\loot_table\blocks\fluorite_block.json
+// 1.21.1	2025-06-14T18:50:04.1018066	MC Course Mod/Block Loot Tables
 f5b6b3c27e2daed548bbcf3cfb87197c1acee0f1 data\mccourse\loot_table\blocks\fluorite_end_ore.json
+a31857ab8b8ff379b6726cca5a45cc7b943f7c6e data\mccourse\loot_table\blocks\fluorite_block.json
 a57b84efc18b60a80a8b513895d7d2b07f902487 data\mccourse\loot_table\blocks\blackwood_wood.json
 8afceac5d1772702ea24abafd1b38ea30009a036 data\mccourse\loot_table\blocks\fluorite_stairs.json
 35f7d21bdbdb0a5e7c18b2babb968e6068cd7907 data\mccourse\loot_table\blocks\raw_fluorite_block.json
 a57da03e320f1721e8931fc6a6418f773a849bb4 data\mccourse\loot_table\blocks\potted_dahlia.json
+ad2594b7e13b5f59b5b1917ecea4a0e4aec7cc0b data\mccourse\loot_table\blocks\coal_generator.json
+eb5f48f595862644f32cfb38f21c07c4417da798 data\mccourse\loot_table\blocks\pedestal.json
 8069c5f53def1734ad924dcef5fefbcfaaa2c0e4 data\mccourse\loot_table\blocks\fluorite_button.json
 1e9baddefb917875babae866d7ccbc7cdf330adf data\mccourse\loot_table\blocks\fluorite_door.json
 60f740f388576883f0718825e572def542232ddd data\mccourse\loot_table\blocks\fluorite_nether_ore.json
+f3e99572832b4b83583d26dda1bd51510f4e19d5 data\mccourse\loot_table\blocks\crystallizer.json
 b6049382f344ae9b7e3458dad4836691ce9eca45 data\mccourse\loot_table\blocks\fluorite_ore.json
 f8ab0d072bc63cf1be0cf393e30cc0e75a90f725 data\mccourse\loot_table\blocks\fluorite_fence_gate.json
 ea16fe03eb790f81998f4e7f557f0c320d41820c data\mccourse\loot_table\blocks\blackwood_planks.json

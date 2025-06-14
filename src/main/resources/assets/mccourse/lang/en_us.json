@@ -70,6 +70,7 @@
 
   "block.mccourse.pedestal": "Pedestal",
   "block.mccourse.crystallizer": "Crystallizer",
+  "block.mccourse.coal_generator": "Coal generator",
 
   "itemgroup.fluorite": "Fluorite Group",
   "itemgroup.fluorite_blocks": "Fluorite Blocks Group",
@@ -120,5 +121,6 @@
   "painting.mccourse.wanderer.author": "NanoAttack",
 
   "gui.mccourse.pedestal": "Pedestal",
-  "gui.mccourse.crystallizer": "Crystallizer"
+  "gui.mccourse.crystallizer": "Crystallizer",
+  "gui.mccourse.coal_generator": "Coal generator"
 }

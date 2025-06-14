@@ -91,6 +91,7 @@ public class ModItemGroups {
                         entries.add(ModBlocks.BLACKWOOD_LEAVES);
 
                         entries.add(ModBlocks.BLACKWOOD_SAPLING);
+                        entries.add(ModBlocks.COAL_GENERATOR);
                     }).build());
 
     public static void registerItemGroup(){
