@@ -4,17 +4,19 @@ import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.entity.custom.CrystallizerBlockEntity;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.s2c.play.InventoryS2CPacket;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
 
 public class CrystallizerScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -33,7 +35,20 @@ public class CrystallizerScreenHandler extends ScreenHandler {
         this.blockEntity = (CrystallizerBlockEntity) blockEntity;
 
         this.addSlot(new Slot(inventory, 0, 8, 62));
-        this.addSlot(new Slot(inventory, 1, 54, 34));
+        this.addSlot(new Slot(inventory, 1, 54, 34){
+            @Override
+            public void onTakeItem(PlayerEntity player, ItemStack stack) {
+                super.onTakeItem(player, stack);
+                //if (player.getWorld().isClient()){
+                    //MinecraftClient.getInstance().getNetworkHandler().sendPacket( new InventoryS2CPacket(syncId, 0, ((CrystallizerBlockEntity) blockEntity).getItems(), stack));
+                //player.networkHandler.sendPacket(new InventoryS2CPacket(syncId, 0, ((CrystallizerBlockEntity) blockEntity).getItems(), stack));
+                /*((ClientPlayerEntity) player).networkHandler.sendPacket(
+                        new InventoryS2CPacket(player.currentScreenHandler.syncId, 0, ((CrystallizerBlockEntity) blockEntity).getItems(), stack));*/
+                //}
+                //MCCourseMod.LOGGER.info(stack.toString());
+            }
+
+        });
         this.addSlot(new Slot(inventory, 2, 104, 34));
         this.addSlot(new Slot(inventory, 3, 152, 62));
 

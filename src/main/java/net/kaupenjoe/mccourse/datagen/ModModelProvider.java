@@ -160,7 +160,7 @@ public class ModModelProvider extends FabricModelProvider {
             //String bowItemPath = item.toString(); //<- No - devuelve ModId:itemname
             String bowItemPath = getItemIdAsString(item); // <- Si - itemname
 
-            System.out.println("DEBUGS: " + bowItemPath);
+            //System.out.println("DEBUGS: " + bowItemPath);
             Identifier bowItemIdentifier = MCCourseMod.id("item/" + bowItemPath);
 
             Models.GENERATED.upload(bowItemIdentifier, TextureMap.layer0(bowItemIdentifier), itemModelGenerator.writer,

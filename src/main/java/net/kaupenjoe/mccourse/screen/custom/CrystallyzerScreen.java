@@ -1,7 +1,10 @@
 package net.kaupenjoe.mccourse.screen.custom;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.screen.v1.Screens;
 import net.kaupenjoe.mccourse.MCCourseMod;
+import net.kaupenjoe.mccourse.screen.renderer.EnergyInfoArea;
+import net.kaupenjoe.mccourse.util.MouseUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -9,14 +12,51 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.util.Optional;
+
 public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler> {
 
     private static final Identifier GUI_TEXTURE = MCCourseMod.id("textures/gui/crystallizer/crystallizer_gui.png");
     private static final Identifier ARROW_TEXTURE = MCCourseMod.id("textures/gui/crystallizer/arrow_progress.png");
     private static final Identifier CRYSTAL_TEXTURE = Identifier.of("textures/block/amethyst_cluster.png");
 
+    private EnergyInfoArea energyInfoArea;
+
     public CrystallyzerScreen(CrystallizerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+
+        // Gets rid of title and inventory title
+        titleY = 1000;
+        playerInventoryTitleY = 1000;
+        titleX = 1000;
+
+        assignEnergyInfoArea();
+    }
+
+    private void assignEnergyInfoArea() {
+        energyInfoArea = new EnergyInfoArea(((width - backgroundWidth) / 2) + 155,
+                ((height - backgroundHeight) / 2) + 9, handler.blockEntity.energyStorage, 10, 48);
+        //MCCourseMod.LOGGER.info(width + " " + backgroundWidth);
+    }
+
+    private void renderEnergyAreaTooltips (DrawContext context, int pMouseX, int pMouseY, int x, int y) {
+        if(isMouseAboveArea(pMouseX, pMouseY, x, y, 155, 9, 10, 48)) {
+            context.drawTooltip(Screens.getTextRenderer(this), energyInfoArea.getTooltips(),
+                    Optional.empty(), pMouseX - x, pMouseY - y);
+        }
+    }
+
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        //super.drawForeground(context, mouseX, mouseY);
+        int x = (width - backgroundWidth) / 2;
+        int y = (height - backgroundHeight) / 2;
+
+        renderEnergyAreaTooltips(context, mouseX, mouseY, x, y);
     }
 
     @Override
@@ -29,6 +69,7 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
         int y = (height - backgroundHeight) / 2;
 
         context.drawTexture(GUI_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        energyInfoArea.draw(context);
         renderProgressArrow(context, x, y);
         renderProgressCrystal(context, x, y);
     }
@@ -56,13 +97,7 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
         this.drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
-    @Override
-    protected void init() {
-        super.init();
-
-        // Gets rid of title and inventory title
-        titleY = 1000;
-        playerInventoryTitleY = 1000;
-        titleX = 1000;
+    private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
+        return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
     }
 }

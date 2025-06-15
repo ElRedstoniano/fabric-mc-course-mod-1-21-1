@@ -41,6 +41,7 @@ public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     private boolean isBurning = false;
 
     private static final int ENERGY_TRANSFER_AMOUNT = 320;
+
     public final SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(128000, ENERGY_TRANSFER_AMOUNT, ENERGY_TRANSFER_AMOUNT) {
         @Override
         protected void onFinalCommit() {

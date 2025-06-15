@@ -27,6 +27,7 @@ public class ModBlockEntities {
         MCCourseMod.LOGGER.info("Registering Block Entities for " + MCCourseMod.MOD_ID);
 
         EnergyStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.energyStorage, COAL_GENERATOR_BE);
+        EnergyStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.energyStorage, CRYSTALLYZER_BE);
         // Es necesario para que aparatos como cables se conecten a generadores
     }
 }

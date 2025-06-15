@@ -1,6 +1,7 @@
 package net.kaupenjoe.mccourse.block.entity.custom;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.custom.CrystallizerBlock;
 import net.kaupenjoe.mccourse.block.entity.ImplementedInventory;
@@ -20,19 +21,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.play.PlayerInputC2SPacket;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.Optional;
 
@@ -46,8 +52,19 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
 
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
-    private int maxProgress = 72;
+    private int maxProgress = 72; // 72 ticks hasta completarse
     private final int DEFAULT_MAX_PROGRESS = 72;
+
+    private static final int ENERGY_TRANSFER_AMOUNT = 160;
+    private static final int ENERGY_CRAFTING_AMOUNT = 25; // Energy per tick -> 25 x maxProgress == 25 x 72 = 1800
+
+    public final SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(64000, ENERGY_TRANSFER_AMOUNT, ENERGY_TRANSFER_AMOUNT) {
+        @Override
+        protected void onFinalCommit() {
+            markDirty();
+            getWorld().updateListeners(pos, getCachedState(), getCachedState(), 3);
+        }
+    };
 
     public CrystallizerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CRYSTALLYZER_BE, pos, state);
@@ -143,6 +160,33 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     @Override
+    public ItemStack getStack(int slot) {
+        markDirty(); // Actualizar lo que pasa dentro del blockentity
+        return slot >= this.size() ? ItemStack.EMPTY : this.inventory.get(slot);
+    }
+
+    @Override
+    public ItemStack removeStack(int slot, int amount) {
+        markDirty();
+        /*ItemStack stack = inventory.get(slot);
+        stack.decrement(amount);
+        return inventory.set(slot, stack);*/ // No va bien
+        return Inventories.splitStack(inventory, slot, amount); // Este sirve
+    }
+
+    @Override
+    public ItemStack removeStack(int slot) {
+        markDirty();
+        return Inventories.removeStack(inventory, slot);
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        ImplementedInventory.super.setStack(slot, stack);
+        markDirty();
+    }
+
+    @Override
     public BlockPos getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
         return this.pos;
     }
@@ -168,14 +212,17 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         Inventories.writeNbt(nbt, inventory, registryLookup);
         nbt.putInt("crystallizer.progress", progress);
         nbt.putInt("crystallizer.max_progress", maxProgress);
+        nbt.putLong("crystallizer.energy", energyStorage.amount);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        Inventories.readNbt(nbt, inventory, registryLookup);
         super.readNbt(nbt, registryLookup);
+        Inventories.readNbt(nbt, inventory, registryLookup);
         progress = nbt.getInt("crystallizer.progress");
         maxProgress = nbt.getInt("crystallizer.max_progress");
+        energyStorage.amount = nbt.getLong("crystallizer.energy");
+
     }
 
     public void tick(World world, BlockPos blockPos, BlockState state){
@@ -184,16 +231,14 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         }
 
         // Server side
-
         if(hasRecipe() && canInsertIntoOutputSlot()) {
             increaseCraftingProgress();
-
+            useEnergyForCrafting();
             /*if(!world.getBlockState(pos).get(CrystallizerBlock.LIT)){
                 world.setBlockState(pos, state.with(CrystallizerBlock.LIT, true));
             }*/
-            //if (!world.isClient()) {
-                world.setBlockState(pos, state.with(CrystallizerBlock.LIT, true));
-            //}
+            world.setBlockState(pos, state.with(CrystallizerBlock.LIT, true));
+
             markDirty(world, blockPos, state);
 
             if (hasCraftingFinished()){
@@ -201,11 +246,22 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
                 resetProgress();
             }
         } else {
-            //if (!world.isClient()) {
-                world.setBlockState(pos, state.with(CrystallizerBlock.LIT, false));
-            //}
+            world.setBlockState(pos, state.with(CrystallizerBlock.LIT, false));
             resetProgress();
         }
+    }
+
+    private void useEnergyForCrafting() {
+
+        try (Transaction transaction = Transaction.openOuter()) {
+            this.energyStorage.extract(ENERGY_CRAFTING_AMOUNT, transaction);
+            markDirty();
+            transaction.commit();
+        }
+        //this.energyStorage.amount =- ENERGY_CRAFTING_AMOUNT;
+        //this.energyStorage.amount =- 25;
+        //this.energyStorage.extract(ENERGY_CRAFTING_AMOUNT, null); // También funciona pero habría que llamar
+        // a markDirty() / hacer update de los listeners
     }
 
     private void resetProgress() {
@@ -220,6 +276,7 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         //this.setStack(OUTPUT_SLOT, new ItemStack(ModItems.FLUORITE,  this.getStack(OUTPUT_SLOT).getCount() + 1));
         this.setStack(OUTPUT_SLOT, new ItemStack(recipe.get().value().output().getItem(),
                 this.getStack(OUTPUT_SLOT).getCount() + recipe.get().value().output().getCount()));
+        markDirty();
     }
 
     private boolean hasCraftingFinished() {
@@ -248,7 +305,12 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         }
         //ItemStack output = recipe.get().value().output();
         ItemStack output = recipe.get().value().getResult(null); // También sirve
-        return canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output);
+        return canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output)
+                && hasEnoughEnergyToCraft();
+    }
+
+    private boolean hasEnoughEnergyToCraft() {
+        return energyStorage.amount >= (long) ENERGY_CRAFTING_AMOUNT * maxProgress;
     }
 
     private Optional<RecipeEntry<CrystallizerRecipe>> getCurrentRecipe() {
@@ -267,8 +329,20 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getItem() == output.getItem();
     }
 
+    // Sincronización
+
     @Override
     public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
+        //((ServerWorld) getWorld()).getChunkManager().markForUpdate(this. getPos()); // Sincronización correcta al sacar
+        // sacar items del input mientras está crafteando. Soluciona un bug de desincronización que hace que a veces
+        // mientras se está crafteando un item al quitar el item de crafteo se duplique visualmente, aunque al colocarlo
+        // de nuevo en el input slot o tras cerrar el screen se vuelve a actualizar y muestra todo_ correctamente, eliminando
+        // los items fantasma duplicados en el lado del cliente.
         return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        return createNbt(registryLookup);
     }
 }
