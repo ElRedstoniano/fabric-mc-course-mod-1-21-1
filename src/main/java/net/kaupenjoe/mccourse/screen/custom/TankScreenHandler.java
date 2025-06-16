@@ -1,5 +1,6 @@
 package net.kaupenjoe.mccourse.screen.custom;
 
+import net.kaupenjoe.mccourse.block.entity.custom.TankBlockEntity;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -7,22 +8,27 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
-public class PedestalScreenHandler extends ScreenHandler {
-    private final Inventory inventory;
+public class TankScreenHandler extends ScreenHandler {
+    public final Inventory inventory;
+    public final TankBlockEntity blockEntity;
 
-    public PedestalScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
-        this(syncId, playerInventory, playerInventory.player.getWorld().getBlockEntity(blockPos)); // Client
+    public TankScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos pos){
+        this(syncId, playerInventory, playerInventory.player.getWorld().getBlockEntity(pos));
     }
-    public PedestalScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity) {
-        super(ModScreenHandlers.PEDESTAL_SCREEN_HANDLER, syncId); // BlockEntity from Server
-        checkSize((Inventory) blockEntity, 1);
-        this.inventory = (Inventory) blockEntity;
 
-        this.addSlot(new PedestalHolderSlot(inventory, 0, 80, 35)); // Las coordenadas empiezan desde la
-        //esquina superior izquierda, y se suma un desfase en x e y para contar desde donde empieza el nuevo slot
+    public TankScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity) {
+        super(ModScreenHandlers.TANK_SCREEN_HANDLER, syncId);
+        checkSize(((Inventory) blockEntity), 1);
+        this.inventory = ((Inventory) blockEntity);
+        this.blockEntity = ((TankBlockEntity) blockEntity);
+
+        this.addSlot(new Slot(inventory, 0, 44, 34));
+        this.addSlot(new Slot(inventory, 1, 116, 34));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -54,9 +60,7 @@ public class PedestalScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return this.inventory.canPlayerUse(player);
-    }
+    public boolean canUse(PlayerEntity player) { return blockEntity.canPlayerUse(player); }
 
     private void addPlayerInventory(PlayerInventory playerInventory){
         for(int i = 0; i < 3; i++){
@@ -69,18 +73,6 @@ public class PedestalScreenHandler extends ScreenHandler {
     private void addPlayerHotbar(PlayerInventory playerInventory){
         for(int i = 0; i < 9; i++){
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    public static class PedestalHolderSlot extends Slot {
-
-        public PedestalHolderSlot(Inventory inventory, int index, int x, int y) {
-            super(inventory, index, x, y);
-        }
-
-        @Override
-        public int getMaxItemCount() {
-            return 1;
         }
     }
 }

@@ -74,6 +74,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerTintableCrossBlockState(ModBlocks.BLACKWOOD_SAPLING,  BlockStateModelGenerator.TintType.NOT_TINTED);
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COAL_GENERATOR);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.TANK);
     }
 
     @Override

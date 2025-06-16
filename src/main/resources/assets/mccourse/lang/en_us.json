@@ -71,6 +71,7 @@
   "block.mccourse.pedestal": "Pedestal",
   "block.mccourse.crystallizer": "Crystallizer",
   "block.mccourse.coal_generator": "Coal generator",
+  "block.mccourse.tank": "Tank",
 
   "itemgroup.fluorite": "Fluorite Group",
   "itemgroup.fluorite_blocks": "Fluorite Blocks Group",
@@ -122,5 +123,9 @@
 
   "gui.mccourse.pedestal": "Pedestal",
   "gui.mccourse.crystallizer": "Crystallizer",
-  "gui.mccourse.coal_generator": "Coal generator"
+  "gui.mccourse.coal_generator": "Coal generator",
+  "gui.mccourse.tank": "Tank",
+
+  "mccourse.tooltip.liquid.amount.with.capacity": "%s / %s mB",
+  "mccourse.tooltip.liquid.amount": "%s mB"
 }

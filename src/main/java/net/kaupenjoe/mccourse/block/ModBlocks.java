@@ -101,6 +101,8 @@ public class ModBlocks {
 
     public static final Block COAL_GENERATOR = registerBlock("coal_generator",
             new CoalGeneratorBlock(AbstractBlock.Settings.create().strength(2f).requiresTool()));
+    public static final Block TANK = registerBlock("tank",
+            new TankBlock(AbstractBlock.Settings.create().strength(2f).requiresTool().nonOpaque()));
 
 
     private static Block registerBlockWithoutBlockItem(String name, Block block){
