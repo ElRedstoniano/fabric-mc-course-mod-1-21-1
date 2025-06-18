@@ -2,8 +2,10 @@ package net.kaupenjoe.mccourse.screen.custom;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.screen.renderer.EnergyInfoArea;
+import net.kaupenjoe.mccourse.screen.renderer.FluidStackRenderer;
 import net.kaupenjoe.mccourse.util.MouseUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -11,6 +13,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.item.Item;
 
 import java.util.Optional;
 
@@ -21,6 +24,7 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
     private static final Identifier CRYSTAL_TEXTURE = Identifier.of("textures/block/amethyst_cluster.png");
 
     private EnergyInfoArea energyInfoArea;
+    private FluidStackRenderer fluidStackRenderer;
 
     public CrystallyzerScreen(CrystallizerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -36,6 +40,11 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
         titleX = 1000;
 
         assignEnergyInfoArea();
+        assignFluidStackRenderer();
+    }
+
+    private void assignFluidStackRenderer() {
+        fluidStackRenderer = new FluidStackRenderer((FluidConstants.BUCKET / 81) * 16, true, 16, 50);
     }
 
     private void assignEnergyInfoArea() {
@@ -51,12 +60,20 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
         }
     }
 
+    private void renderFluidTooltip(DrawContext context, int mouseX, int mouseY, int x, int y, int offsetX, int offsetY, FluidStackRenderer renderer) {
+        if(isMouseAboveArea(mouseX, mouseY, x, y, offsetX, offsetY, renderer)) {
+            context.drawTooltip(Screens.getTextRenderer(this), renderer.getTooltip(handler.blockEntity.fluidStorage, Item.TooltipContext.DEFAULT),
+                    Optional.empty(), mouseX - x, mouseY - y);
+        }
+    }
+
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
         //super.drawForeground(context, mouseX, mouseY);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
         renderEnergyAreaTooltips(context, mouseX, mouseY, x, y);
+        renderFluidTooltip(context, mouseX, mouseY, x, y, 8, 7, fluidStackRenderer);
     }
 
     @Override
@@ -70,6 +87,9 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
 
         context.drawTexture(GUI_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
         energyInfoArea.draw(context);
+        fluidStackRenderer.drawFluid(context, handler.blockEntity.fluidStorage, x + 8, y + 7, 16, 50,
+                (FluidConstants.BUCKET / 81) * 16);
+
         renderProgressArrow(context, x, y);
         renderProgressCrystal(context, x, y);
     }
@@ -78,7 +98,6 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
         if (handler.isCrafting()){
             context.drawTexture(ARROW_TEXTURE, x + 73, y + 35, 0, 0, handler.getScaledArrowProgress(),
                     16, 24, 16);
-
         }
     }
 
@@ -99,5 +118,9 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
 
     private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
         return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
+    }
+
+    private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, FluidStackRenderer renderer) {
+        return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, renderer.getWidth(), renderer.getHeight());
     }
 }
