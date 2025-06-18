@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.block.entity.renderer.PedestalBlockEntityRenderer;
+import net.kaupenjoe.mccourse.block.entity.renderer.TankBlockEntityRenderer;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.kaupenjoe.mccourse.screen.custom.CoalGeneratorScreen;
@@ -45,6 +46,7 @@ public class MCCourseModClient implements ClientModInitializer {
         // https://wiki.fabricmc.net/tutorial:fluids para más ejemplos
 
         BlockEntityRendererFactories.register(ModBlockEntities.PEDESTAL_BE, PedestalBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.TANK_BE, TankBlockEntityRenderer::new);
 
         HandledScreens.register(ModScreenHandlers.PEDESTAL_SCREEN_HANDLER, PedestalScreen::new);
         HandledScreens.register(ModScreenHandlers.CRYSTALLIZER_SCREEN_HANDLER, CrystallyzerScreen::new);
