@@ -138,7 +138,7 @@ public class DodoModel extends SinglePartEntityModel<DodoEntity> {
 
         float anglesToRadiansFactor = ((float) Math.PI / 180);  // 180º == 1(pi) radianes => 1º == pi/180
         this.head.yaw = headYaw * anglesToRadiansFactor /* o 0.017453292F*/; // Hay que pasar los ángulos a radianes, sacado de la clase CamelEntityModel
-        this.head.pitch = headPitch * anglesToRadiansFactor;
+        this.head.pitch = -headPitch * anglesToRadiansFactor;
     }
 
     @Override
