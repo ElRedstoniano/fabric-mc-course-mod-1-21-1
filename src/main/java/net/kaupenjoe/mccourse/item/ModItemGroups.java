@@ -51,6 +51,7 @@ public class ModItemGroups {
                         entries.add(ModItems.BAR_BRAWL_MUSIC_DISC);
                         entries.add(ModItems.SPECTRE_STAFF);
                         entries.add(ModFluids.FLUORITE_WATER_BUCKET);
+                        entries.add(ModItems.DODO_SPAWN_EGG);
                     }).build());
 
     public static final ItemGroup FLUORITE_BLOCK_GROUP = Registry.register(Registries.ITEM_GROUP,

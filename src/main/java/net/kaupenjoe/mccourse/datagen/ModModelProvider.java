@@ -119,6 +119,9 @@ public class ModModelProvider extends FabricModelProvider {
         //itemModelGenerator.register(ModItems.STRAWBERRY_SEEDS, Models.GENERATED);
         itemModelGenerator.register(ModFluids.FLUORITE_WATER_BUCKET, Models.GENERATED);
         itemModelGenerator.register(ModBlocks.BLACKWOOD_SAPLING.asItem(), Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.DODO_SPAWN_EGG,
+                new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
     }
 
     // Took a look from ItemModelGenerator.registerArmor() method
