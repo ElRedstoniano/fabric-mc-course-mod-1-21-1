@@ -31,6 +31,7 @@ import net.kaupenjoe.mccourse.villager.ModVillagers;
 import net.kaupenjoe.mccourse.world.biome.ModBiomes;
 import net.kaupenjoe.mccourse.world.biome.ModMaterialRules;
 import net.kaupenjoe.mccourse.world.gen.ModWorldGeneration;
+import net.kaupenjoe.mccourse.worldgen.ModEntitySpawns;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -97,6 +98,8 @@ public class MCCourseMod implements ModInitializer, TerraBlenderApi {
 		ModRecipes.registerRecipes();
 
 		ModEntities.RegisterModEntities();
+
+		ModEntitySpawns.addSpawns();
 	}
 
 	private void registerStrippables(){
