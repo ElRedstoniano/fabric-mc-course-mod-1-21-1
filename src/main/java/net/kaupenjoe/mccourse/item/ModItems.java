@@ -113,6 +113,9 @@ public class ModItems {
     public static final Item TOMAHAWK = registerItem("tomahawk",
             new TomahawkItem(new Item.Settings().maxCount(16)));
 
+    public static final Item WARTURTLE_SPAWN_EGG = registerItem("warturtle_spawn_egg",
+            new SpawnEggItem(ModEntities.WARTURTLE_ET, 0xa86518, 0x3b260f, new Item.Settings()));
+
 
 
     private static Item registerItem(String name, Item item){

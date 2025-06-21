@@ -39,6 +39,7 @@
   "item.mccourse.fluorite_water_bucket": "Fluorite water bucket",
   "item.mccourse.dodo_spawn_egg": "Dodo spawn egg",
   "item.mccourse.giraffe_spawn_egg": "Giraffe spawn egg",
+  "item.mccourse.warturtle_spawn_egg": "Warturtle spawn egg",
 
   "item.mccourse.tomahawk": "Tomahawk",
 
@@ -135,5 +136,6 @@
 
   "entity.mccourse.dodo": "Dodo",
   "entity.mccourse.giraffe": "Giraffe",
-  "entity.mccourse.tomahawk": "Tomahawk"
+  "entity.mccourse.tomahawk": "Tomahawk",
+  "entity.mccourse.warturtle": "Warturtle"
 }

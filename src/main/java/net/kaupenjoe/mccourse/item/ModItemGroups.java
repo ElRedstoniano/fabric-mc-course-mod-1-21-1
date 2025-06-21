@@ -55,6 +55,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GIRAFFE_SPAWN_EGG);
 
                         entries.add(ModItems.TOMAHAWK);
+                        entries.add(ModItems.WARTURTLE_SPAWN_EGG);
                     }).build());
 
     public static final ItemGroup FLUORITE_BLOCK_GROUP = Registry.register(Registries.ITEM_GROUP,

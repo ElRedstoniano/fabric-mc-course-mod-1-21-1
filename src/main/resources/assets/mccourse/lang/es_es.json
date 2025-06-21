@@ -39,6 +39,7 @@
   "item.mccourse.fluorite_water_bucket": "Cubo de agua de fluorita",
   "item.mccourse.dodo_spawn_egg": "Generar dodo",
   "item.mccourse.giraffe_spawn_egg": "Generar girafa",
+  "item.mccourse.warturtle_spawn_egg": "Generar tortuga de guerra",
 
   "item.mccourse.tomahawk": "Tomahawk",
 
@@ -134,5 +135,6 @@
 
   "entity.mccourse.dodo": "Dodo",
   "entity.mccourse.giraffe": "Jirafa",
-  "entity.mccourse.tomahawk": "Tomahawk"
+  "entity.mccourse.tomahawk": "Tomahawk",
+  "entity.mccourse.warturtle": "Tortuga de guerra"
 }
