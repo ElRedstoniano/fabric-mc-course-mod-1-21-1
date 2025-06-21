@@ -107,6 +107,12 @@ public class ModItems {
     public static final Item DODO_SPAWN_EGG = registerItem("dodo_spawn_egg",
             new SpawnEggItem(ModEntities.DODO_ET, 0x456ae0, 0x545978, new Item.Settings()));
 
+    public static final Item GIRAFFE_SPAWN_EGG = registerItem("giraffe_spawn_egg",
+            new SpawnEggItem(ModEntities.GIRAFFE_ET, 0xe7d7a5, 0x7e5b41, new Item.Settings()));
+
+    public static final Item TOMAHAWK = registerItem("tomahawk",
+            new TomahawkItem(new Item.Settings().maxCount(16)));
+
 
 
     private static Item registerItem(String name, Item item){

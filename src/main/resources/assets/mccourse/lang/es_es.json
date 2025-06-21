@@ -38,6 +38,9 @@
 
   "item.mccourse.fluorite_water_bucket": "Cubo de agua de fluorita",
   "item.mccourse.dodo_spawn_egg": "Generar dodo",
+  "item.mccourse.giraffe_spawn_egg": "Generar girafa",
+
+  "item.mccourse.tomahawk": "Tomahawk",
 
   "block.mccourse.fluorite_block": "Bloque de fluorita",
   "block.mccourse.raw_fluorite_block": "Bloque de fluorita en bruto",
@@ -127,5 +130,9 @@
   "gui.mccourse.tank": "Tanque",
 
   "mccourse.tooltip.liquid.amount.with.capacity": "%s / %s mB",
-  "mccourse.tooltip.liquid.amount": "%s mB"
+  "mccourse.tooltip.liquid.amount": "%s mB",
+
+  "entity.mccourse.dodo": "Dodo",
+  "entity.mccourse.giraffe": "Jirafa",
+  "entity.mccourse.tomahawk": "Tomahawk"
 }

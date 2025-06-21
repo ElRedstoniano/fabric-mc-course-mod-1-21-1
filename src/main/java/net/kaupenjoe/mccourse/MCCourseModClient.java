@@ -12,9 +12,7 @@ import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.block.entity.renderer.PedestalBlockEntityRenderer;
 import net.kaupenjoe.mccourse.block.entity.renderer.TankBlockEntityRenderer;
 import net.kaupenjoe.mccourse.entity.ModEntities;
-import net.kaupenjoe.mccourse.entity.client.DodoModel;
-import net.kaupenjoe.mccourse.entity.client.DodoRenderer;
-import net.kaupenjoe.mccourse.entity.client.ModEntityModelLayers;
+import net.kaupenjoe.mccourse.entity.client.*;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.kaupenjoe.mccourse.screen.custom.CoalGeneratorScreen;
@@ -61,5 +59,11 @@ public class MCCourseModClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.DODO, DodoModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.DODO_ET, DodoRenderer::new);
+
+        EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.GIRAFFE, GiraffeModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.GIRAFFE_ET, GiraffeRenderer::new);
+
+        EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.TOMAHAWK, TomahawkProjectileModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.TOMAHAWK_ET, TomahawkProjectileRenderer::new);
     }
 }

@@ -1,6 +1,6 @@
-// 1.21.1	2025-06-19T16:21:39.0278196	MC Course Mod/Block Loot Tables
-f5b6b3c27e2daed548bbcf3cfb87197c1acee0f1 data\mccourse\loot_table\blocks\fluorite_end_ore.json
+// 1.21.1	2025-06-21T01:05:27.509062	MC Course Mod/Block Loot Tables
 a31857ab8b8ff379b6726cca5a45cc7b943f7c6e data\mccourse\loot_table\blocks\fluorite_block.json
+f5b6b3c27e2daed548bbcf3cfb87197c1acee0f1 data\mccourse\loot_table\blocks\fluorite_end_ore.json
 a57b84efc18b60a80a8b513895d7d2b07f902487 data\mccourse\loot_table\blocks\blackwood_wood.json
 8afceac5d1772702ea24abafd1b38ea30009a036 data\mccourse\loot_table\blocks\fluorite_stairs.json
 35f7d21bdbdb0a5e7c18b2babb968e6068cd7907 data\mccourse\loot_table\blocks\raw_fluorite_block.json
