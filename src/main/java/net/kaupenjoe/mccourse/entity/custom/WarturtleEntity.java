@@ -1,7 +1,10 @@
 package net.kaupenjoe.mccourse.entity.custom;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.item.ModItems;
+import net.kaupenjoe.mccourse.screen.custom.WarturtleScreenHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -13,14 +16,25 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.InventoryChangedListener;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -28,7 +42,9 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.Item;
 
-public class WarturtleEntity extends TameableEntity {
+import java.util.UUID;
+
+public class WarturtleEntity extends TameableEntity implements InventoryChangedListener, RideableInventory{
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
@@ -39,8 +55,22 @@ public class WarturtleEntity extends TameableEntity {
     public static final TrackedData<Long> LAST_POSE_TICK =
             DataTracker.registerData(WarturtleEntity.class, TrackedDataHandlerRegistry.LONG);
 
+    public static final TrackedData<Boolean> HAS_TIER_1_CHEST =
+            DataTracker.registerData(WarturtleEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> HAS_TIER_2_CHEST =
+            DataTracker.registerData(WarturtleEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> HAS_TIER_3_CHEST =
+            DataTracker.registerData(WarturtleEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+    protected SimpleInventory inventory;
+
+    private final int TIER_1_CHEST_SLOT = 2;
+    private final int TIER_2_CHEST_SLOT = 3;
+    private final int TIER_3_CHEST_SLOT = 4;
+
     public WarturtleEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
+        this.createInventory();
     }
 
     /* GOALS */
@@ -140,22 +170,53 @@ public class WarturtleEntity extends TameableEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(LAST_POSE_TICK, 0L);
+
+        builder.add(HAS_TIER_1_CHEST, false);
+        builder.add(HAS_TIER_2_CHEST, false);
+        builder.add(HAS_TIER_3_CHEST, false);
     }
 
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
+        /* CamelEntity */
         super.writeCustomDataToNbt(nbt);
         nbt.putLong("LastPoseTick", this.dataTracker.get(LAST_POSE_TICK));
+
+        /* AbstractDonkeyEntity */
+        NbtList nbtList = new NbtList();
+
+        for(int i = 1; i < this.inventory.size(); ++i) {
+            ItemStack itemStack = this.inventory.getStack(i);
+            if (!itemStack.isEmpty()) {
+                NbtCompound nbtCompound = new NbtCompound();
+                nbtCompound.putByte("Slot", (byte)(i - 1));
+                nbtList.add(itemStack.encode(this.getRegistryManager(), nbtCompound));
+            }
+        }
+
+        nbt.put("Items", nbtList);
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
+    public void readCustomDataFromNbt(NbtCompound nbt) { // Sacado de la clase CamelEntity y AbstractDonkeyEntity
+        /* CamelEntity */
         super.readCustomDataFromNbt(nbt);
         long l = nbt.getLong("LastPoseTick");
         if(l < 0L) {
             this.setPose(EntityPose.SITTING);
         }
         this.setLastPoseTick(l);
+
+        /* AbstractDonkeyEntity */
+        NbtList nbtList = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
+
+        for(int i = 0; i < nbtList.size(); ++i) {
+            NbtCompound nbtCompound = nbtList.getCompound(i);
+            int j = nbtCompound.getByte("Slot") & 255; // Pasar de byte a int
+            if (j < this.inventory.size() - 1) {
+                this.inventory.setStack(j + 1, ItemStack.fromNbt(this.getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
+            }
+        }
     }
 
     @Override
@@ -236,8 +297,140 @@ public class WarturtleEntity extends TameableEntity {
         if(isTamed() && hand == Hand.MAIN_HAND && item != itemForTaming && !isBreedingItem(itemStack) && !player.shouldCancelInteraction()) {
             toggleSitting();
             return ActionResult.SUCCESS;
+        } else if (this.isTamed()) {
+            this.openInventory(player); // Se abre el inventario solo si se está agachando el jugador
+            return ActionResult.success(this.getWorld().isClient);
         }
 
         return super.interactMob(player, hand);
+    }
+
+    /* INVENTORY */ // Principalmente sacado de la clase AbstractHorseEntity
+
+    @Override
+    public void onInventoryChanged(Inventory sender) {
+        if (sender.getStack(TIER_1_CHEST_SLOT).isOf(Items.CHEST) && !hasTier1Chest()) {
+            setChest(TIER_1_CHEST_SLOT, true);
+        }
+        if (sender.getStack(TIER_2_CHEST_SLOT).isOf(Items.CHEST) && !hasTier2Chest()) {
+            setChest(TIER_2_CHEST_SLOT, true);
+        }
+        if (sender.getStack(TIER_3_CHEST_SLOT).isOf(Items.CHEST) && !hasTier3Chest()) {
+            setChest(TIER_3_CHEST_SLOT, true);
+        }
+        
+        if (!sender.getStack(TIER_1_CHEST_SLOT).isOf(Items.CHEST) && hasTier1Chest()) {
+            setChest(TIER_1_CHEST_SLOT, false);
+            dropChestInventory(TIER_1_CHEST_SLOT);
+        }
+        if (!sender.getStack(TIER_2_CHEST_SLOT).isOf(Items.CHEST) && hasTier2Chest()) {
+            setChest(TIER_2_CHEST_SLOT, false);
+            dropChestInventory(TIER_2_CHEST_SLOT);
+        }
+        if (!sender.getStack(TIER_3_CHEST_SLOT).isOf(Items.CHEST) && hasTier3Chest()) {
+            setChest(TIER_3_CHEST_SLOT, false);
+            dropChestInventory(TIER_3_CHEST_SLOT);
+        }
+    }
+
+    private void dropChestInventory(int slot) {
+        if (slot == TIER_1_CHEST_SLOT) {
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(5, 64));
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(6, 64));
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(7, 64));
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(8, 64));
+        }
+        if (slot == TIER_2_CHEST_SLOT) {
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(9, 64));
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(10, 64));
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(11, 64));
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(12, 64));
+        }
+        if (slot == TIER_3_CHEST_SLOT) {
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(13, 64));
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(14, 64));
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(15, 64));
+            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(16, 64));
+        }
+    }
+
+    private void setChest(int slot, boolean chested) {
+        if (slot == TIER_1_CHEST_SLOT) {
+            this.dataTracker.set(HAS_TIER_1_CHEST, chested);
+        }
+        if (slot == TIER_2_CHEST_SLOT) {
+            this.dataTracker.set(HAS_TIER_2_CHEST, chested);
+        }
+        if (slot == TIER_3_CHEST_SLOT) {
+            this.dataTracker.set(HAS_TIER_3_CHEST, chested);
+        } else {
+            MCCourseMod.LOGGER.error("Can't give chest to a Slot that doesn't exist!");
+        }
+    }
+
+    public boolean hasTier1Chest() {
+        return this.dataTracker.get(HAS_TIER_1_CHEST);
+    }
+    public boolean hasTier2Chest() {
+        return this.dataTracker.get(HAS_TIER_2_CHEST);
+    }
+    public boolean hasTier3Chest() {
+        return this.dataTracker.get(HAS_TIER_3_CHEST);
+    }
+
+    protected void createInventory() {
+        SimpleInventory simpleInventory = this.inventory;
+        this.inventory = new SimpleInventory(this.getInventorySize());
+        if (simpleInventory != null) {
+            simpleInventory.removeListener(this);
+            int i = Math.min(simpleInventory.size(), this.inventory.size());
+
+            for(int j = 0; j < i; ++j) {
+                ItemStack itemStack = simpleInventory.getStack(j);
+                if (itemStack.isEmpty()) continue;
+                this.inventory.setStack(j, itemStack.copy());
+            }
+        }
+        this.inventory.addListener(this);
+    }
+
+    public final int getInventorySize() {
+        return getInventorySize(4);
+    }
+
+    public static int getInventorySize(int columns) {
+        return columns * 3 + 5;
+    }
+
+    public boolean areInventoriesDifferent(Inventory inventory) {
+        return this.inventory != inventory;
+    }
+
+    @Override
+    public void openInventory(PlayerEntity player) {
+        if(!this.getWorld().isClient() && isTamed()) {
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+            if (serverPlayer.currentScreenHandler != serverPlayer.playerScreenHandler) {
+                serverPlayer.closeHandledScreen();
+            }
+
+            serverPlayer.openHandledScreen(new ExtendedScreenHandlerFactory<UUID>() {
+                @Nullable
+                @Override
+                public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+                    return new WarturtleScreenHandler(syncId, playerInventory, WarturtleEntity.this.inventory, WarturtleEntity.this, 4);
+                }
+
+                @Override
+                public Text getDisplayName() {
+                    return Text.translatable("entity.mccourse.warturtle");
+                }
+
+                @Override
+                public UUID getScreenOpeningData(ServerPlayerEntity player) {
+                    return WarturtleEntity.this.getUuid();
+                }
+            });
+        }
     }
 }
