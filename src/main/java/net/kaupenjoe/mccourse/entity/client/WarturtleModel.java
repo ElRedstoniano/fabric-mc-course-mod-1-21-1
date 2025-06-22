@@ -101,9 +101,9 @@ public class WarturtleModel<T extends WarturtleEntity> extends SinglePartEntityM
         this.updateAnimation(entity.sittingAnimationState, WarturtleAnimations.ANIM_WARTURTLE_SITTING, ageInTicks, 1f);
         this.updateAnimation(entity.standingTransitionAnimationState, WarturtleAnimations.ANIM_WARTURTLE_EMERGE, ageInTicks, 1f);
 
-        tier1.visible = false;
-        tier2.visible = false;
-        tier3.visible = false;
+        tier1.visible = entity.hasTier1Chest();
+        tier2.visible = entity.hasTier2Chest();
+        tier3.visible = entity.hasTier3Chest();
     }
 
     public void setHeadAngles(float headYaw, float headPitch) {
