@@ -126,6 +126,12 @@ public class ModModelProvider extends FabricModelProvider {
                 new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
         itemModelGenerator.register(ModItems.WARTURTLE_SPAWN_EGG ,
                 new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
+
+        itemModelGenerator.register(ModItems.IRON_WARTURTLE_ARMOR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GOLD_WARTURTLE_ARMOR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DIAMOND_WARTURTLE_ARMOR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NETHERITE_WARTURTLE_ARMOR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.FLUORITE_WARTURTLE_ARMOR, Models.GENERATED);
     }
 
     // Took a look from ItemModelGenerator.registerArmor() method

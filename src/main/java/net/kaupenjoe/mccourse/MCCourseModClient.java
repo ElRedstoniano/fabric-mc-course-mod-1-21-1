@@ -66,5 +66,6 @@ public class MCCourseModClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.WARTURTLE, WarturtleModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.WARTURTLE_ET, WarturtleRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.WARTURTLE_ARMOR, WarturtleModel::getTexturedModelData);
     }
 }

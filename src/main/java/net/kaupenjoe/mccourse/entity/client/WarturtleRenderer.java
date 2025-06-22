@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 public class WarturtleRenderer extends MobEntityRenderer<WarturtleEntity, WarturtleModel<WarturtleEntity>> {
     public WarturtleRenderer(EntityRendererFactory.Context context) {
         super(context, new WarturtleModel<>(context.getPart(ModEntityModelLayers.WARTURTLE)), 0.9f);
+        this.addFeature(new WarturtleArmorFeatureRenderer(this, context.getModelLoader()));
     }
 
     @Override

@@ -1,9 +1,9 @@
-// 1.21.1	2025-06-21T22:45:18.3913787	MC Course Mod/Block Loot Tables
+// 1.21.1	2025-06-22T16:15:06.9978743	MC Course Mod/Block Loot Tables
 a31857ab8b8ff379b6726cca5a45cc7b943f7c6e data\mccourse\loot_table\blocks\fluorite_block.json
 f5b6b3c27e2daed548bbcf3cfb87197c1acee0f1 data\mccourse\loot_table\blocks\fluorite_end_ore.json
 a57b84efc18b60a80a8b513895d7d2b07f902487 data\mccourse\loot_table\blocks\blackwood_wood.json
-35f7d21bdbdb0a5e7c18b2babb968e6068cd7907 data\mccourse\loot_table\blocks\raw_fluorite_block.json
 8afceac5d1772702ea24abafd1b38ea30009a036 data\mccourse\loot_table\blocks\fluorite_stairs.json
+35f7d21bdbdb0a5e7c18b2babb968e6068cd7907 data\mccourse\loot_table\blocks\raw_fluorite_block.json
 a57da03e320f1721e8931fc6a6418f773a849bb4 data\mccourse\loot_table\blocks\potted_dahlia.json
 ad2594b7e13b5f59b5b1917ecea4a0e4aec7cc0b data\mccourse\loot_table\blocks\coal_generator.json
 eb5f48f595862644f32cfb38f21c07c4417da798 data\mccourse\loot_table\blocks\pedestal.json

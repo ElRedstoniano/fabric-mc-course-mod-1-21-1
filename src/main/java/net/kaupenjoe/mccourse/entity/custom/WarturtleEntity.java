@@ -4,11 +4,13 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.item.ModItems;
+import net.kaupenjoe.mccourse.item.custom.WarturtleArmorItem;
 import net.kaupenjoe.mccourse.screen.custom.WarturtleScreenHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -27,6 +29,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -35,6 +38,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -331,6 +335,13 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
             setChest(TIER_3_CHEST_SLOT, false);
             dropChestInventory(TIER_3_CHEST_SLOT);
         }
+
+        if (sender.getStack(0).getItem() instanceof WarturtleArmorItem) {
+            equipBodyArmor(sender.getStack(0));
+        }
+        if (sender.getStack(0).isEmpty() && isWearingBodyArmor()) { // Si está vacío y ya está con la armadura equipada
+            equipBodyArmor(ItemStack.EMPTY);
+        }
     }
 
     private void dropChestInventory(int slot) {
@@ -432,5 +443,30 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
                 }
             });
         }
+    }
+
+    public boolean hasArmorOn() {
+        return isWearingBodyArmor();
+    }
+
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        if (!this.canArmorAbsorb(source)) {
+            super.applyDamage(source, amount);
+        } else {
+            ItemStack itemStack = this.getBodyArmor();
+            itemStack.damage(MathHelper.ceil(amount), this, EquipmentSlot.BODY);
+
+            if (itemStack.getItem() instanceof WarturtleArmorItem warturtleArmorItem) {
+                int damageReduction = warturtleArmorItem.getProtection() / 2; // depends on what armor
+                super.applyDamage(source, Math.max(0, amount - damageReduction));
+            }
+        }
+
+    }
+
+    private boolean canArmorAbsorb(DamageSource damageSource) { // Si el daño puede aplicarse a la armadura
+        // Por ejemplo para daño por ahogamiento hace que no sirva
+        return this.hasArmorOn() && !damageSource.isIn(DamageTypeTags.BYPASSES_WOLF_ARMOR);
     }
 }

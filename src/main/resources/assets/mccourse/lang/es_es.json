@@ -43,6 +43,12 @@
 
   "item.mccourse.tomahawk": "Tomahawk",
 
+  "item.mccourse.iron_warturtle_armor": "Armadura de hierro para tortuga de guerra",
+  "item.mccourse.gold_warturtle_armor": "Armadura de oro para tortuga de guerra",
+  "item.mccourse.diamond_warturtle_armor": "Armadura de diamante para tortuga de guerra",
+  "item.mccourse.netherite_warturtle_armor": "Armadura de netherita para tortuga de guerra",
+  "item.mccourse.fluorite_warturtle_armor": "Armadura de fluorita para tortuga de guerra",
+
   "block.mccourse.fluorite_block": "Bloque de fluorita",
   "block.mccourse.raw_fluorite_block": "Bloque de fluorita en bruto",
   "block.mccourse.fluorite_ore": "Mena de fluorita",

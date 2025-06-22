@@ -43,6 +43,12 @@
 
   "item.mccourse.tomahawk": "Tomahawk",
 
+  "item.mccourse.iron_warturtle_armor": "Iron warturtle armor",
+  "item.mccourse.gold_warturtle_armor": "Gold warturtle armor",
+  "item.mccourse.diamond_warturtle_armor": "Diamond warturtle armor",
+  "item.mccourse.netherite_warturtle_armor": "Netherite warturtle armor",
+  "item.mccourse.fluorite_warturtle_armor": "Fluorite warturtle armor",
+
   "block.mccourse.fluorite_block": "Fluorite block",
   "block.mccourse.raw_fluorite_block": "Fluorite raw block",
   "block.mccourse.fluorite_ore": "Fluorite ore",
