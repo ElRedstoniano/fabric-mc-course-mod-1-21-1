@@ -10,11 +10,11 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
@@ -45,7 +45,40 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleEnti
                 this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
                 VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem)));
                 this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                renderDyed(matrices, vertexConsumers, light, entity, armorItem);
             }
         }
+    }
+
+    private static final Identifier[] DYE_LOCATION = new Identifier[]{
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/white.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/orange.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/magenta.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/light_blue.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/yellow.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/lime.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/pink.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/gray.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/light_gray.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/cyan.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/purple.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/blue.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/brown.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/green.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/red.png"),
+            MCCourseMod.id("textures/entity/warturtle/armor/blankies/black.png")
+    };
+
+    public void renderDyed(
+            MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WarturtleEntity warturtle, WarturtleArmorItem armorItem) {
+        DyeColor dyeColor = warturtle.getSwag();
+        Identifier identifier;
+        if (dyeColor != null) {
+            identifier = DYE_LOCATION[dyeColor.getId()];
+        } else {
+            identifier = ARMOR_MAP.get(armorItem); // Default
+        }
+
+        this.model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(identifier)), light, OverlayTexture.DEFAULT_UV);
     }
 }

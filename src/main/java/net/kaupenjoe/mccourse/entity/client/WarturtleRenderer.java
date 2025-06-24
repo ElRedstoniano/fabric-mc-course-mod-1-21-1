@@ -22,11 +22,11 @@ public class WarturtleRenderer extends MobEntityRenderer<WarturtleEntity, Wartur
 
     @Override
     public void render(WarturtleEntity livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        if (livingEntity.isBaby()) {
+        /*if (livingEntity.isBaby()) { // This goes into the model render method
             matrixStack.scale(0.5f, 0.5f, 0.5f);
         } else {
             matrixStack.scale(1f, 1f, 1f);
-        }
+        }*/
 
         super.render(livingEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }

@@ -6,7 +6,11 @@ import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.kaupenjoe.mccourse.item.custom.WarturtleArmorItem;
 import net.kaupenjoe.mccourse.screen.custom.WarturtleScreenHandler;
+import net.minecraft.block.Block;
+import net.minecraft.block.DyedCarpetBlock;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.control.BodyControl;
+import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -19,7 +23,6 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
@@ -36,9 +39,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -51,6 +56,9 @@ import java.util.UUID;
 public class WarturtleEntity extends TameableEntity implements InventoryChangedListener, RideableInventory{
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+
+    public static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.changing(ModEntities.WARTURTLE_ET.getWidth(),
+            ModEntities.WARTURTLE_ET.getHeight() - 0.5F).withEyeHeight(0.845F);
 
     public final AnimationState sittingTransitionAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
@@ -65,6 +73,8 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
             DataTracker.registerData(WarturtleEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> HAS_TIER_3_CHEST =
             DataTracker.registerData(WarturtleEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<ItemStack> DYE_STACK =
+            DataTracker.registerData(WarturtleEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
 
     protected SimpleInventory inventory;
 
@@ -74,6 +84,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     public WarturtleEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
+        this.moveControl = new WarturtleMoveControl();
         this.createInventory();
     }
 
@@ -111,6 +122,8 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         return ModEntities.WARTURTLE_ET.create(world);
     }
+
+
 
     private void setUpAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
@@ -178,6 +191,8 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         builder.add(HAS_TIER_1_CHEST, false);
         builder.add(HAS_TIER_2_CHEST, false);
         builder.add(HAS_TIER_3_CHEST, false);
+
+        builder.add(DYE_STACK, ItemStack.EMPTY);
     }
 
     @Override
@@ -189,11 +204,12 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         /* AbstractDonkeyEntity */
         NbtList nbtList = new NbtList();
 
-        for(int i = 1; i < this.inventory.size(); ++i) {
+        for(int i = 0; i < this.inventory.size(); i++) {
             ItemStack itemStack = this.inventory.getStack(i);
             if (!itemStack.isEmpty()) {
+                //if(i == 0) MCCourseMod.LOGGER.info(itemStack + "-write" + i);
                 NbtCompound nbtCompound = new NbtCompound();
-                nbtCompound.putByte("Slot", (byte)(i - 1));
+                nbtCompound.putByte("Slot", (byte)(i));
                 nbtList.add(itemStack.encode(this.getRegistryManager(), nbtCompound));
             }
         }
@@ -212,13 +228,15 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         this.setLastPoseTick(l);
 
         /* AbstractDonkeyEntity */
+        this.createInventory();
         NbtList nbtList = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
 
-        for(int i = 0; i < nbtList.size(); ++i) {
-            NbtCompound nbtCompound = nbtList.getCompound(i);
-            int j = nbtCompound.getByte("Slot") & 255; // Pasar de byte a int
-            if (j < this.inventory.size() - 1) {
-                this.inventory.setStack(j + 1, ItemStack.fromNbt(this.getRegistryManager(), nbtCompound).orElse(ItemStack.EMPTY));
+        for(int i = 0; i < nbtList.size(); i++) {
+            NbtCompound compoundTag = nbtList.getCompound(i);
+            int j = compoundTag.getByte("Slot") & 255; // Pasar de byte a int
+            //if(i == 0) MCCourseMod.LOGGER.info(j + "-read------------------" + i);
+            if (j < this.inventory.size()) {
+                this.inventory.setStack(j, ItemStack.fromNbt(this.getRegistryManager(), compoundTag).orElse(ItemStack.EMPTY));
             }
         }
     }
@@ -342,6 +360,13 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         if (sender.getStack(0).isEmpty() && isWearingBodyArmor()) { // Si está vacío y ya está con la armadura equipada
             equipBodyArmor(ItemStack.EMPTY);
         }
+
+        if (!sender.getStack(1).isEmpty()) {
+            this.dataTracker.set(DYE_STACK, sender.getStack(1));
+        }
+        if (sender.getStack(1).isEmpty()) {
+            this.dataTracker.set(DYE_STACK, ItemStack.EMPTY);
+        }
     }
 
     private void dropChestInventory(int slot) {
@@ -368,11 +393,9 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     private void setChest(int slot, boolean chested) {
         if (slot == TIER_1_CHEST_SLOT) {
             this.dataTracker.set(HAS_TIER_1_CHEST, chested);
-        }
-        if (slot == TIER_2_CHEST_SLOT) {
+        } else if(slot == TIER_2_CHEST_SLOT) {
             this.dataTracker.set(HAS_TIER_2_CHEST, chested);
-        }
-        if (slot == TIER_3_CHEST_SLOT) {
+        } else if (slot == TIER_3_CHEST_SLOT) {
             this.dataTracker.set(HAS_TIER_3_CHEST, chested);
         } else {
             MCCourseMod.LOGGER.error("Can't give chest to a Slot that doesn't exist!");
@@ -389,7 +412,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         return this.dataTracker.get(HAS_TIER_3_CHEST);
     }
 
-    protected void createInventory() {
+    protected void createInventory() { // En la clase AbstractDonkeyEntity este método_ se llama onChestedStatusChanged
         SimpleInventory simpleInventory = this.inventory;
         this.inventory = new SimpleInventory(this.getInventorySize());
         if (simpleInventory != null) {
@@ -451,9 +474,9 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     @Override
     protected void applyDamage(DamageSource source, float amount) {
-        if (!this.canArmorAbsorb(source)) {
+        if (!this.canArmorAbsorb(source)) { // Si es un tipo de daño que la armadura no puede absorber simplemente se aplica
             super.applyDamage(source, amount);
-        } else {
+        } else { // Si no se aplica una variación del daño en función de la armadura además de quitarle duración
             ItemStack itemStack = this.getBodyArmor();
             itemStack.damage(MathHelper.ceil(amount), this, EquipmentSlot.BODY);
 
@@ -462,11 +485,83 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
                 super.applyDamage(source, Math.max(0, amount - damageReduction));
             }
         }
-
     }
 
     private boolean canArmorAbsorb(DamageSource damageSource) { // Si el daño puede aplicarse a la armadura
         // Por ejemplo para daño por ahogamiento hace que no sirva
         return this.hasArmorOn() && !damageSource.isIn(DamageTypeTags.BYPASSES_WOLF_ARMOR);
+    }
+
+    @Nullable
+    private static DyeColor getDyeColor(ItemStack color) {
+        Block block = Block.getBlockFromItem(color.getItem());
+        return block instanceof DyedCarpetBlock ? ((DyedCarpetBlock)block).getDyeColor() : null;
+    }
+
+    @Nullable
+    public DyeColor getSwag() {
+        return getDyeColor(this.dataTracker.get(DYE_STACK));
+    }
+
+    /* CONTROLS */
+    class WarturtleMoveControl extends MoveControl {
+        public WarturtleMoveControl() {
+            super(WarturtleEntity.this);
+        }
+
+        public void tick() {
+            if (this.state == MoveControl.State.MOVE_TO && !WarturtleEntity.this.isLeashed() &&
+                    WarturtleEntity.this.isSitting() && !WarturtleEntity.this.isChangingPose() && WarturtleEntity.this.canChangePose()) {
+                WarturtleEntity.this.startStanding();
+            }
+
+            super.tick();
+        }
+    }
+
+    private class WarturtleBodyControl extends BodyControl {
+        public WarturtleBodyControl(WarturtleEntity warturtle) {
+            super(warturtle);
+        }
+
+        public void tick() {
+            if (!WarturtleEntity.this.isStationary()) {
+                super.tick();
+            }
+        }
+    }
+
+    /* LEASH */
+    @Override
+    public Vec3d getLeashOffset(float tickDelta) {
+        EntityDimensions entityDimensions = this.getDimensions(this.getPose());
+        float f = this.getScaleFactor();
+        return new Vec3d(0.0, entityDimensions.height() - (double)(0.18F * f), (entityDimensions.width() * 0.36F));
+        //return super.getLeashOffset(tickDelta);
+    }
+
+    public boolean beforeLeashTick(Entity leashHolder, float distance) { // Hace que se levante cuando alguien se aleja con la soga
+        boolean isSitting = this.isSitting();
+        if (distance > 6.0F && isSitting && !this.isChangingPose() && this.canChangePose()) {
+            this.startStanding();
+            return true; // Se puede empezar a mover
+        }
+
+        //return false; // No se puede empezar a mover
+        return !isSitting; // Se puede empezar a mover solo si no está sentado
+    }
+
+    public EntityDimensions getBaseDimensions(EntityPose pose) {
+        return pose == EntityPose.SITTING ? SITTING_DIMENSIONS.scaled(this.getScaleFactor()) : super.getBaseDimensions(pose);
+    }
+
+    protected BodyControl createBodyControl() { return new WarturtleBodyControl(this); }
+
+    public boolean canChangePose() {
+        return this.wouldNotSuffocateInPose(this.isSitting() ? EntityPose.STANDING : EntityPose.SITTING);
+    }
+
+    public boolean isStationary() {
+        return this.isSitting() || this.isChangingPose();
     }
 }

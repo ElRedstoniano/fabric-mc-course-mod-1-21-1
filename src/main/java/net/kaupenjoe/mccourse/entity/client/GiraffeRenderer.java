@@ -24,9 +24,9 @@ public class GiraffeRenderer extends MobEntityRenderer<GiraffeEntity, GiraffeMod
 
     @Override
     public void render(GiraffeEntity livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        if (livingEntity.isBaby()) {
+        /*if (livingEntity.isBaby()) {
             matrixStack.scale(0.45f, 0.55f, 0.45f);
-        }
+        }*/
 
         super.render(livingEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }

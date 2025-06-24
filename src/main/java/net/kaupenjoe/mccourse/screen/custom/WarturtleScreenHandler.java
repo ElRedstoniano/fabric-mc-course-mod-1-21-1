@@ -1,5 +1,6 @@
 package net.kaupenjoe.mccourse.screen.custom;
 
+import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.custom.WarturtleEntity;
 import net.kaupenjoe.mccourse.item.custom.WarturtleArmorItem;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
@@ -114,6 +115,10 @@ public class WarturtleScreenHandler extends ScreenHandler {
                     public boolean isEnabled() {
                         return warturtleEntity.hasTier1Chest();
                     }
+                    @Override
+                    public boolean canInsert(ItemStack stack) {
+                        return isEnabled();
+                    }
                 });
             }
             for (int l = 0; l < columns; l++) {
@@ -121,6 +126,10 @@ public class WarturtleScreenHandler extends ScreenHandler {
                     @Override
                     public boolean isEnabled() {
                         return warturtleEntity.hasTier2Chest();
+                    }
+                    @Override
+                    public boolean canInsert(ItemStack stack) {
+                        return isEnabled();
                     }
                 });
             }
@@ -130,17 +139,21 @@ public class WarturtleScreenHandler extends ScreenHandler {
                     public boolean isEnabled() {
                         return warturtleEntity.hasTier3Chest();
                     }
+                    @Override
+                    public boolean canInsert(ItemStack stack) {
+                        return isEnabled();
+                    }
                 });
             }
         }
 
-
+        /* Player inventory */
         for (int i1 = 0; i1 < 3; i1++) {
             for (int k1 = 0; k1 < 9; k1++) {
                 this.addSlot(new Slot(inventory, k1 + i1 * 9 + 9, 8 + k1 * 18, 102 + i1 * 18 + -18));
             }
         }
-
+        /* Hotbar */
         for (int j1 = 0; j1 < 9; j1++) {
             this.addSlot(new Slot(inventory, j1, 8 + j1 * 18, 142));
         }
@@ -154,14 +167,14 @@ public class WarturtleScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) { // Hay un bug que impide introducir items en el slot 0
+    public ItemStack quickMove(PlayerEntity player, int slotNumber) { // Hay un bug que impide introducir items en el slot 0 // O no?
         ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot2 = (Slot)this.slots.get(slot);
-        if (slot2 != null && slot2.hasStack()) {
-            ItemStack itemStack2 = slot2.getStack();
+        Slot slot = (Slot)this.slots.get(slotNumber);
+        if (slot != null && slot.hasStack()) {
+            ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
             int i = this.warturtleContainer.size() + 1;
-            if (slot < i) {
+            if (slotNumber < i) {
                 if (!this.insertItem(itemStack2, i, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
@@ -178,17 +191,21 @@ public class WarturtleScreenHandler extends ScreenHandler {
                 int j = i;
                 int l = k = j + 27;
                 int m = l + 9;
-                if (slot >= l && slot < m ? !this.insertItem(itemStack2, j, k, false) : (slot >= j && slot < k ? !this.insertItem(itemStack2, l, m, false) : !this.insertItem(itemStack2, l, k, false))) {
+                if (slotNumber >= l && slotNumber < m ? !this.insertItem(itemStack2, j, k, false) :
+                        (slotNumber >= j && slotNumber < k ? !this.insertItem(itemStack2, l, m-1, false) :
+                                !this.insertItem(itemStack2, l, k, false))) {
                     return ItemStack.EMPTY;
                 }
                 return ItemStack.EMPTY;
             }
+
             if (itemStack2.isEmpty()) {
-                slot2.setStack(ItemStack.EMPTY);
+                slot.setStack(ItemStack.EMPTY);
             } else {
-                slot2.markDirty();
+                slot.markDirty();
             }
         }
+
         return itemStack;
     }
 

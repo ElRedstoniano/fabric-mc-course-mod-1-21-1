@@ -53,6 +53,7 @@ public class ModItemGroups {
                         entries.add(ModFluids.FLUORITE_WATER_BUCKET);
                         entries.add(ModItems.DODO_SPAWN_EGG);
                         entries.add(ModItems.GIRAFFE_SPAWN_EGG);
+                        entries.add(ModItems.WARTURTLE_SPAWN_EGG);
 
                         entries.add(ModItems.TOMAHAWK);
 

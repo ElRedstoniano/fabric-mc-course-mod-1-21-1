@@ -34,9 +34,9 @@ public class DodoRenderer extends MobEntityRenderer<DodoEntity, DodoModel> {
     @Override
     public void render(DodoEntity livingEntity, float f /*yaw*/, float g /*tickdelta*/, MatrixStack matrixStack,
                        VertexConsumerProvider vertexConsumerProvider, int i) {
-        if(livingEntity.isBaby()) {
+        /*if(livingEntity.isBaby()) {
             matrixStack.scale(0.5f, 0.5f, 0.5f);
-        }
+        }*/
 
         super.render(livingEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }

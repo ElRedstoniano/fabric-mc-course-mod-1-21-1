@@ -1,5 +1,7 @@
 package net.kaupenjoe.mccourse.entity.client;
 
+import net.kaupenjoe.mccourse.MCCourseMod;
+import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.animation.WarturtleAnimations;
 import net.kaupenjoe.mccourse.entity.custom.WarturtleEntity;
 import net.minecraft.client.model.*;
@@ -116,7 +118,16 @@ public class WarturtleModel<T extends WarturtleEntity> extends SinglePartEntityM
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-        body.render(matrices, vertexConsumer, light, overlay, color);
+        if (this.child) {
+            matrices.push();
+            matrices.scale(0.5f, 0.5f, 0.5f);
+            matrices.translate(0, 1.5f, 0); // height is 1.5f
+            body.render(matrices, vertexConsumer, light, overlay, color);
+            matrices.pop();
+        } else {
+            //matrices.scale(1f, 1f, 1f);
+            body.render(matrices, vertexConsumer, light, overlay, color);
+        }
     }
 
     @Override

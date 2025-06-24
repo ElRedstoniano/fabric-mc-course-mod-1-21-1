@@ -1,5 +1,6 @@
 package net.kaupenjoe.mccourse.entity.client;
 
+import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.animation.DodoAnimations;
 import net.kaupenjoe.mccourse.entity.custom.DodoEntity;
 import net.minecraft.client.model.*;
@@ -143,6 +144,12 @@ public class DodoModel extends SinglePartEntityModel<DodoEntity> {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
+        if (this.child) {
+            matrices.scale(0.5f, 0.5f, 0.5f);
+            matrices.translate(0, (1 + 0.5f), 0);
+        } else {
+            matrices.scale(1f, 1f, 1f);
+        }
         body.render(matrices, vertexConsumer, light, overlay, color);
     }
 

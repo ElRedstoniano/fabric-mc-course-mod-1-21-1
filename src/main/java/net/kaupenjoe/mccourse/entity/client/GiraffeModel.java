@@ -1,5 +1,6 @@
 package net.kaupenjoe.mccourse.entity.client;
 
+import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.animation.GiraffeAnimations;
 import net.kaupenjoe.mccourse.entity.custom.GiraffeEntity;
 import net.minecraft.client.model.*;
@@ -88,6 +89,12 @@ public class GiraffeModel<T extends GiraffeEntity> extends SinglePartEntityModel
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
+        if (this.child) {
+            matrices.scale(0.45f, 0.55f, 0.45f);
+            matrices.translate(0, 2.5f * 0.49f, 0); // height is 2.5f
+        } else {
+            matrices.scale(1f, 1f, 1f);
+        }
         body.render(matrices, vertexConsumer, light, overlay, color);
     }
 
