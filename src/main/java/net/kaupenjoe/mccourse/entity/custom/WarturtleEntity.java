@@ -59,7 +59,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     public static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.changing(ModEntities.WARTURTLE_ET.getWidth(),
             ModEntities.WARTURTLE_ET.getHeight() - 0.5F).withEyeHeight(0.845F);
-
+    //
     public final AnimationState sittingTransitionAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
     public final AnimationState standingTransitionAnimationState = new AnimationState();
