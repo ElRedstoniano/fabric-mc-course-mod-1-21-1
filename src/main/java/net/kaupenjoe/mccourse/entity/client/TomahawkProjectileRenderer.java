@@ -7,13 +7,14 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
-public class TomahawkProjectileRenderer extends EntityRenderer<TomahawkProjectileEntity> {
+public class TomahawkProjectileRenderer extends EntityRenderer<TomahawkProjectileEntity, TomahawkProjectileRenderState> {
     public static final Identifier TEXTURE = MCCourseMod.id("textures/entity/tomahawk/tomahawk.png");
     protected TomahawkProjectileModel model;
 
@@ -23,31 +24,41 @@ public class TomahawkProjectileRenderer extends EntityRenderer<TomahawkProjectil
     }
 
     @Override
-    public void render(TomahawkProjectileEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public TomahawkProjectileRenderState createRenderState() {
+        return new TomahawkProjectileRenderState();
+    }
+
+    @Override
+    public void updateRenderState(TomahawkProjectileEntity entity, TomahawkProjectileRenderState state, float tickDelta) {
+        super.updateRenderState(entity, state, tickDelta);
+        state.prevYaw = entity.prevYaw;
+        state.rotation = entity.getRenderingRotation();
+        state.onGround = entity.isOnGround();
+        state.enchanted = entity.isEnchanted();
+        state.groundedOffset = entity.groundedOffset;
+    }
+
+    @Override
+    public void render(TomahawkProjectileRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
 
-        if(!entity.isGrounded()) {
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, entity.prevYaw, entity.getYaw())));
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(entity.getRenderingRotation() * 5f));
+        if(!state.onGround) {
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(state.age, state.prevYaw, state.yawDegrees)));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(state.rotation * 5f));
         } else {
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(entity.groundedOffset.getY()));
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(entity.groundedOffset.getX()));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(state.groundedOffset.getY()));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(state.groundedOffset.getX()));
             matrices.translate(0, -1.0f, 0);
         }
 
         // Sacado a medias de la clase TridentEntityRenderer
-        VertexConsumer vertexConsumer = ItemRenderer.getDirectItemGlintConsumer(
-                vertexConsumers, this.model.getLayer(this.getTexture(entity)), false,
-                /*entity.isEnchanted()*/ false
-        );
+        VertexConsumer vertexConsumer = ItemRenderer.getItemGlintConsumer(
+                vertexConsumers, this.model.getLayer(MCCourseMod.id("textures/entity/tomahawk/tomahawk.png")), false, state.enchanted);
         this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
         matrices.pop();
 
-        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
+        super.render(state, matrices, vertexConsumers, light);
     }
 
-    @Override
-    public Identifier getTexture(TomahawkProjectileEntity entity) {
-        return TEXTURE;
-    }
+    //public Identifier getTexture(TomahawkProjectileRenderState renderState) { return TEXTURE; }
 }

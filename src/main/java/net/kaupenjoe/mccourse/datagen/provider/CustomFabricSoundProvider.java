@@ -63,7 +63,7 @@ public abstract class CustomFabricSoundProvider implements DataProvider {
             List<Identifier> keys = Arrays.stream(entries).map(SoundEntry::name).toList();
 
             if (!keys.stream().filter(i -> Collections.frequency(keys, i) > 1).toList().isEmpty()) {
-                throw new RuntimeException("Entries for sound event " + sound.getId() + " contain duplicate sound names. Event will be omitted.");
+                throw new RuntimeException("Entries for sound event " + sound.id() + " contain duplicate sound names. Event will be omitted.");
             }
 
             JsonObject soundEventData = new JsonObject();
@@ -84,7 +84,7 @@ public abstract class CustomFabricSoundProvider implements DataProvider {
             // Old og code, will cause that non-minecraft sounds won't work because of identifier pointing to
             // "MODID:custom_sound" insead of "minecraft:custom_sound" or just "custom_sound"
 
-            soundEvents.put(sound.getId().getPath(), soundEventData); // This one will work correctly
+            soundEvents.put(sound.id().getPath(), soundEventData); // This one will work correctly
 
         }));
 

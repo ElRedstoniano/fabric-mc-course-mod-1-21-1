@@ -11,7 +11,6 @@ import net.kaupenjoe.mccourse.block.entity.fluid.FluidUtils;
 import net.kaupenjoe.mccourse.screen.custom.TankScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;

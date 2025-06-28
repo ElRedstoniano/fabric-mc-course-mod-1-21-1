@@ -4,7 +4,7 @@ pluginManagement {
 			name = 'Fabric'
 			url = 'https://maven.fabricmc.net/'
 		}
-
+		// https://www.cursemaven.com/
 		exclusiveContent {
 			forRepository {
 				maven {
@@ -16,7 +16,12 @@ pluginManagement {
 			}
 		}
 
+
+
+		//maven { url "https://jitpack.io" }
+
 		mavenCentral()
 		gradlePluginPortal()
+
 	}
 }

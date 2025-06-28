@@ -72,9 +72,10 @@ public class DodoEntity extends AnimalEntity {
 
     public static DefaultAttributeContainer.Builder createDodoAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 12)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25F)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1);
+                .add(EntityAttributes.MAX_HEALTH, 12)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.25F)
+                .add(EntityAttributes.ATTACK_DAMAGE, 1)
+                .add(EntityAttributes.TEMPT_RANGE, 12);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class DodoEntity extends AnimalEntity {
 
     @Override
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.DODO_ET.create(world);
+        return ModEntities.DODO_ET.create(world, SpawnReason.BREEDING);
     }
 
     /* VARIANT */

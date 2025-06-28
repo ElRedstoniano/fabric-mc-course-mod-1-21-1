@@ -14,7 +14,7 @@ import net.minecraft.util.Util;
 
 import java.util.Map;
 
-public class DodoRenderer extends MobEntityRenderer<DodoEntity, DodoModel> {
+public class DodoRenderer extends MobEntityRenderer<DodoEntity, DodoRenderState, DodoModel> {
     private static final Map<DodoVariant, Identifier> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(DodoVariant.class), map -> {
         map.put(DodoVariant.BLUE, MCCourseMod.id("textures/entity/dodo/dodo_blue.png"));
@@ -26,18 +26,33 @@ public class DodoRenderer extends MobEntityRenderer<DodoEntity, DodoModel> {
     }
 
     @Override
-    public Identifier getTexture(DodoEntity entity) {
+    public Identifier getTexture(DodoRenderState state) {
         //return MCCourseMod.id("textures/entity/dodo/dodo_blue.png");
-        return LOCATION_BY_VARIANT.get(entity.getVariant());
+        return LOCATION_BY_VARIANT.get(state.variant);
+    }
+
+    /*@Override
+    public void render(DodoRenderState renderState, MatrixStack matrixStack,
+                       VertexConsumerProvider vertexConsumerProvider, int i) {
+        matrixStack.push();
+        if(renderState.baby) {
+            matrixStack.scale(0.5f, 0.5f, 0.5f);
+        } else {
+            matrixStack.scale(1,1,1);
+        }
+        matrixStack.pop();
+        super.render(renderState, matrixStack, vertexConsumerProvider, i);
+    }*/
+
+    @Override
+    public DodoRenderState createRenderState() {
+        return new DodoRenderState();
     }
 
     @Override
-    public void render(DodoEntity livingEntity, float f /*yaw*/, float g /*tickdelta*/, MatrixStack matrixStack,
-                       VertexConsumerProvider vertexConsumerProvider, int i) {
-        /*if(livingEntity.isBaby()) {
-            matrixStack.scale(0.5f, 0.5f, 0.5f);
-        }*/
-
-        super.render(livingEntity, f, g, matrixStack, vertexConsumerProvider, i);
+    public void updateRenderState(DodoEntity livingEntity, DodoRenderState livingEntityRenderState, float f) {
+        super.updateRenderState(livingEntity, livingEntityRenderState, f);
+        livingEntityRenderState.idleAnimationState.copyFrom(livingEntity.idleAnimationState);
+        livingEntityRenderState.variant = livingEntity.getVariant();
     }
 }

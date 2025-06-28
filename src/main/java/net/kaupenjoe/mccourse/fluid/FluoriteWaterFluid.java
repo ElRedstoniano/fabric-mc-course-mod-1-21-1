@@ -7,6 +7,7 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -27,10 +28,10 @@ public abstract class FluoriteWaterFluid extends FlowableFluid {
         return ModFluids.STILL_FLUORITE_WATER;
     }
 
-    @Override
+    /*@Override // Moved to Flowing class
     protected boolean isInfinite(World world) {
         return false;
-    }
+    }*/
 
     @Override
     protected void beforeBreakingBlock(WorldAccess world, BlockPos pos, BlockState state) {
@@ -92,6 +93,11 @@ public abstract class FluoriteWaterFluid extends FlowableFluid {
         }
 
         @Override
+        protected boolean isInfinite(ServerWorld world) {
+            return false;
+        }
+
+        @Override
         protected int getMaxFlowDistance(WorldView world) {
             return 5;
         }
@@ -102,6 +108,11 @@ public abstract class FluoriteWaterFluid extends FlowableFluid {
         }
     }
     public static class Still extends FluoriteWaterFluid {
+
+        @Override
+        protected boolean isInfinite(ServerWorld world) {
+            return false;
+        }
 
         @Override
         protected int getMaxFlowDistance(WorldView world) {

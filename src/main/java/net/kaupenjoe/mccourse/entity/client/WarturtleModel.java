@@ -1,18 +1,13 @@
 package net.kaupenjoe.mccourse.entity.client;
 
-import net.kaupenjoe.mccourse.MCCourseMod;
-import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.animation.WarturtleAnimations;
-import net.kaupenjoe.mccourse.entity.custom.WarturtleEntity;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.util.math.MathHelper;
 
-public class WarturtleModel<T extends WarturtleEntity> extends SinglePartEntityModel<T> {
+public class WarturtleModel/*<T extends WarturtleEntity>*/ extends EntityModel<WarturtleRenderState> {
+    public static final ModelTransformer BABY_TRANSFORMER = ModelTransformer.scaling(0.5F);
     private final ModelPart body;
     private final ModelPart tier1;
     private final ModelPart tier2;
@@ -20,6 +15,7 @@ public class WarturtleModel<T extends WarturtleEntity> extends SinglePartEntityM
     private final ModelPart head;
 
     public WarturtleModel(ModelPart root) {
+        super(root);
         this.body = root.getChild("body");
         this.head = this.body.getChild("torso").getChild("head");
 
@@ -91,21 +87,26 @@ public class WarturtleModel<T extends WarturtleEntity> extends SinglePartEntityM
         return TexturedModelData.of(modelData, 128, 128);
     }
 
+    public static TexturedModelData getTexturedBabyModelData() {
+        return getTexturedModelData().transform(WarturtleModel.BABY_TRANSFORMER);
+    }
+
+
     @Override
-    public void setAngles(WarturtleEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
-        setHeadAngles(netHeadYaw, headPitch);
+    public void setAngles(WarturtleRenderState renderState) {
+        //this.getPart().traverse().forEach(ModelPart::resetTransform);
+        setHeadAngles(renderState.yawDegrees, renderState.pitch);
 
-        this.animateMovement(WarturtleAnimations.ANIM_WARTURTLE_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
-        this.updateAnimation(entity.idleAnimationState, WarturtleAnimations.ANIM_WARTURTLE_IDLE, ageInTicks, 1f);
+        this.animateWalking(WarturtleAnimations.ANIM_WARTURTLE_WALK, renderState.limbFrequency, renderState.limbAmplitudeMultiplier, 2f, 2.5f);
+        this.animate(renderState.idleAnimationState, WarturtleAnimations.ANIM_WARTURTLE_IDLE, renderState.age, 1f);
 
-        this.updateAnimation(entity.sittingTransitionAnimationState, WarturtleAnimations.ANIM_WARTURTLE_HIDE, ageInTicks, 1f);
-        this.updateAnimation(entity.sittingAnimationState, WarturtleAnimations.ANIM_WARTURTLE_SITTING, ageInTicks, 1f);
-        this.updateAnimation(entity.standingTransitionAnimationState, WarturtleAnimations.ANIM_WARTURTLE_EMERGE, ageInTicks, 1f);
+        this.animate(renderState.sittingTransitionAnimationState, WarturtleAnimations.ANIM_WARTURTLE_HIDE, renderState.age, 1f);
+        this.animate(renderState.sittingAnimationState, WarturtleAnimations.ANIM_WARTURTLE_SITTING, renderState.age, 1f);
+        this.animate(renderState.standingTransitionAnimationState, WarturtleAnimations.ANIM_WARTURTLE_EMERGE, renderState.age, 1f);
 
-        tier1.visible = entity.hasTier1Chest();
-        tier2.visible = entity.hasTier2Chest();
-        tier3.visible = entity.hasTier3Chest();
+        tier1.visible = renderState.hasTier1Chest;
+        tier2.visible = renderState.hasTier2Chest;
+        tier3.visible = renderState.hasTier3Chest;
     }
 
     public void setHeadAngles(float headYaw, float headPitch) {
@@ -116,7 +117,7 @@ public class WarturtleModel<T extends WarturtleEntity> extends SinglePartEntityM
         this.head.pitch = headPitch * (float)(Math.PI / 180);
     }
 
-    @Override
+   /* @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
         if (this.child) {
             matrices.push();
@@ -128,10 +129,10 @@ public class WarturtleModel<T extends WarturtleEntity> extends SinglePartEntityM
             //matrices.scale(1f, 1f, 1f);
             body.render(matrices, vertexConsumer, light, overlay, color);
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public ModelPart getPart() {
         return body;
-    }
+    }*/
 }

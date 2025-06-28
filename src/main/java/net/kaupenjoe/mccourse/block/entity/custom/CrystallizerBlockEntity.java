@@ -29,6 +29,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -355,8 +356,7 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         if (recipe.isEmpty()){
             return false;
         }
-        //ItemStack output = recipe.get().value().output();
-        ItemStack output = recipe.get().value().getResult(null); // También sirve
+        ItemStack output = recipe.get().value().output();
         return canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output)
                 && hasEnoughEnergyToCraft()  && hasEnoughFluidToCraft();
     }
@@ -370,7 +370,8 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     private Optional<RecipeEntry<CrystallizerRecipe>> getCurrentRecipe() {
-        return this.getWorld().getRecipeManager().getFirstMatch(ModRecipes.CRYSTALLIZER_TYPE, new CrystallizerRecipeInput(inventory.get(INPUT_SLOT)), this.getWorld());
+        return ((ServerWorld) this.getWorld()).getRecipeManager().getFirstMatch(ModRecipes.CRYSTALLIZER_TYPE,
+                new CrystallizerRecipeInput(inventory.get(INPUT_SLOT)), this.getWorld());
     }
 
     private boolean canInsertAmountIntoOutputSlot(int count) {
@@ -385,15 +386,10 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getItem() == output.getItem();
     }
 
-    // Sincronización
+    // Synchronization //
 
     @Override
     public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
-        //((ServerWorld) getWorld()).getChunkManager().markForUpdate(this. getPos()); // Sincronización correcta al sacar
-        // sacar items del input mientras está crafteando. Soluciona un bug de desincronización que hace que a veces
-        // mientras se está crafteando un item al quitar el item de crafteo se duplique visualmente, aunque al colocarlo
-        // de nuevo en el input slot o tras cerrar el screen se vuelve a actualizar y muestra todo_ correctamente, eliminando
-        // los items fantasma duplicados en el lado del cliente.
         return BlockEntityUpdateS2CPacket.create(this);
     }
 

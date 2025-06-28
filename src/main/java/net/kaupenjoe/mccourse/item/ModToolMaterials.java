@@ -12,8 +12,11 @@ import net.minecraft.registry.tag.TagKey;
 
 import java.util.function.Supplier;
 
-public enum ModToolMaterials implements ToolMaterial {
-    FLUORITE(ModTags.Blocks.INCORRECT_FOR_FLUORITE_TOOL, 1500, 7.0F, 2.0F, 22, () -> Ingredient.ofItems(ModItems.FLUORITE));
+//public enum ModToolMaterials implements ToolMaterial {
+public class ModToolMaterials {
+    public static ToolMaterial FLUORITE =
+            new ToolMaterial(ModTags.Blocks.INCORRECT_FOR_FLUORITE_TOOL, 1500, 7.0F, 2.0F, 22, ModTags.Items.REPAIRS_FLUORITE_ARMOR);
+    /*FLUORITE(ModTags.Blocks.INCORRECT_FOR_FLUORITE_TOOL, 1500, 7.0F, 2.0F, 22, () -> Ingredient.ofItems(ModItems.FLUORITE));
 
     private final TagKey<Block> inverseTag;
     private final int itemDurability;
@@ -66,5 +69,5 @@ public enum ModToolMaterials implements ToolMaterial {
     @Override
     public Ingredient getRepairIngredient() {
         return (Ingredient)this.repairIngredient.get();
-    }
+    }*/
 }

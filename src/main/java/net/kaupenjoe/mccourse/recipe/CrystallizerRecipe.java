@@ -5,17 +5,15 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategories;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 public record CrystallizerRecipe(Ingredient inputItem, ItemStack output) implements Recipe<CrystallizerRecipeInput> {
 
-    @Override
     public DefaultedList<Ingredient> getIngredients() {
         DefaultedList<Ingredient> list = DefaultedList.of();
         list.add(this.inputItem);
@@ -36,7 +34,7 @@ public record CrystallizerRecipe(Ingredient inputItem, ItemStack output) impleme
         return output.copy();
     }
 
-    @Override
+    /*@Override
     public boolean fits(int width, int height) {
         return true;
     }
@@ -44,21 +42,32 @@ public record CrystallizerRecipe(Ingredient inputItem, ItemStack output) impleme
     @Override
     public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
         return output;
-    }
+    }*/
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<CrystallizerRecipeInput>> getSerializer() {
         return ModRecipes.CRYSTALLIZER_SERIALIZER;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<CrystallizerRecipeInput>> getType() {
         return ModRecipes.CRYSTALLIZER_TYPE;
     }
 
+    @Override
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.forSingleSlot(inputItem);
+    }
+
+    @Override
+    public RecipeBookCategory getRecipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    // The used codec is similar to the CrystallizerDisplay.SERIALIZER one
     public static class Serializer implements RecipeSerializer<CrystallizerRecipe> {
         public static final MapCodec<CrystallizerRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter(CrystallizerRecipe::inputItem),
+                Ingredient.CODEC.fieldOf("ingredient").forGetter(CrystallizerRecipe::inputItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(CrystallizerRecipe::output)
                 ).apply(inst, CrystallizerRecipe::new));
         public static final PacketCodec<RegistryByteBuf, CrystallizerRecipe> STREAM_CODEC =

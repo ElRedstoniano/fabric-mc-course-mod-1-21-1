@@ -1,0 +1,29 @@
+{
+  "layers": {
+    "wolf_body": [
+      {
+        "texture": "mccourse:fluorite"
+      }
+    ],
+    "horse_body": [
+      {
+        "texture": "mccourse:fluorite"
+      }
+    ],
+    "humanoid": [
+      {
+        "texture": "mccourse:fluorite"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "mccourse:fluorite"
+      }
+    ],
+    "warturtle_body": [
+      {
+        "texture": "mccourse:fluorite"
+      }
+    ]
+  }
+}

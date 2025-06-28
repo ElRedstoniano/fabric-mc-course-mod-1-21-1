@@ -10,6 +10,7 @@ import net.kaupenjoe.mccourse.util.MouseUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -78,14 +79,15 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        /*RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, GUI_TEXTURE);
+        RenderSystem.setShaderTexture(0, GUI_TEXTURE);*/
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(GUI_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        context.drawTexture(RenderLayer::getGuiTextured, GUI_TEXTURE, x, y, 0, 0,
+                backgroundWidth, backgroundHeight, 256, 256);
         energyInfoArea.draw(context);
         fluidStackRenderer.drawFluid(context, handler.blockEntity.fluidStorage, x + 8, y + 7, 16, 50,
                 (FluidConstants.BUCKET / 81) * 16);
@@ -96,14 +98,14 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
 
     private void renderProgressArrow(DrawContext context, int x, int y) {
         if (handler.isCrafting()){
-            context.drawTexture(ARROW_TEXTURE, x + 73, y + 35, 0, 0, handler.getScaledArrowProgress(),
+            context.drawTexture(RenderLayer::getGuiTextured, ARROW_TEXTURE, x + 73, y + 35, 0, 0, handler.getScaledArrowProgress(),
                     16, 24, 16);
         }
     }
 
     private void renderProgressCrystal(DrawContext context, int x, int y) {
         if (handler.isCrafting()){
-            context.drawTexture(CRYSTAL_TEXTURE, x + 104, y + 13 + 16 - handler.getScaledCrystalProgress(),
+            context.drawTexture(RenderLayer::getGuiTextured, CRYSTAL_TEXTURE, x + 104, y + 13 + 16 - handler.getScaledCrystalProgress(),
                     0, 16 - handler.getScaledCrystalProgress(), 16, handler.getScaledCrystalProgress(),
                     16, 16);
         }

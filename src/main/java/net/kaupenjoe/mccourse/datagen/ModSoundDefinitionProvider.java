@@ -32,8 +32,8 @@ public class ModSoundDefinitionProvider extends CustomFabricSoundProvider {
     // ya no se necesitaría nada de esto: https://discord.com/channels/507304429255393322/507304986921664533/1363490378648522952
 
     private void generateCustomSoundWithSubtitles(SoundGenerator soundGenerator, SoundEvent sound, boolean replace) {
-        soundGenerator.add(sound, replace, "sounds." + sound.getId().toShortTranslationKey(),
-                SoundEntryBuilder.sound( MCCourseMod.id(sound.getId().getPath()))
+        soundGenerator.add(sound, replace, "sounds." + sound.id().toShortTranslationKey(),
+                SoundEntryBuilder.sound( MCCourseMod.id(sound.id().getPath()))
                         .build());
 
     }
@@ -41,7 +41,7 @@ public class ModSoundDefinitionProvider extends CustomFabricSoundProvider {
 
     private void generateCustomMusicSound(SoundGenerator soundGenerator, SoundEvent sound) {
         soundGenerator.add(sound,
-                SoundEntryBuilder.sound( MCCourseMod.id(sound.getId().getPath()))
+                SoundEntryBuilder.sound( MCCourseMod.id(sound.id().getPath()))
                         .stream()
                         .build());
     }

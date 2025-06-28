@@ -2,10 +2,7 @@ package net.kaupenjoe.mccourse.entity.custom;
 
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.item.ModItems;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
@@ -50,10 +47,11 @@ public class GiraffeEntity extends AbstractHorseEntity {
 
     public static DefaultAttributeContainer.Builder createGiraffeAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 45)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1)
-                .add(EntityAttributes.GENERIC_JUMP_STRENGTH, 0.55f);
+                .add(EntityAttributes.MAX_HEALTH, 45)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.15f)
+                .add(EntityAttributes.ATTACK_DAMAGE, 1)
+                .add(EntityAttributes.JUMP_STRENGTH, 0.55f)
+                .add(EntityAttributes.TEMPT_RANGE, 12);
     }
 
     @Override
@@ -63,7 +61,7 @@ public class GiraffeEntity extends AbstractHorseEntity {
 
     @Override
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.GIRAFFE_ET.create(world);
+        return ModEntities.GIRAFFE_ET.create(world, SpawnReason.BREEDING);
     }
 
     /* RIDEABLE */
@@ -82,7 +80,7 @@ public class GiraffeEntity extends AbstractHorseEntity {
             }
             if (!this.isTame()) {
                 this.playAngrySound();
-                return ActionResult.success(this.getWorld().isClient);
+                return this.getWorld().isClient ? ActionResult.SUCCESS : ActionResult.CONSUME;
             }
         }
         return super.interactMob(player, hand);

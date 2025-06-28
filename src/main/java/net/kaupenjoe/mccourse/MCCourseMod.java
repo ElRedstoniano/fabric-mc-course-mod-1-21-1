@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
@@ -64,7 +64,10 @@ public class MCCourseMod implements ModInitializer, TerraBlenderApi {
 
 		ModDataComponentTypes.registerDataComponentsTypes();
 
-		FuelRegistry.INSTANCE.add(ModItems.STARLIGHT_ASHES, 600);
+		//
+		FuelRegistryEvents.BUILD.register((builder, context) -> {
+			builder.add(ModItems.STARLIGHT_ASHES, 600);
+		});
 
 		PlayerBlockBreakEvents.BEFORE.register(new HammerUsageEvent());
 

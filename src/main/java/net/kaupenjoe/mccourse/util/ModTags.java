@@ -33,6 +33,7 @@ public class ModTags {
         public static final TagKey<Item> TRANSFORMABLE_ITEMS =
                 createTag("transformable_items");
         public static final TagKey<Item> BLACKWOOD_LOGS = createCommonTag("blackwood_logs");
+        public static final TagKey<Item> REPAIRS_FLUORITE_ARMOR = createCommonTag("fluorite_repair");
 
         private static TagKey<Item> createTag(String name){
             return TagKey.of(RegistryKeys.ITEM, MCCourseMod.id(name));

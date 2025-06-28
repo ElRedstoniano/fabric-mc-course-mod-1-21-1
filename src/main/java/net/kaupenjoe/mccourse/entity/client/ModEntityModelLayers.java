@@ -8,5 +8,7 @@ public class ModEntityModelLayers {
     public static final EntityModelLayer GIRAFFE = new EntityModelLayer(MCCourseMod.id("giraffe"), "main");
     public static final EntityModelLayer TOMAHAWK = new EntityModelLayer(MCCourseMod.id("tomahawk"), "main");
     public static final EntityModelLayer WARTURTLE = new EntityModelLayer(MCCourseMod.id("warturtle"), "main");
+    public static final EntityModelLayer WARTURTLE_BABY = new EntityModelLayer(MCCourseMod.id("warturtle_baby"), "main");
     public static final EntityModelLayer WARTURTLE_ARMOR = new EntityModelLayer(MCCourseMod.id("warturtle_armor"), "armor");
+    public static final EntityModelLayer WARTURTLE_BABY_ARMOR = new EntityModelLayer(MCCourseMod.id("warturtle_baby_armor"), "armor");
 }

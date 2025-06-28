@@ -9,10 +9,12 @@ import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.custom.FluoriteLampBlock;
 import net.kaupenjoe.mccourse.block.custom.StrawberryCropBlock;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
+import net.kaupenjoe.mccourse.item.ModArmorMaterials;
 import net.kaupenjoe.mccourse.item.ModItems;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
+//import net.minecraft.client.render.model.json.ModelTransformationMode;
+import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.data.client.*;
-import net.minecraft.item.ArmorItem;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -100,10 +102,14 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.FLUORITE_LEGGINGS, Models.GENERATED);
         itemModelGenerator.register(ModItems.FLUORITE_BOOTS, Models.GENERATED);*/
 
-        itemModelGenerator.registerArmor((ArmorItem) ModItems.FLUORITE_HELMET);
-        itemModelGenerator.registerArmor((ArmorItem) ModItems.FLUORITE_CHESTPLATE);
-        itemModelGenerator.registerArmor((ArmorItem) ModItems.FLUORITE_LEGGINGS);
-        itemModelGenerator.registerArmor((ArmorItem) ModItems.FLUORITE_BOOTS);
+        itemModelGenerator.registerArmor(ModItems.FLUORITE_HELMET, MCCourseMod.id("fluorite"),
+                ModArmorMaterials.FLUORITE, EquipmentSlot.HEAD);
+        itemModelGenerator.registerArmor(ModItems.FLUORITE_CHESTPLATE, MCCourseMod.id("fluorite"),
+                ModArmorMaterials.FLUORITE, EquipmentSlot.CHEST);
+        itemModelGenerator.registerArmor(ModItems.FLUORITE_LEGGINGS, MCCourseMod.id("fluorite"),
+                ModArmorMaterials.FLUORITE, EquipmentSlot.LEGS);
+        itemModelGenerator.registerArmor(ModItems.FLUORITE_BOOTS, MCCourseMod.id("fluorite"),
+                ModArmorMaterials.FLUORITE, EquipmentSlot.FEET);
 
         itemModelGenerator.register(ModItems.FLUORITE_HORSE_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.KAUPEN_SMITHING_TEMPLATE, Models.GENERATED);

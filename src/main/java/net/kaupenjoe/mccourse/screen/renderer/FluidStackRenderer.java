@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
@@ -86,7 +87,7 @@ public class FluidStackRenderer {
         while (offsetHeight != 0) {
             final int curHeight = Math.min(offsetHeight, iconHeight);
 
-            context.drawSprite(x, y - offsetHeight, 0, width, curHeight, sprite);
+            context.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, height);
             offsetHeight -= curHeight;
             iteration++;
             if (iteration > 50) {

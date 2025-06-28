@@ -11,7 +11,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 
 public class ModPotions {
     public static final RegistryEntry<Potion> SLIMEY_POTION = registerPotion("slimey_potion",
-            new Potion(new StatusEffectInstance(ModEffects.SLIMEY, 200, 0)));
+            new Potion("slimey_potion", new StatusEffectInstance(ModEffects.SLIMEY, 200, 0)));
 
     private static RegistryEntry<Potion> registerPotion(String name, Potion potion){
         return Registry.registerReference(Registries.POTION, MCCourseMod.id(name), potion);

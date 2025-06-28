@@ -10,8 +10,8 @@ import net.minecraft.registry.entry.RegistryEntry;
 
 public class ModEffectSwordItem extends SwordItem {
     private final RegistryEntry<StatusEffect> effect;
-    public ModEffectSwordItem(ToolMaterial toolMaterial, Settings settings, RegistryEntry<StatusEffect> effect) {
-        super(toolMaterial, settings);
+    public ModEffectSwordItem(ToolMaterial toolMaterial, float attackDamage, float attackSpeed, Settings settings, RegistryEntry<StatusEffect> effect) {
+        super(toolMaterial, attackDamage, attackSpeed, settings);
         this.effect = effect;
     }
 

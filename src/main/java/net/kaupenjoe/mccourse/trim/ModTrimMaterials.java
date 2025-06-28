@@ -2,7 +2,8 @@ package net.kaupenjoe.mccourse.trim;
 
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.item.ModItems;
-import net.minecraft.item.trim.ArmorTrimMaterial;
+import net.minecraft.item.Item;
+import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
@@ -13,7 +14,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import net.minecraft.item.Item;
 
 import java.util.Map;
 

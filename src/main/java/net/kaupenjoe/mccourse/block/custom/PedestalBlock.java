@@ -1,7 +1,6 @@
 package net.kaupenjoe.mccourse.block.custom;
 
 
-import com.jcraft.jorbis.DspState;
 import com.mojang.serialization.MapCodec;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.block.entity.custom.PedestalBlockEntity;
@@ -15,10 +14,9 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.PathUtil;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
@@ -70,7 +68,7 @@ public class PedestalBlock extends BlockWithEntity implements BlockEntityProvide
     }
 
     @Override
-    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
        // return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
         if( world.getBlockEntity(pos) instanceof PedestalBlockEntity pedestalBlockEntity){
             if(pedestalBlockEntity.isEmpty() && !stack.isEmpty()){
@@ -92,7 +90,7 @@ public class PedestalBlock extends BlockWithEntity implements BlockEntityProvide
                 player.openHandledScreen(pedestalBlockEntity);
             }
         }
-        return ItemActionResult.SUCCESS;
+        return ActionResult.SUCCESS;
     }
 
     @Override

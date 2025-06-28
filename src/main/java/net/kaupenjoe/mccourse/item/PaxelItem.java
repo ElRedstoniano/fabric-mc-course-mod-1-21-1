@@ -64,8 +64,8 @@ public class PaxelItem extends MiningToolItem {
             .build();
 
 
-    public PaxelItem(ToolMaterial material, Settings settings) {
-        super(material, ModTags.Blocks.PAXEL_MINEABLE, settings);
+    public PaxelItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
+        super(material, ModTags.Blocks.PAXEL_MINEABLE, attackDamage, attackSpeed, settings);
     }
 
     // Copied from ShovelItem class
@@ -113,7 +113,7 @@ public class PaxelItem extends MiningToolItem {
                                 context.getStack().damage(1, playerEntity, LivingEntity.getSlotForHand(context.getHand()));
                             }
                         }
-                        return ActionResult.success(world.isClient);
+                        return world.isClient ? ActionResult.SUCCESS : ActionResult.CONSUME;
                     } else {
                         return ActionResult.PASS;
                     }
@@ -134,7 +134,7 @@ public class PaxelItem extends MiningToolItem {
                 //return ActionResult.success(world.isClient);
             }
         }
-        return ActionResult.success(world.isClient);
+        return world.isClient ? ActionResult.SUCCESS : ActionResult.CONSUME;
     }
     // Copies from AxeItem class
     private static boolean shouldCancelStripAttempt(ItemUsageContext context) {

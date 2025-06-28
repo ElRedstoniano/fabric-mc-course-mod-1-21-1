@@ -21,17 +21,17 @@ public class AttackEntityHandler implements AttackEntityCallback {
     public ActionResult interact(PlayerEntity playerEntity, World world, Hand hand, Entity entity, @Nullable EntityHitResult entityHitResult) {
         if (entity instanceof SheepEntity && !world.isClient()){
             if (playerEntity.getMainHandStack().getItem() == ModItems.METAL_DETECTOR){
-                playerEntity.sendMessage(Text.translatable("events.hit_metal_detector_entity", playerEntity.getName().getString()));
+                playerEntity.sendMessage(Text.translatable("events.hit_metal_detector_entity", playerEntity.getName().getString()), false);
             }
 
             if (playerEntity.getMainHandStack().getItem() == ModItems.STRAWBERRY){
-                playerEntity.sendMessage(Text.translatable("events.hit_strawberry_entity", playerEntity.getName().getString()));
+                playerEntity.sendMessage(Text.translatable("events.hit_strawberry_entity", playerEntity.getName().getString()), false);
                 ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 400));
                 playerEntity.getMainHandStack().decrement(1);
             }
 
             if (playerEntity.getMainHandStack().getItem() == Items.END_ROD){
-                playerEntity.sendMessage(Text.translatable("events.hit_end_rod_entity", playerEntity.getName().getString()));
+                playerEntity.sendMessage(Text.translatable("events.hit_end_rod_entity", playerEntity.getName().getString()),false);
                 ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 400));
                 playerEntity.getMainHandStack().decrement(1);
             }

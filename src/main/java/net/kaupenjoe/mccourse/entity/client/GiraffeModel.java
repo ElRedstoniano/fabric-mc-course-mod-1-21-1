@@ -1,20 +1,20 @@
 package net.kaupenjoe.mccourse.entity.client;
 
-import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.animation.GiraffeAnimations;
 import net.kaupenjoe.mccourse.entity.custom.GiraffeEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
-public class GiraffeModel<T extends GiraffeEntity> extends SinglePartEntityModel<T> {
+public class GiraffeModel/*<T extends GiraffeEntity>*/ extends EntityModel<GiraffeRenderState> {
     private final ModelPart body;
     private final ModelPart head;
 
     public GiraffeModel(ModelPart root) {
+        super(root);
         this.body = root.getChild("body");
         this.head = body.getChild("torso").getChild("neck").getChild("head");
     }
@@ -70,15 +70,16 @@ public class GiraffeModel<T extends GiraffeEntity> extends SinglePartEntityModel
     }
 
     @Override
-    public void setAngles(GiraffeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform);
-        setHeadAngles( entity, netHeadYaw, headPitch, ageInTicks);
-
-        this.animateMovement(GiraffeAnimations.ANIM_GIRAFFE_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
-        this.updateAnimation(entity.idleAnimationState, GiraffeAnimations.ANIM_GIRAFFE_IDLE, ageInTicks, 1f);
+    //public void setAngles(GiraffeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(GiraffeRenderState state) {
+        //this.getPart().traverse().forEach(ModelPart::resetTransform);
+        setHeadAngles(state.yawDegrees, state.pitch);
+        // animateMovement -> animateWalking
+        this.animateWalking(GiraffeAnimations.ANIM_GIRAFFE_WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 2f, 2.5f);
+        this.animate(state.idleAnimationState, GiraffeAnimations.ANIM_GIRAFFE_IDLE, state.age, 1f);
     }
 
-    public void setHeadAngles(Entity entity, float headYaw, float headPitch, float animationProgress) {
+    public void setHeadAngles(float headYaw, float headPitch) {
         headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
         headPitch = MathHelper.clamp(headPitch, -25.0F, 45.0F);
 
@@ -87,7 +88,7 @@ public class GiraffeModel<T extends GiraffeEntity> extends SinglePartEntityModel
         this.head.pitch = headPitch * (float)(Math.PI / 180);
     }
 
-    @Override
+    /*@Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
         if (this.child) {
             matrices.scale(0.45f, 0.55f, 0.45f);
@@ -96,10 +97,10 @@ public class GiraffeModel<T extends GiraffeEntity> extends SinglePartEntityModel
             matrices.scale(1f, 1f, 1f);
         }
         body.render(matrices, vertexConsumer, light, overlay, color);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public ModelPart getPart() {
         return body;
-    }
+    }*/
 }

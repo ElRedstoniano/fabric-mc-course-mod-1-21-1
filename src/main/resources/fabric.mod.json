@@ -29,6 +29,11 @@
 		],
 		"rei_client": [
 			"net.kaupenjoe.mccourse.compat.MCCourseModREIClient"
+		],
+		"rei_common": [
+			"net.kaupenjoe.mccourse.compat.MCCourseModREICommon"
+		],"mm:early_risers": [
+			"net.kaupenjoe.mccourse.fabricasm.EarlyRiser"
 		]
 	},
 	"mixins": [

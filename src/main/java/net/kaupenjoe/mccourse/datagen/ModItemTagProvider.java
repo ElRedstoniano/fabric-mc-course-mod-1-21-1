@@ -28,6 +28,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Items.STICK)
                 .add(Items.APPLE);
 
+        getOrCreateTagBuilder(ModTags.Items.REPAIRS_FLUORITE_ARMOR)
+                .add(ModItems.FLUORITE); //
+
         //getOrCreateTagBuilder(ItemTags.TRIMMABLE_ARMOR).add(ModItems.FLUORITE_HELMET) ...;
         getOrCreateTagBuilder(ItemTags.HEAD_ARMOR)
                 .add(ModItems.FLUORITE_HELMET);

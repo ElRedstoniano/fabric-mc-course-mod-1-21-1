@@ -5,9 +5,13 @@ import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.client.util.math.Vector2f;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Direction;
@@ -17,12 +21,16 @@ public class TomahawkProjectileEntity extends PersistentProjectileEntity {
     private float rotation;
     public Vector2f groundedOffset;
 
+    public static final TrackedData<Boolean> ENCHANTED =
+            DataTracker.registerData(TomahawkProjectileEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
     public TomahawkProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
 
     public TomahawkProjectileEntity(World world, PlayerEntity player) {
         super(ModEntities.TOMAHAWK_ET, player, world, new ItemStack(ModItems.TOMAHAWK), null);
+        this.dataTracker.set(ENCHANTED, player.getMainHandStack().hasGlint());
     }
 
     @Override
@@ -38,17 +46,27 @@ public class TomahawkProjectileEntity extends PersistentProjectileEntity {
         return rotation;
     }
 
-    public boolean isGrounded() {
-        return inGround;
+    public boolean isEnchanted() {
+        return this.dataTracker.get(ENCHANTED);
     }
+
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(ENCHANTED, false);
+    }
+
+    /*public boolean isGrounded() {
+        return inGround;
+    }*/
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult); //
         Entity entity = entityHitResult.getEntity();
-        entity.damage(this.getDamageSources().thrown(this, this.getOwner()), 4);
 
         if (!this.getWorld().isClient()) {
+            entity.damage(((ServerWorld) this.getWorld()), this.getDamageSources().thrown(this, this.getOwner()), 4);
             this.getWorld().sendEntityStatus(this, (byte)3);
             this.discard(); // Eliminar proyectil tras chocar con una entidad
         }

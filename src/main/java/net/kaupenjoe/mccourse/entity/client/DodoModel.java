@@ -1,24 +1,19 @@
 package net.kaupenjoe.mccourse.entity.client;
 
-import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.animation.DodoAnimations;
-import net.kaupenjoe.mccourse.entity.custom.DodoEntity;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.BreezeAnimations;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 
 // Made with Blockbench 4.10.4
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
-public class DodoModel extends SinglePartEntityModel<DodoEntity> {
+public class DodoModel extends EntityModel<DodoRenderState> {
     private final ModelPart body;
     private final ModelPart head;
 
     public DodoModel(ModelPart root) {
+        super(root);
         this.body = root.getChild("body");
         this.head = body.getChild("chest").getChild("neck");
     }
@@ -121,16 +116,16 @@ public class DodoModel extends SinglePartEntityModel<DodoEntity> {
         return TexturedModelData.of(modelData, 128, 128);
     }
     @Override
-    public void setAngles(DodoEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.getPart().traverse().forEach(ModelPart::resetTransform); // Es necesario para que cuando termine la animación se vuelva a reproducir y no se reproduzcan
+    public void setAngles(DodoRenderState renderState) {
+        //this.getPart().traverse().forEach(ModelPart::resetTransform); // Es necesario para que cuando termine la animación se vuelva a reproducir y no se reproduzcan
         // todas las animaciones al mismo tiempo
-        setHeadAngles(netHeadYaw, headPitch);
+        setHeadAngles(renderState.yawDegrees, renderState.pitch);
 
 
-        this.animateMovement(DodoAnimations.ANIM_DODO_WALK,  limbSwing, limbSwingAmount, 2f, 2.5f);
+        this.animateWalking(DodoAnimations.ANIM_DODO_WALK,  renderState.limbFrequency, renderState.limbAmplitudeMultiplier, 2f, 2.5f);
         // De nuevo mirar clase CamelModel para saber de donde se sacan los números mágicos
 
-        this.updateAnimation(entity.idleAnimationState, DodoAnimations.ANIM_DODO_IDLE, ageInTicks, 1f);
+        this.animate(renderState.idleAnimationState, DodoAnimations.ANIM_DODO_IDLE, renderState.age, 1f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {
@@ -142,7 +137,7 @@ public class DodoModel extends SinglePartEntityModel<DodoEntity> {
         this.head.pitch = -headPitch * anglesToRadiansFactor;
     }
 
-    @Override
+    /*@Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
         if (this.child) {
             matrices.scale(0.5f, 0.5f, 0.5f);
@@ -156,7 +151,7 @@ public class DodoModel extends SinglePartEntityModel<DodoEntity> {
     @Override
     public ModelPart getPart() {
         return body;
-    }
+    }*/
 
     /*@Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {

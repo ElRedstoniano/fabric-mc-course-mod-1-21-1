@@ -8,11 +8,14 @@ import net.kaupenjoe.mccourse.item.custom.WarturtleArmorItem;
 import net.kaupenjoe.mccourse.screen.custom.WarturtleScreenHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.DyedCarpetBlock;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.BodyControl;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -23,15 +26,18 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -107,9 +113,10 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     public static DefaultAttributeContainer.Builder createWarturtleAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 45)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1);
+                .add(EntityAttributes.MAX_HEALTH, 45)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.15f)
+                .add(EntityAttributes.ATTACK_DAMAGE, 1)
+                .add(EntityAttributes.TEMPT_RANGE, 12);
     }
 
     /* BREEDABLE */
@@ -120,7 +127,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     @Override
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.WARTURTLE_ET.create(world);
+        return ModEntities.WARTURTLE_ET.create(world, SpawnReason.BREEDING);
     }
 
 
@@ -210,7 +217,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
                 //if(i == 0) MCCourseMod.LOGGER.info(itemStack + "-write" + i);
                 NbtCompound nbtCompound = new NbtCompound();
                 nbtCompound.putByte("Slot", (byte)(i));
-                nbtList.add(itemStack.encode(this.getRegistryManager(), nbtCompound));
+                nbtList.add(itemStack.toNbt(this.getRegistryManager(), nbtCompound));
             }
         }
 
@@ -321,7 +328,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
             return ActionResult.SUCCESS;
         } else if (this.isTamed()) {
             this.openInventory(player); // Se abre el inventario solo si se está agachando el jugador
-            return ActionResult.success(this.getWorld().isClient);
+            return this.getWorld().isClient ? ActionResult.SUCCESS : ActionResult.CONSUME;
         }
 
         return super.interactMob(player, hand);
@@ -473,16 +480,18 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     }
 
     @Override
-    protected void applyDamage(DamageSource source, float amount) {
+    protected void applyDamage(ServerWorld world, DamageSource source, float amount) {
         if (!this.canArmorAbsorb(source)) { // Si es un tipo de daño que la armadura no puede absorber simplemente se aplica
-            super.applyDamage(source, amount);
+            super.applyDamage(world, source, amount);
         } else { // Si no se aplica una variación del daño en función de la armadura además de quitarle duración
             ItemStack itemStack = this.getBodyArmor();
             itemStack.damage(MathHelper.ceil(amount), this, EquipmentSlot.BODY);
 
             if (itemStack.getItem() instanceof WarturtleArmorItem warturtleArmorItem) {
-                int damageReduction = warturtleArmorItem.getProtection() / 2; // depends on what armor
-                super.applyDamage(source, Math.max(0, amount - damageReduction));
+                //int damageReduction = warturtleArmorItem.getProtection() / 2; // depends on what armor
+                //float damageReduction = (float) this.getAttributeInstance(EntityAttributes.ARMOR).getBaseValue();
+                float damageReduction = warturtleArmorItem.getArmorStats()[0] / 2; // depends on what armor
+                super.applyDamage(world, source, Math.max(0, amount - damageReduction));
             }
         }
     }
