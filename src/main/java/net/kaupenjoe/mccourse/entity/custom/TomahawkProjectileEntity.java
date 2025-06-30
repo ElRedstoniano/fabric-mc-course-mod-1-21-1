@@ -1,5 +1,6 @@
 package net.kaupenjoe.mccourse.entity.custom;
 
+import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.client.util.math.Vector2f;
@@ -15,11 +16,16 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class TomahawkProjectileEntity extends PersistentProjectileEntity {
     private float rotation;
-    public Vector2f groundedOffset;
+    private float prevRotation = 0;
+    public Vector2f groundedOffset = new Vector2f(0,0);
+
+    @Override
+    public boolean isInGround() { return super.isInGround(); }
 
     public static final TrackedData<Boolean> ENCHANTED =
             DataTracker.registerData(TomahawkProjectileEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -38,12 +44,18 @@ public class TomahawkProjectileEntity extends PersistentProjectileEntity {
         return new ItemStack(ModItems.TOMAHAWK);
     }
 
-    public float getRenderingRotation() {
+    public float getLerpedRenderingRotation(float tickDelta) {
+        prevRotation = rotation;
         rotation += 0.5f;
         if (rotation >= 360) {
-            rotation = 0;
+            rotation -= 360;
         }
-        return rotation;
+
+        return MathHelper.lerpAngleDegrees(tickDelta, prevRotation, rotation);
+    }
+
+    public float getLerpedPitch(float tickDelta) {
+        return tickDelta == 1.0F ? this.getPitch() : MathHelper.lerp(tickDelta, this.prevPitch, this.getPitch());
     }
 
     public boolean isEnchanted() {

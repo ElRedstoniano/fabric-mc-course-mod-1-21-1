@@ -13,16 +13,14 @@ import net.kaupenjoe.mccourse.block.entity.renderer.PedestalBlockEntityRenderer;
 import net.kaupenjoe.mccourse.block.entity.renderer.TankBlockEntityRenderer;
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.*;
-import net.kaupenjoe.mccourse.entity.custom.WarturtleEntity;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.kaupenjoe.mccourse.screen.custom.*;
-import net.kaupenjoe.mccourse.util.ModModelPredicates;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.world.biome.FoliageColors;
+import net.minecraft.world.biome.GrassColors;
 
 public class MCCourseModClient implements ClientModInitializer {
     @Override
@@ -36,11 +34,11 @@ public class MCCourseModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TANK, RenderLayer.getTranslucent());
 
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) ->
-                world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.COLORED_LEAVES);
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getDefaultColor(), ModBlocks.COLORED_LEAVES);
-        // Mirar ckases BlockColors e ItemColor para más ejemplos
+                world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : GrassColors.getDefaultColor(), ModBlocks.COLORED_LEAVES);
+        //ColorProviderRegistry.ITEM.register((stack, tintIndex) -> GrassColors.getDefaultColor(), ModBlocks.COLORED_LEAVES);
+        // Mirar clases BlockColors e ItemColor para más ejemplos
 
-        ModModelPredicates.registerModelPredicates();
+        //ModModelPredicates.registerModelPredicates(); // Gone in 1.12.4
 
         FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_FLUORITE_WATER, ModFluids.FLOWING_FLUORITE_WATER,
                 SimpleFluidRenderHandler.coloredWater(0xA1E038D0));
@@ -58,9 +56,11 @@ public class MCCourseModClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.DODO, DodoModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.DODO_ET, DodoRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.DODO_BABY, DodoModel::getTexturedBabyModelData);
 
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.GIRAFFE, GiraffeModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.GIRAFFE_ET, GiraffeRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.GIRAFFE_BABY, GiraffeModel::getTexturedBabyModelData);
 
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.TOMAHAWK, TomahawkProjectileModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.TOMAHAWK_ET, TomahawkProjectileRenderer::new);
@@ -70,6 +70,7 @@ public class MCCourseModClient implements ClientModInitializer {
                 WarturtleModel::getTexturedBabyModelData);
         EntityRendererRegistry.register(ModEntities.WARTURTLE_ET, WarturtleRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.WARTURTLE_ARMOR, WarturtleModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.WARTURTLE_BABY_ARMOR, WarturtleModel::getTexturedBabyModelData);
         //
     }
 }

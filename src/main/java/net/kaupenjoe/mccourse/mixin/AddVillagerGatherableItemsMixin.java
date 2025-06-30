@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Mixin(VillagerEntity.class)
 public class AddVillagerGatherableItemsMixin {
-    @Mutable
+    /*@Mutable
     @SuppressWarnings("ShadowModifiers")
     @Shadow @Final
     public static Map<Item, Integer> ITEM_FOOD_VALUES;
@@ -30,5 +30,6 @@ public class AddVillagerGatherableItemsMixin {
                 .put(ModItems.STRAWBERRY_SEEDS, 1)
                 .put(ModItems.STRAWBERRY, 1)
                 .build();
-    }
+    }*/ // Fabric ya incluye una api que permite registrar items coleccionables, compostables y comestibles para
+    // los aldeanos, por lo que esto ya no sirve del todo_ (VillagerInteractionRegistries)
 }

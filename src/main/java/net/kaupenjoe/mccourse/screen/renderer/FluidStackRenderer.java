@@ -11,6 +11,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -72,7 +73,7 @@ public class FluidStackRenderer {
         if (fluidStorage.variant.getFluid() == Fluids.EMPTY) {
             return;
         }
-        RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
+        //RenderSystem.setShaderTexture(0, /*PlayerScreenHandler.BLOCK_ATLAS_TEXTURE*/ SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
         y += height;
         final Sprite sprite = FluidVariantRendering.getSprite(fluidStorage.variant);
         int color = FluidVariantRendering.getColor(fluidStorage.variant);
@@ -81,23 +82,23 @@ public class FluidStackRenderer {
         final int iconHeight = sprite.getY();
         int offsetHeight = drawHeight;
 
-        RenderSystem.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
+        //RenderSystem.setShaderColor((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F, 1F);
 
         int iteration = 0;
         while (offsetHeight != 0) {
             final int curHeight = Math.min(offsetHeight, iconHeight);
 
-            context.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, height);
+            context.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, /*height*/curHeight, color);
             offsetHeight -= curHeight;
             iteration++;
             if (iteration > 50) {
                 break;
             }
         }
-        RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+        //RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
-        RenderSystem.setShaderTexture(0, FluidRenderHandlerRegistry.INSTANCE.get(fluidStorage.variant.getFluid())
-                .getFluidSprites(MinecraftClient.getInstance().world, null, fluidStorage.variant.getFluid().getDefaultState())[0].getAtlasId());
+        /*RenderSystem.setShaderTexture(0, FluidRenderHandlerRegistry.INSTANCE.get(fluidStorage.variant.getFluid())
+                .getFluidSprites(MinecraftClient.getInstance().world, null, fluidStorage.variant.getFluid().getDefaultState())[0].getAtlasId());*/
     }
 
     public List<Text> getTooltip(SingleVariantStorage<FluidVariant> fluidStorage, Item.TooltipContext tooltipFlag) {

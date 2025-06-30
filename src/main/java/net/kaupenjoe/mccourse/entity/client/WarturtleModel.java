@@ -94,7 +94,8 @@ public class WarturtleModel/*<T extends WarturtleEntity>*/ extends EntityModel<W
 
     @Override
     public void setAngles(WarturtleRenderState renderState) {
-        //this.getPart().traverse().forEach(ModelPart::resetTransform);
+        //this.getPart().traverse().forEach(ModelPart::resetTransform); // Now the main root part is called instead of the old getPart() method
+        body.traverse().forEach(ModelPart::resetTransform);
         setHeadAngles(renderState.yawDegrees, renderState.pitch);
 
         this.animateWalking(WarturtleAnimations.ANIM_WARTURTLE_WALK, renderState.limbFrequency, renderState.limbAmplitudeMultiplier, 2f, 2.5f);

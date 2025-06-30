@@ -2,17 +2,15 @@ package net.kaupenjoe.mccourse.entity.client;
 
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.custom.GiraffeEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.AgeableMobEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class GiraffeRenderer extends MobEntityRenderer<GiraffeEntity, GiraffeRenderState, GiraffeModel> {
+public class GiraffeRenderer extends AgeableMobEntityRenderer<GiraffeEntity, GiraffeRenderState, GiraffeModel> {
     public GiraffeRenderer(EntityRendererFactory.Context context) {
-        super(context, new GiraffeModel(context.getPart(ModEntityModelLayers.GIRAFFE)), 1F);
+        super(context, new GiraffeModel(context.getPart(ModEntityModelLayers.GIRAFFE)),
+                new GiraffeModel(context.getPart(ModEntityModelLayers.GIRAFFE_BABY)),1F);
     }
 
     /*@Override

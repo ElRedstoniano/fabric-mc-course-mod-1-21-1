@@ -54,12 +54,13 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.21.3-4.2.0.1'
+	modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.21.4-4.3.0.2' // Version is defined in the .jar's name
 	// https://github.com/Glitchfiend/TerraBlender/wiki/Getting-started
 
-	// https://linkie.shedaniel.dev/dependencies?loader=fabric&version=1.21.3
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:17.0.803"
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:17.0.803"
+	// https://linkie.shedaniel.dev/dependencies?loader=fabric&version=1.21.4
+	// https://github.com/shedaniel/RoughlyEnoughItems
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:18.0.804"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:18.0.804"
 
 	modApi "dev.architectury:architectury-fabric:14.0.4"
 	modApi "me.shedaniel.cloth:cloth-config-fabric:16.0.143"
@@ -72,10 +73,10 @@ dependencies {
 
 	// Testing
 	// https://www.curseforge.com/minecraft/mc-mods/techreborn
-	modImplementation "curse.maven:techreborn-233564:6664367"
+	modImplementation "curse.maven:techreborn-233564:6664381"
 
 	// https://www.curseforge.com/minecraft/mc-mods/reborncore
-	modImplementation "curse.maven:reborncore-237903:6664366"
+	modImplementation "curse.maven:reborncore-237903:6664380"
 
 	// From https://jitpack.io/#Chocohead/Fabric-ASM/v2.3 // Needed for new enums on existent enums
 	implementation 'com.github.Chocohead:Fabric-ASM:v2.3'

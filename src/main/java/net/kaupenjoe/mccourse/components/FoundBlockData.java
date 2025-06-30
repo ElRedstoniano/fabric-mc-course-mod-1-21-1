@@ -1,7 +1,6 @@
 package net.kaupenjoe.mccourse.components;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.kaupenjoe.mccourse.util.ColorUtil;
 import net.minecraft.block.BlockState;

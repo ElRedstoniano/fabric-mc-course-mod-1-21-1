@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.fabricmc.fabric.api.registry.VillagerInteractionRegistries;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.command.ReturnHomeCommand;
@@ -103,6 +104,14 @@ public class MCCourseMod implements ModInitializer, TerraBlenderApi {
 		ModEntities.RegisterModEntities();
 
 		ModEntitySpawns.addSpawns();
+
+		registerVillagerModifications();
+	}
+
+	private void registerVillagerModifications(){
+		//VillagerInteractionRegistries.registerCollectable(ModItems.STRAWBERRY); // Añadido al tag VILLAGER_PICKS_UP en ModItemTagProvider
+		VillagerInteractionRegistries.registerCompostable(ModItems.STRAWBERRY);
+		VillagerInteractionRegistries.registerFood(ModItems.STRAWBERRY, 1);
 	}
 
 	private void registerStrippables(){

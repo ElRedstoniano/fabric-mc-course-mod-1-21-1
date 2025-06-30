@@ -18,6 +18,9 @@
 		"main": [
 			"net.kaupenjoe.mccourse.MCCourseMod"
 		],
+		"mm:early_risers": [
+			"net.kaupenjoe.mccourse.fabricasm.EarlyRiser"
+		],
 		"fabric-datagen": [
 			"net.kaupenjoe.mccourse.MCCourseModDataGenerator"
 		],
@@ -32,8 +35,6 @@
 		],
 		"rei_common": [
 			"net.kaupenjoe.mccourse.compat.MCCourseModREICommon"
-		],"mm:early_risers": [
-			"net.kaupenjoe.mccourse.fabricasm.EarlyRiser"
 		]
 	},
 	"mixins": [

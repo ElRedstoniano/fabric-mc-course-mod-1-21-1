@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "W": {
-      "item": "mccourse:fluorite_block"
-    }
+    "#": "minecraft:stick",
+    "W": "mccourse:fluorite_block"
   },
   "pattern": [
     "W#W",

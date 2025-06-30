@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "R": {
-      "item": "mccourse:raw_fluorite"
-    }
+    "R": "mccourse:raw_fluorite"
   },
   "pattern": [
     "RRR",

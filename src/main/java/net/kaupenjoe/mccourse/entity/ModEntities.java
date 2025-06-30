@@ -27,7 +27,7 @@ public class ModEntities {
                     .dimensions(1.5f, 2.5f).build(GIRAFFE_KEY));
     public static final EntityType<TomahawkProjectileEntity> TOMAHAWK_ET = Registry.register(Registries.ENTITY_TYPE, MCCourseMod.id("tomahawk"),
             EntityType.Builder.<TomahawkProjectileEntity>create(TomahawkProjectileEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.5f, 1.16f).build(TOMAHAWK_KEY));
+                    .dimensions(0.5f, 0.5f).build(TOMAHAWK_KEY));
     public static final EntityType<WarturtleEntity> WARTURTLE_ET = Registry.register(Registries.ENTITY_TYPE, MCCourseMod.id("warturtle"),
             EntityType.Builder.create(WarturtleEntity::new, SpawnGroup.MISC)
                     .dimensions(2f, 1.5f).build(WARTURTLE_KEY));

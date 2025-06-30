@@ -1,6 +1,5 @@
 package net.kaupenjoe.mccourse.block.entity;
 
-import com.mojang.datafixers.types.Type;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.ModBlocks;
@@ -11,7 +10,6 @@ import net.kaupenjoe.mccourse.block.entity.custom.TankBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
 import team.reborn.energy.api.EnergyStorage;
 
 public class ModBlockEntities {

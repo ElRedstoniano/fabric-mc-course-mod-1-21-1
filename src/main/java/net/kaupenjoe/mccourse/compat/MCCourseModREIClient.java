@@ -5,23 +5,9 @@ import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.display.Display;
-import me.shedaniel.rei.api.common.display.DisplaySerializer;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.kaupenjoe.mccourse.block.ModBlocks;
-import net.kaupenjoe.mccourse.recipe.CrystallizerRecipe;
-import net.kaupenjoe.mccourse.recipe.ModRecipes;
 import net.kaupenjoe.mccourse.screen.custom.CrystallyzerScreen;
-import me.shedaniel.rei.api.common.registry.display.*;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.SmokingRecipe;
-import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-import java.util.Optional;
 
 public class MCCourseModREIClient implements REIClientPlugin {
 

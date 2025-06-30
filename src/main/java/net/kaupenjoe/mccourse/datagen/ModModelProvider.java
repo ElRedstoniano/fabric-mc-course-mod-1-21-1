@@ -1,27 +1,29 @@
 package net.kaupenjoe.mccourse.datagen;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.custom.FluoriteLampBlock;
 import net.kaupenjoe.mccourse.block.custom.StrawberryCropBlock;
+import net.kaupenjoe.mccourse.components.ModDataComponentTypes;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
 import net.kaupenjoe.mccourse.item.ModArmorMaterials;
 import net.kaupenjoe.mccourse.item.ModItems;
-//import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.item.ModelTransformationMode;
-import net.minecraft.data.client.*;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.BowItem;
+import net.minecraft.client.data.*;
+import net.minecraft.client.item.ItemAsset;
+import net.minecraft.client.render.item.model.BundleSelectedItemModel;
+import net.minecraft.client.render.item.model.ConditionItemModel;
+import net.minecraft.client.render.item.model.ItemModel;
+import net.minecraft.client.render.item.model.SelectItemModel;
+import net.minecraft.client.render.item.property.bool.BundleHasSelectedItemProperty;
+import net.minecraft.client.render.item.property.bool.HasComponentProperty;
+import net.minecraft.client.render.item.property.select.DisplayContextProperty;
+import net.minecraft.client.render.item.property.select.SelectProperty;
 import net.minecraft.item.Item;
+import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 
-import java.util.Map;
 import java.util.Optional;
 
 public class ModModelProvider extends FabricModelProvider {
@@ -62,9 +64,12 @@ public class ModModelProvider extends FabricModelProvider {
                 .coordinate(BlockStateModelGenerator.createBooleanModelMap(FluoriteLampBlock.CLICKED, lamp_on_identifier, lamp_off_identifier)));
 
         blockStateModelGenerator.registerCrop(ModBlocks.STRAWBERRY_CROP, StrawberryCropBlock.AGE, 0, 1, 2, 3, 4, 5);
-        blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.DAHLIA, ModBlocks.POTTED_DAHLIA, BlockStateModelGenerator.TintType.NOT_TINTED);
+        blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.DAHLIA, ModBlocks.POTTED_DAHLIA, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        // registerFlowerPotPlantAndItem
 
-        blockStateModelGenerator.registerSingleton(ModBlocks.COLORED_LEAVES, TexturedModel.LEAVES);
+       // blockStateModelGenerator.registerSingleton(ModBlocks.COLORED_LEAVES, TexturedModel.LEAVES);
+        blockStateModelGenerator.registerTintedBlockAndItem(ModBlocks.COLORED_LEAVES, TexturedModel.LEAVES, -12012264);
+        // New leaves in 1.21.2-4+ ^ BlockStateModelGenerator.class
 
         //blockStateModelGenerator.registerNorthDefaultHorizontalRotated(ModBlocks.CRYSTALLIZER, TexturedModel.ORIENTABLE);
         blockStateModelGenerator.registerCooker(ModBlocks.CRYSTALLIZER, TexturedModel.ORIENTABLE);
@@ -72,8 +77,11 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerLog(ModBlocks.BLACKWOOD_LOG).log(ModBlocks.BLACKWOOD_LOG).wood(ModBlocks.BLACKWOOD_WOOD);
         blockStateModelGenerator.registerLog(ModBlocks.STRIPPED_BLACKWOOD_LOG).log(ModBlocks.STRIPPED_BLACKWOOD_LOG).wood(ModBlocks.STRIPPED_BLACKWOOD_WOOD);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.BLACKWOOD_PLANKS);
-        blockStateModelGenerator.registerSingleton(ModBlocks.BLACKWOOD_LEAVES, TexturedModel.LEAVES);
-        blockStateModelGenerator.registerTintableCrossBlockState(ModBlocks.BLACKWOOD_SAPLING,  BlockStateModelGenerator.TintType.NOT_TINTED);
+        blockStateModelGenerator.registerSingleton(ModBlocks.BLACKWOOD_LEAVES, TexturedModel.LEAVES); // Old leaves in 1.21.1
+        //blockStateModelGenerator.registerTintedBlockAndItem(ModBlocks.BLACKWOOD_LEAVES, TexturedModel.LEAVES, -12012264);
+        // New leaves in 1.21.2-4+ ^ BlockStateModelGenerator.class
+
+        blockStateModelGenerator.registerTintableCrossBlockState(ModBlocks.BLACKWOOD_SAPLING,  BlockStateModelGenerator.CrossType.NOT_TINTED);
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.COAL_GENERATOR);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.TANK);
@@ -102,14 +110,14 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.FLUORITE_LEGGINGS, Models.GENERATED);
         itemModelGenerator.register(ModItems.FLUORITE_BOOTS, Models.GENERATED);*/
 
-        itemModelGenerator.registerArmor(ModItems.FLUORITE_HELMET, MCCourseMod.id("fluorite"),
-                ModArmorMaterials.FLUORITE, EquipmentSlot.HEAD);
-        itemModelGenerator.registerArmor(ModItems.FLUORITE_CHESTPLATE, MCCourseMod.id("fluorite"),
-                ModArmorMaterials.FLUORITE, EquipmentSlot.CHEST);
-        itemModelGenerator.registerArmor(ModItems.FLUORITE_LEGGINGS, MCCourseMod.id("fluorite"),
-                ModArmorMaterials.FLUORITE, EquipmentSlot.LEGS);
-        itemModelGenerator.registerArmor(ModItems.FLUORITE_BOOTS, MCCourseMod.id("fluorite"),
-                ModArmorMaterials.FLUORITE, EquipmentSlot.FEET);
+        itemModelGenerator.registerArmor(ModItems.FLUORITE_HELMET,
+                ModArmorMaterials.FLUORITE_KEY, "helmet", false);
+        itemModelGenerator.registerArmor(ModItems.FLUORITE_CHESTPLATE,
+                ModArmorMaterials.FLUORITE_KEY, "chestplate", false);
+        itemModelGenerator.registerArmor(ModItems.FLUORITE_LEGGINGS,
+                ModArmorMaterials.FLUORITE_KEY, "leggings", false);
+        itemModelGenerator.registerArmor(ModItems.FLUORITE_BOOTS,
+                ModArmorMaterials.FLUORITE_KEY, "boots", false);
 
         itemModelGenerator.register(ModItems.FLUORITE_HORSE_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.KAUPEN_SMITHING_TEMPLATE, Models.GENERATED);
@@ -117,9 +125,12 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.METAL_DETECTOR, Models.GENERATED);
 
         //itemModelGenerator.register(ModItems.DATA_TABLET, Models.GENERATED);
-        registerDataTablet(itemModelGenerator,ModItems.DATA_TABLET);
+        registerDataTablet(itemModelGenerator, ModItems.DATA_TABLET);
 
-        registerBow(itemModelGenerator, ModItems.KAUPEN_BOW);
+        // 1.12.3<
+       // registerBow(itemModelGenerator, ModItems.KAUPEN_BOW);
+        itemModelGenerator.upload(ModItems.KAUPEN_BOW, Models.GENERATED); // 1.12.4>+ // Normal bow texture
+        itemModelGenerator.registerBow(ModItems.KAUPEN_BOW); // 1.12.4>+ // only pulling textures
 
         itemModelGenerator.register(ModItems.BAR_BRAWL_MUSIC_DISC, Models.GENERATED);
         //itemModelGenerator.register(ModItems.STRAWBERRY_SEEDS, Models.GENERATED);
@@ -138,10 +149,25 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DIAMOND_WARTURTLE_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_WARTURTLE_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.FLUORITE_WARTURTLE_ARMOR, Models.GENERATED);
+
+        //itemModelGenerator.register(ModItems.TOMAHAWK, Models.GENERATED);
+        //itemModelGenerator.register(ModItems.SPECTRE_STAFF, Models.GENERATED);
+        //itemModelGenerator.register(ModBlocks.PEDESTAL.asItem(), Models.GENERATED);
     }
 
+    public final void registerDataTablet(ItemModelGenerator itemModelGenerator, Item item) {
+        // Mirar clase ModelProvider / ItemModelGenerator para ejemplos
+        ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
+        ItemModel.Unbaked unbaked_off = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_off",Models.GENERATED));
+        itemModelGenerator.output.accept(item, new ItemAsset(
+                new ConditionItemModel.Unbaked(new HasComponentProperty(ModDataComponentTypes.COORDINATES, false),
+                unbaked, unbaked_off), new ItemAsset.Properties(false)
+        ).model());
+    }
+
+    // Outdated in 1.12.4
     // Took a look from ItemModelGenerator.registerArmor() method
-    @SuppressWarnings("SameParameterValue")
+    /*@SuppressWarnings("SameParameterValue")
     private void registerDataTablet(ItemModelGenerator itemModelGenerator, Item dataTablet) {
         Identifier identifier = Identifier.of(MCCourseMod.MOD_ID, "item/" + getItemIdAsString(dataTablet));
         Identifier identifier2 = Identifier.of(MCCourseMod.MOD_ID, "item/" +
@@ -152,13 +178,13 @@ public class ModModelProvider extends FabricModelProvider {
         Identifier identifier3 = Identifier.of(MCCourseMod.MOD_ID, "item/" +
                 getItemIdAsString(dataTablet) + "_on");
         Models.GENERATED.upload(identifier3, TextureMap.layer0(identifier), itemModelGenerator.writer);
-    }
+    }*/
 
     private String getItemIdAsString(Item item) {
         return Registries.ITEM.getId(item).getPath();
     }
 
-    private JsonObject createDataTablet(Identifier id, Map<TextureKey, Identifier> textures, Item item){
+    /*private JsonObject createDataTablet(Identifier id, Map<TextureKey, Identifier> textures, Item item){
         JsonObject jsonObject = Models.GENERATED.createJson(id, textures);
         JsonArray overridesJsonArray = new JsonArray();
 
@@ -172,10 +198,11 @@ public class ModModelProvider extends FabricModelProvider {
 
         jsonObject.add("overrides", overridesJsonArray);
         return jsonObject;
-    }
+    }*/
 
-    @SuppressWarnings("SameParameterValue")
-    private void registerBow(ItemModelGenerator itemModelGenerator, Item item) {
+    // Outdated
+    //@SuppressWarnings("SameParameterValue")
+    /*private void registerBow(ItemModelGenerator itemModelGenerator, Item item) {
         if (item instanceof BowItem) {
             //String bowItemPath = item.toString(); //<- No - devuelve ModId:itemname
             String bowItemPath = getItemIdAsString(item); // <- Si - itemname
@@ -195,9 +222,10 @@ public class ModModelProvider extends FabricModelProvider {
                 model.upload(actualPullingBowIdentifier, TextureMap.layer0(actualPullingBowIdentifier), itemModelGenerator.writer);
             }
         }
-    }
+    }*/
 
-    private JsonObject createBow(Identifier id, Map<TextureKey, Identifier> textures, Item item){
+
+    /*private JsonObject createBow(Identifier id, Map<TextureKey, Identifier> textures, Item item){
         JsonObject jsonObject = Models.GENERATED.createJson(id, textures);
         JsonObject displayNode = new JsonObject();
 
@@ -240,9 +268,9 @@ public class ModModelProvider extends FabricModelProvider {
         jsonObject.add("display", displayNode);
 
         return jsonObject;
-    }
+    }*/
 
-    @SafeVarargs
+    /*@SafeVarargs
     private JsonObject addPredicate(Map<String, Float>... predicateValues){
         JsonObject predicateContent = new JsonObject();
         JsonObject predicateNode = new JsonObject();
@@ -283,5 +311,5 @@ public class ModModelProvider extends FabricModelProvider {
         arrayElement.add(vec3d.y);
         arrayElement.add(vec3d.z);
         return arrayElement;
-    }
+    }*/
 }

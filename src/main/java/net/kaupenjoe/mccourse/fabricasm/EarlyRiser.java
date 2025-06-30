@@ -13,8 +13,10 @@ public class EarlyRiser implements Runnable{
         // https://lambdaurora.dev/tutorials/java/bytecode/types.html
         // Examples: https://github.com/Chocohead/Fabric-ASM/blob/master/example/src/com/chocohead/mm/testing/EarlyRiser.java
 
-        String layerType = remapper.mapClassName("intermediary", "net.minecraft.class_10186.class_10190"); // EquipmentModel.LayerType
+        String layerType = remapper.mapClassName("intermediary", "net.minecraft.class_10186$class_10190"); // EquipmentModel.LayerType
+        //System.out.println("AAAAAAAAAA-AAAAAAAAA" + layerType);
         ClassTinkerers.enumBuilder(layerType, 'L' + "java/lang/String;")
-                .addEnum("WARTURTLE_BODY", "warturtle").build();
+                .addEnum("WARTURTLE_BODY", "warturtle_body").build();
+
     }
 }

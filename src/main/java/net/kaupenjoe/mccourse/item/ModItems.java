@@ -96,17 +96,17 @@ public class ModItems {
     public static final Item SPECTRE_STAFF = registerItem("spectre_staff",
             setting -> new Item(setting.maxCount(1)));
 
-    public static final Item DODO_SPAWN_EGG = registerItem("dodo_spawn_egg",
-            setting -> new SpawnEggItem(ModEntities.DODO_ET, 0x456ae0, 0x545978, setting));
+    public static final Item DODO_SPAWN_EGG = registerItem("dodo_spawn_egg", // Spawn eggs now have individual textures
+            setting -> new SpawnEggItem(ModEntities.DODO_ET, /*0x456ae0, 0x545978,*/ setting));
 
     public static final Item GIRAFFE_SPAWN_EGG = registerItem("giraffe_spawn_egg",
-            setting -> new SpawnEggItem(ModEntities.GIRAFFE_ET, 0xe7d7a5, 0x7e5b41, setting));
+            setting -> new SpawnEggItem(ModEntities.GIRAFFE_ET, /*0xe7d7a5, 0x7e5b41,*/ setting));
 
     public static final Item TOMAHAWK = registerItem("tomahawk",
             setting -> new TomahawkItem(setting.maxCount(16)));
 
     public static final Item WARTURTLE_SPAWN_EGG = registerItem("warturtle_spawn_egg",
-            setting -> new SpawnEggItem(ModEntities.WARTURTLE_ET, 0xa86518, 0x3b260f, setting));
+            setting -> new SpawnEggItem(ModEntities.WARTURTLE_ET, /*0xa86518, 0x3b260f,*/ setting));
 
     public static final Item IRON_WARTURTLE_ARMOR = registerItem("iron_warturtle_armor",
             setting -> new WarturtleArmorItem(ArmorMaterials.IRON, setting.maxDamage(200)));

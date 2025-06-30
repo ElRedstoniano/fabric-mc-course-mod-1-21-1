@@ -1,17 +1,17 @@
 package net.kaupenjoe.mccourse.entity.client;
 
-import net.kaupenjoe.mccourse.entity.custom.TomahawkProjectileEntity;
+
+import net.kaupenjoe.mccourse.MCCourseMod;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 public class TomahawkProjectileModel extends EntityModel<TomahawkProjectileRenderState> {
     private final ModelPart tomahawk;
     public TomahawkProjectileModel(ModelPart root) {
         super(root);
         this.tomahawk = root.getChild("tomahawk");
+        MCCourseMod.LOGGER.info("aaaa1");
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -32,10 +32,15 @@ public class TomahawkProjectileModel extends EntityModel<TomahawkProjectileRende
     /*@Override
     public void setAngles(TomahawkProjectileEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     }*/
-    /*@Override
-    public void setAngles(TomahawkProjectileRenderState state) {
 
-    }*/
+    @Override
+    public void setAngles(TomahawkProjectileRenderState state) {
+        super.setAngles(state);
+        if (state.shake > 0.0F) { // From ArrowEntityModel class
+            float f = -MathHelper.sin(state.shake * 3.0F) * state.shake;
+            this.root.pitch += f * (float) (Math.PI / 180.0);
+        }
+    }
 
     /*@Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {

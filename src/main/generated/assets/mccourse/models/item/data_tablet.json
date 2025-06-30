@@ -1,14 +1,6 @@
 {
   "parent": "minecraft:item/generated",
-  "overrides": [
-    {
-      "model": "mccourse:item/data_tablet_on",
-      "predicate": {
-        "mccourse:on": 1
-      }
-    }
-  ],
   "textures": {
-    "layer0": "mccourse:item/data_tablet_off"
+    "layer0": "mccourse:item/data_tablet"
   }
 }

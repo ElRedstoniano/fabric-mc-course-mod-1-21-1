@@ -1,15 +1,14 @@
 package net.kaupenjoe.mccourse.entity.client;
 
+import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.client.animation.GiraffeAnimations;
-import net.kaupenjoe.mccourse.entity.custom.GiraffeEntity;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.util.math.MathHelper;
 
 public class GiraffeModel/*<T extends GiraffeEntity>*/ extends EntityModel<GiraffeRenderState> {
+    public static final ModelTransformer BABY_TRANSFORMER = ModelTransformer.scaling(0.55F);
     private final ModelPart body;
     private final ModelPart head;
 
@@ -69,10 +68,14 @@ public class GiraffeModel/*<T extends GiraffeEntity>*/ extends EntityModel<Giraf
         return TexturedModelData.of(modelData, 128, 128);
     }
 
+    public static TexturedModelData getTexturedBabyModelData() {
+        return getTexturedModelData().transform(BABY_TRANSFORMER);
+    }
+
     @Override
     //public void setAngles(GiraffeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     public void setAngles(GiraffeRenderState state) {
-        //this.getPart().traverse().forEach(ModelPart::resetTransform);
+        body.traverse().forEach(ModelPart::resetTransform);
         setHeadAngles(state.yawDegrees, state.pitch);
         // animateMovement -> animateWalking
         this.animateWalking(GiraffeAnimations.ANIM_GIRAFFE_WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 2f, 2.5f);

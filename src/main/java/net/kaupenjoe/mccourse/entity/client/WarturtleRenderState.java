@@ -1,6 +1,5 @@
 package net.kaupenjoe.mccourse.entity.client;
 
-import net.kaupenjoe.mccourse.item.custom.WarturtleArmorItem;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.item.ItemStack;

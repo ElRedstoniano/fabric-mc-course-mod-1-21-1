@@ -3,9 +3,7 @@
   "category": "building",
   "group": "fluorite_buttons",
   "ingredients": [
-    {
-      "item": "mccourse:fluorite_block"
-    }
+    "mccourse:fluorite_block"
   ],
   "result": {
     "count": 1,

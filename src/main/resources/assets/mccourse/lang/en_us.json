@@ -49,6 +49,7 @@
   "item.mccourse.netherite_warturtle_armor": "Netherite warturtle armor",
   "item.mccourse.fluorite_warturtle_armor": "Fluorite warturtle armor",
 
+  // Blocks
   "block.mccourse.fluorite_block": "Fluorite block",
   "block.mccourse.raw_fluorite_block": "Fluorite raw block",
   "block.mccourse.fluorite_ore": "Fluorite ore",
@@ -83,6 +84,44 @@
   "block.mccourse.crystallizer": "Crystallizer",
   "block.mccourse.coal_generator": "Coal generator",
   "block.mccourse.tank": "Tank",
+
+  // Block items
+
+  "item.mccourse.fluorite_block": "Fluorite block",
+  "item.mccourse.raw_fluorite_block": "Fluorite raw block",
+  "item.mccourse.fluorite_ore": "Fluorite ore",
+  "item.mccourse.fluorite_deepslate_ore": "Fluorite deepslate ore",
+  "item.mccourse.fluorite_nether_ore": "Fluorite nether ore",
+  "item.mccourse.fluorite_end_ore": "Fluorite end ore",
+  "item.mccourse.magic_block": "Magic block",
+  "item.mccourse.fluorite_stairs": "Fluorite stairs",
+  "item.mccourse.fluorite_slab": "Fluorite slab",
+  "item.mccourse.fluorite_button": "Fluorite button",
+  "item.mccourse.fluorite_pressure_plate": "Fluorite pressure plate",
+  "item.mccourse.fluorite_fence": "Fluorite fence",
+  "item.mccourse.fluorite_fence_gate": "Fluorite fence gate",
+  "item.mccourse.fluorite_wall": "Fluorite wall",
+  "item.mccourse.fluorite_door": "Fluorite door",
+  "item.mccourse.fluorite_trapdoor": "Fluorite trapdoor",
+  "item.mccourse.fluorite_lamp": "Fluorite lamp",
+  "item.mccourse.strawberry_crop": "Strawberry crops",
+  "item.mccourse.dahlia": "Dahlia",
+  "item.mccourse.potted_dahlia": "Potted dahlia",
+  "item.mccourse.colored_leaves": "Colored leaves",
+
+  "item.mccourse.blackwood_log": "Blackwood Log",
+  "item.mccourse.blackwood_wood": "Blackwood Wood",
+  "item.mccourse.stripped_blackwood_log": "Stripped Blackwood Log",
+  "item.mccourse.stripped_blackwood_wood": "Stripped Blackwood Wood",
+  "item.mccourse.blackwood_planks": "Blackwood Planks",
+  "item.mccourse.blackwood_leaves": "Blackwood Leaves",
+  "item.mccourse.blackwood_sapling": "Blackwood Sapling",
+
+  "item.mccourse.pedestal": "Pedestal",
+  "item.mccourse.crystallizer": "Crystallizer",
+  "item.mccourse.coal_generator": "Coal generator",
+  "item.mccourse.tank": "Tank",
+
 
   "itemgroup.fluorite": "Fluorite Group",
   "itemgroup.fluorite_blocks": "Fluorite Blocks Group",

@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "mccourse:fluorite_block"
-  },
+  "ingredient": "mccourse:fluorite_block",
   "result": {
     "count": 1,
     "id": "mccourse:fluorite_stairs"

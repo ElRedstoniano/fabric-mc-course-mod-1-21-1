@@ -3,12 +3,14 @@ package net.kaupenjoe.mccourse.entity.client;
 import net.kaupenjoe.mccourse.entity.client.animation.DodoAnimations;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.util.math.MathHelper;
 
 // Made with Blockbench 4.10.4
 // Exported for Minecraft version 1.17+ for Yarn
 // Paste this class into your mod and generate all required imports
 public class DodoModel extends EntityModel<DodoRenderState> {
+    public static final ModelTransformer BABY_TRANSFORMER = ModelTransformer.scaling(0.5F);
     private final ModelPart body;
     private final ModelPart head;
 
@@ -115,9 +117,14 @@ public class DodoModel extends EntityModel<DodoRenderState> {
         ModelPartData left_crest_r1 = head.addChild("left_crest_r1", ModelPartBuilder.create().uv(2, 2).cuboid(-2.0F, -6.0F, 4.5F, 0.0F, 6.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 2.9322F, 0.0F));
         return TexturedModelData.of(modelData, 128, 128);
     }
+
+    public static TexturedModelData getTexturedBabyModelData() {
+        return getTexturedModelData().transform(BABY_TRANSFORMER);
+    }
+
     @Override
     public void setAngles(DodoRenderState renderState) {
-        //this.getPart().traverse().forEach(ModelPart::resetTransform); // Es necesario para que cuando termine la animación se vuelva a reproducir y no se reproduzcan
+        body.traverse().forEach(ModelPart::resetTransform); // Es necesario para que cuando termine la animación se vuelva a reproducir y no se reproduzcan
         // todas las animaciones al mismo tiempo
         setHeadAngles(renderState.yawDegrees, renderState.pitch);
 

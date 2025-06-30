@@ -1,5 +1,5 @@
 {
-  "parent": "mccourse:item/kaupen_bow",
+  "parent": "minecraft:item/bow",
   "textures": {
     "layer0": "mccourse:item/kaupen_bow_pulling_0"
   }

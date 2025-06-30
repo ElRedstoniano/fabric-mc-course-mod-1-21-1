@@ -7,9 +7,11 @@ import net.minecraft.block.CropBlock;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 
 public class StrawberryCropBlock extends CropBlock {
     public static final int MAX_AGE = 5;
+    //public static final IntProperty AGE = Properties.AGE_7;
     public static final IntProperty AGE = IntProperty.of("age", 0, 5);
 
     public StrawberryCropBlock(Settings settings) {
@@ -33,6 +35,7 @@ public class StrawberryCropBlock extends CropBlock {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(AGE);
+        //builder.add(AGE_5);
+        builder.add(this.AGE);
     }
 }

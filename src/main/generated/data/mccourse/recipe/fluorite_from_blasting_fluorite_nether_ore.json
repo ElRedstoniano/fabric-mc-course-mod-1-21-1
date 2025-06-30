@@ -4,9 +4,7 @@
   "cookingtime": 100,
   "experience": 0.2,
   "group": "fluorite",
-  "ingredient": {
-    "item": "mccourse:fluorite_nether_ore"
-  },
+  "ingredient": "mccourse:fluorite_nether_ore",
   "result": {
     "id": "mccourse:fluorite"
   }

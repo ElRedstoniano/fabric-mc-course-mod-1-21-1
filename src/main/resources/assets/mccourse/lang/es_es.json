@@ -49,6 +49,7 @@
   "item.mccourse.netherite_warturtle_armor": "Armadura de netherita para tortuga de guerra",
   "item.mccourse.fluorite_warturtle_armor": "Armadura de fluorita para tortuga de guerra",
 
+  // Blocks
   "block.mccourse.fluorite_block": "Bloque de fluorita",
   "block.mccourse.raw_fluorite_block": "Bloque de fluorita en bruto",
   "block.mccourse.fluorite_ore": "Mena de fluorita",
@@ -83,6 +84,43 @@
   "block.mccourse.crystallizer": "Cristalizador",
   "block.mccourse.coal_generator": "Generador de carbones",
   "block.mccourse.tank": "Tanque",
+
+  // Block items
+  "item.mccourse.fluorite_block": "Bloque de fluorita",
+  "item.mccourse.raw_fluorite_block": "Bloque de fluorita en bruto",
+  "item.mccourse.fluorite_ore": "Mena de fluorita",
+  "item.mccourse.fluorite_deepslate_ore": "Mena de fluorita de pizarra profunda",
+  "item.mccourse.fluorite_nether_ore": "Mena de fluorita del Nether",
+  "item.mccourse.fluorite_end_ore": "Mena de fluorita del End",
+  "item.mccourse.magic_block": "Bloque mágico",
+  "item.mccourse.fluorite_stairs": "Escaleras de fluorita",
+  "item.mccourse.fluorite_slab": "Losa de fluorita",
+  "item.mccourse.fluorite_button": "Botón de fluorita",
+  "item.mccourse.fluorite_pressure_plate": "Placa de presión de fluorita",
+  "item.mccourse.fluorite_fence": "Valla de fluorita",
+  "item.mccourse.fluorite_fence_gate": "Puerta de valla de fluorita",
+  "item.mccourse.fluorite_wall": "Muro de fluorita",
+  "item.mccourse.fluorite_door": "Puerta de fluorita",
+  "item.mccourse.fluorite_trapdoor": "Trampilla de fluorita",
+  "item.mccourse.fluorite_lamp": "Lámpara de fluorita",
+  "item.mccourse.strawberry_crop": "Cultivo de fresas",
+  "item.mccourse.dahlia": "Dahlia",
+  "item.mccourse.potted_dahlia": "Dahlia enmacetada",
+  "item.mccourse.colored_leaves": "Hojas coloridas",
+
+  "item.mccourse.blackwood_log": "Tronco de blackwood",
+  "item.mccourse.blackwood_wood": "Leño de blackwood",
+  "item.mccourse.stripped_blackwood_log": "Tronco de blackwood sin corteza",
+  "item.mccourse.stripped_blackwood_wood": "Leño de blackwood sin corteza",
+  "item.mccourse.blackwood_planks": "Tablones de blackwood",
+  "item.mccourse.blackwood_leaves": "Hojas de blackwood",
+  "item.mccourse.blackwood_sapling": "Brote de blackwood",
+
+  "item.mccourse.pedestal": "Pedestal",
+  "item.mccourse.crystallizer": "Cristalizador",
+  "item.mccourse.coal_generator": "Generador de carbones",
+  "item.mccourse.tank": "Tanque",
+
 
   "itemgroup.fluorite": "Items de Fluorita",
   "itemgroup.fluorite_blocks": "Bloques de fluorita",

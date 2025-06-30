@@ -2,7 +2,7 @@ package net.kaupenjoe.mccourse.datagen;
 
 import net.kaupenjoe.mccourse.villager.ModVillagers;
 import net.minecraft.data.DataOutput;
-import net.minecraft.data.server.tag.TagProvider;
+import net.minecraft.data.tag.TagProvider;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.PointOfInterestTypeTags;

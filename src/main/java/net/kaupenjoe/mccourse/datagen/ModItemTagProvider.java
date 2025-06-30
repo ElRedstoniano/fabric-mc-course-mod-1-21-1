@@ -43,11 +43,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ItemTags.TRIM_MATERIALS)
                 .add(ModItems.FLUORITE);
-        getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
-                .add(ModItems.KAUPEN_SMITHING_TEMPLATE);
+        /*getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES) // Trim templates no longer exist in 1.12.4
+                .add(ModItems.KAUPEN_SMITHING_TEMPLATE);*/
 
         getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
                 .add(ModItems.STRAWBERRY_SEEDS);
+        getOrCreateTagBuilder(ItemTags.VILLAGER_PICKS_UP)
+                .add(ModItems.STRAWBERRY);
 
         getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN)
                 .add(ModBlocks.BLACKWOOD_LOG.asItem(), ModBlocks.BLACKWOOD_WOOD.asItem(),
