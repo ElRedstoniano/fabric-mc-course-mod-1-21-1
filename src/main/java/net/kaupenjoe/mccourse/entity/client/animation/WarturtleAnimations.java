@@ -9,7 +9,7 @@ public class WarturtleAnimations {
 
     public static final Animation ANIM_WARTURTLE_IDLE = Animation.Builder.create(1f).looping()
             .addBoneAnimation("torso",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN, // TRANSLATE -> MOVE_ORIGIN
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0.25f, 0f),
@@ -58,7 +58,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tier2",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0.5f, 0f),
@@ -74,7 +74,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tier1",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0.25f, 0f),
@@ -91,7 +91,7 @@ public class WarturtleAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation ANIM_WARTURTLE_HIDE = Animation.Builder.create(1f)
             .addBoneAnimation("torso",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -3f, 0f),
@@ -107,7 +107,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createTranslationalVector(0f, -2f, 0f),
@@ -121,7 +121,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(2.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legFL",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(-2f, 0f, 0f),
@@ -137,7 +137,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-37f, -6f, -8f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legFR",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(2f, 0f, 0f),
@@ -153,7 +153,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-37f, 6f, 8f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legBL",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, -1f),
@@ -173,7 +173,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(35f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legBR",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 0f, -1f),
@@ -193,7 +193,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(35f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("blanky",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, -2f, 0f),
@@ -209,7 +209,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(-45f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tier2",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5416766f, AnimationHelper.createTranslationalVector(0f, 3f, 0f),
@@ -230,7 +230,7 @@ public class WarturtleAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation ANIM_WARTURTLE_EMERGE = Animation.Builder.create(1f)
             .addBoneAnimation("torso",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -6f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -3f, 0f),
@@ -246,7 +246,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -2f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -260,7 +260,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legFL",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-4f, -5f, 3f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(-2f, 0f, 0f),
@@ -276,7 +276,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legFR",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(4f, -5f, 3f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(2f, 0f, 0f),
@@ -292,7 +292,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legBL",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-3.25f, -5f, -3.75f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -2f, -2f),
@@ -312,7 +312,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legBR",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(3.25f, -5f, -3.75f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, -2f, -2f),
@@ -332,7 +332,7 @@ public class WarturtleAnimations {
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("blanky",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.5f, AnimationHelper.createTranslationalVector(0f, 7f, 0f),
@@ -350,7 +350,7 @@ public class WarturtleAnimations {
                             new Keyframe(0.75f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("tier2",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.25f, AnimationHelper.createTranslationalVector(0f, 2.3f, -1f),
@@ -371,7 +371,7 @@ public class WarturtleAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation ANIM_WARTURTLE_SITTING = Animation.Builder.create(1.5f).looping()
             .addBoneAnimation("torso",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -6f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.75f, AnimationHelper.createTranslationalVector(0f, -5.75f, 0f),
@@ -383,7 +383,7 @@ public class WarturtleAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, -2f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("head",
@@ -391,7 +391,7 @@ public class WarturtleAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(2.5f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legFL",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-4f, -5f, 3f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legFL",
@@ -399,7 +399,7 @@ public class WarturtleAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-37f, -6f, -8f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legFR",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(4f, -5f, 3f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legFR",
@@ -407,7 +407,7 @@ public class WarturtleAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(-37f, 6f, 8f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legBL",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(-3.25f, -5f, -3.75f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legBL",
@@ -415,7 +415,7 @@ public class WarturtleAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(35f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legBR",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(3.25f, -5f, -3.75f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("legBR",
@@ -423,7 +423,7 @@ public class WarturtleAnimations {
                             new Keyframe(0f, AnimationHelper.createRotationalVector(35f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("blanky",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("blanky",

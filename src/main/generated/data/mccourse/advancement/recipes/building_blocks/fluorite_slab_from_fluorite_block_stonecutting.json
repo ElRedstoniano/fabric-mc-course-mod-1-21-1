@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:fluorite_slab_from_fluorite_block_stonecutting"
+        "recipe": "mccourse:fluorite_slab_from_fluorite_block_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:fluorite_slab_from_fluorite_block_stonecutting"
+      "mccourse:fluorite_slab_from_fluorite_block_stonecutting"
     ]
   }
 }

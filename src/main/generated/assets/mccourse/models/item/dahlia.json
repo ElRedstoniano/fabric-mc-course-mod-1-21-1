@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "mccourse:item/dodo_spawn_egg"
+    "layer0": "mccourse:block/dahlia"
   }
 }

@@ -4,21 +4,21 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentType;
+import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKey;
 
-public class WarturtleArmorItem extends ArmorItem {
-    public WarturtleArmorItem(ArmorMaterial material, Settings settings) {
-        super(material, EquipmentType.BODY, settings);
+public class WarturtleArmorItem extends /*ArmorItem*/Item {
+    public WarturtleArmorItem(/*ArmorMaterial material, */Settings settings) {
+        super(settings/*, material, EquipmentType.BODY, */);
     }
+
+
 
     public float[] getArmorStats(/*ItemStack stack*/) {
         float defense = 0;
         float toughness = 0;
-        if (!this.getDefaultStack().isEmpty() && this.getDefaultStack().getItem() instanceof ArmorItem) {
+        if (!this.getDefaultStack().isEmpty() &&
+                /*this.getDefaultStack().getItem() instanceof ArmorItem*/ this.getDefaultStack().getComponents().get(DataComponentTypes.EQUIPPABLE) != null) {
             AttributeModifiersComponent attributeModifierComponent = this.getDefaultStack().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
             for (AttributeModifiersComponent.Entry entry : attributeModifierComponent.modifiers()) {
                 RegistryKey<EntityAttribute> ARMOR = EntityAttributes.ARMOR.getKey().get();

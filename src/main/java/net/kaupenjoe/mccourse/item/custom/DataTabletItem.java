@@ -1,6 +1,7 @@
 package net.kaupenjoe.mccourse.item.custom;
 
 import net.kaupenjoe.mccourse.components.ModDataComponentTypes;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class DataTabletItem extends Item{
     public DataTabletItem(Settings settings) {
@@ -33,10 +35,10 @@ public class DataTabletItem extends Item{
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         if (stack.get(ModDataComponentTypes.FOUND_BLOCK) != null){
             //tooltip.add(Text.literal(stack.get(ModDataComponentTypes.FOUND_BLOCK).getOutputString()));
-            tooltip.add(stack.get(ModDataComponentTypes.FOUND_BLOCK).getOutputString());
+            textConsumer.accept(stack.get(ModDataComponentTypes.FOUND_BLOCK).getOutputString());
         }
     }
 }

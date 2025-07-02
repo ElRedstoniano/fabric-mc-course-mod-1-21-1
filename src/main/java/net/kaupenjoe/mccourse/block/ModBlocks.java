@@ -7,18 +7,23 @@ import net.kaupenjoe.mccourse.world.tree.ModSaplingGenerators;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class ModBlocks {
@@ -54,7 +59,8 @@ public class ModBlocks {
                     properties.mapColor(Blocks.BLUE_ORCHID.getDefaultMapColor())
                             .strength(5f).requiresTool()));
     public static final Block MAGIC_BLOCK = registerBlock("magic_block",
-            properties -> new MagicBlock(properties.strength(1f).requiresTool().sounds(ModSounds.MAGIC_BLOCK_SOUNDS)));
+            properties -> new MagicBlock(properties.strength(1f).requiresTool().sounds(ModSounds.MAGIC_BLOCK_SOUNDS)),
+            Text.translatable("tooltip.mccourse.magic_block.tooltip.1"));
     public static final Block FLUORITE_STAIRS = registerBlock("fluorite_stairs",
             properties -> new StairsBlock(ModBlocks.FLUORITE_BLOCK.getDefaultState(),
                     properties.strength(2f).requiresTool()));
@@ -119,7 +125,7 @@ public class ModBlocks {
                     .registryKey(RegistryKey.of(RegistryKeys.BLOCK, MCCourseMod.id("potted_dahlia")))));
 
     public static final Block COLORED_LEAVES = registerBlock("colored_leaves",
-            properties -> new LeavesBlock(Blocks.createLeavesSettings(BlockSoundGroup.GRASS)
+            properties -> new TintedParticleLeavesBlock(0.01f, Blocks.createLeavesSettings(BlockSoundGroup.GRASS)
                     .registryKey(RegistryKey.of(RegistryKeys.BLOCK, MCCourseMod.id("colored_leaves")))));
 
     // Cambio en la 1.21.2-1.21.3: ahora hay que usar el método_ registryKey() para definir una ID a cada bloque e item al definirlo
@@ -153,7 +159,8 @@ public class ModBlocks {
                     .strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).burnable()
             ));
     public static final Block BLACKWOOD_LEAVES = registerBlock("blackwood_leaves",
-            properties -> new LeavesBlock(Blocks.createLeavesSettings(BlockSoundGroup.GRASS)
+            properties -> new UntintedParticleLeavesBlock(0.01f, ParticleTypes.PALE_OAK_LEAVES,
+                    Blocks.createLeavesSettings(BlockSoundGroup.GRASS)
                     .registryKey(RegistryKey.of(RegistryKeys.BLOCK, MCCourseMod.id("blackwood_leaves")))));
 
     // Ya no se puede usar AbstractBlock.Settings.copy() porque también copia la ID
@@ -188,17 +195,29 @@ public class ModBlocks {
         // Otra forma de definir la misma función
     }
 
-    private static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> function){
+    private static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> function, Text tooltipText){
         Block blockToRegister = function.apply(AbstractBlock.Settings.create()
                 .registryKey(RegistryKey.of(RegistryKeys.BLOCK, MCCourseMod.id(name))));
-        registerBlockItem(name, blockToRegister);
+        registerBlockItem(name, blockToRegister, tooltipText);
         return Registry.register(Registries.BLOCK, Identifier.of(MCCourseMod.MOD_ID, name), blockToRegister);
     }
 
-    private static void registerBlockItem(String name, Block block) {
+    private static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> function){
+        return registerBlock(name, function, null);
+    }
+
+    private static void registerBlockItem(String name, Block block, Text tooltipText) {
         Registry.register(Registries.ITEM,Identifier.of(MCCourseMod.MOD_ID, name),
                 new BlockItem(block, new Item.Settings().useItemPrefixedTranslationKey()
-                        .registryKey(RegistryKey.of(RegistryKeys.ITEM, MCCourseMod.id(name)))));
+                        .registryKey(RegistryKey.of(RegistryKeys.ITEM, MCCourseMod.id(name)))){
+                    @Override
+                    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+                        if (tooltipText != null) {
+                            textConsumer.accept(tooltipText);
+                        }
+                        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+                    }
+                });
     }
 
     public static void registerModBlocks(){

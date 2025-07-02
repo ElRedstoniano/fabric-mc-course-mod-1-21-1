@@ -11,12 +11,11 @@ public class TomahawkProjectileModel extends EntityModel<TomahawkProjectileRende
     public TomahawkProjectileModel(ModelPart root) {
         super(root);
         this.tomahawk = root.getChild("tomahawk");
-        MCCourseMod.LOGGER.info("aaaa1");
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData tomahawk = modelPartData.addChild("tomahawk", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 16.5F, 0.0F));
+        ModelPartData tomahawk = modelPartData.addChild("tomahawk", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 16.5F, 0.0F));
 
         ModelPartData cube_r1 = tomahawk.addChild("cube_r1", ModelPartBuilder.create().uv(8, 7).cuboid(1.5F, 2.5F, -0.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -7.0F, -4.0F, 0.0F, -1.5708F, 0.0F));
 

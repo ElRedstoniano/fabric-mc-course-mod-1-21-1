@@ -25,7 +25,7 @@ public class ModNetherBiomes {
     public static Biome glowstonePlains(RegistryEntryLookup<PlacedFeature> placedFeatureGetter, RegistryEntryLookup<ConfiguredCarver<?>> carverGetter) {
         // Mob spawns
         SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
-        spawnBuilder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.GHAST, 10, 1, 1));
+        spawnBuilder.spawn(SpawnGroup.MONSTER, 10,new SpawnSettings.SpawnEntry(EntityType.GHAST, /*10,*/ 1, 1));
 
         // Biome features
         GenerationSettings.LookupBackedBuilder biomeBuilder = new GenerationSettings.LookupBackedBuilder(placedFeatureGetter, carverGetter);

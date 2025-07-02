@@ -49,22 +49,7 @@ public class PedestalBlock extends BlockWithEntity implements BlockEntityProvide
 
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL; // Si no se pone esto el bloque aparecerá invisible
-    }
-
-    @Override
-    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        //if (!state.isOf(newState.getBlock())) { // Esto también sirve
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof PedestalBlockEntity) {
-                Inventory inventory = (Inventory)blockEntity;
-                ItemScatterer.spawn(world, pos, inventory);
-                world.updateComparators(pos, this);
-            }
-            super.onStateReplaced(state, world, pos, newState, moved);
-        }
-        // Mirar clase ItemScatterer
+        return BlockRenderType.MODEL; // Si no se pone esto el bloque aparecerá invisible // Ya viene por defecto en la 1.21.5
     }
 
     @Override

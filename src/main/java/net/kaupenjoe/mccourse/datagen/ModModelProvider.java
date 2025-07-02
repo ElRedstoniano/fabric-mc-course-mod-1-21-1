@@ -11,19 +11,18 @@ import net.kaupenjoe.mccourse.item.ModArmorMaterials;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.client.data.*;
 import net.minecraft.client.item.ItemAsset;
-import net.minecraft.client.render.item.model.BundleSelectedItemModel;
 import net.minecraft.client.render.item.model.ConditionItemModel;
 import net.minecraft.client.render.item.model.ItemModel;
-import net.minecraft.client.render.item.model.SelectItemModel;
-import net.minecraft.client.render.item.property.bool.BundleHasSelectedItemProperty;
 import net.minecraft.client.render.item.property.bool.HasComponentProperty;
-import net.minecraft.client.render.item.property.select.DisplayContextProperty;
-import net.minecraft.client.render.item.property.select.SelectProperty;
+import net.minecraft.client.render.model.json.ModelVariant;
+import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.item.Item;
-import net.minecraft.item.ModelTransformationMode;
+import net.minecraft.item.equipment.EquipmentAssetKeys;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.Pool;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ModModelProvider extends FabricModelProvider {
@@ -58,14 +57,36 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerTrapdoor(ModBlocks.FLUORITE_TRAPDOOR);
 
         // Lámpara
-        Identifier lamp_off_identifier = TexturedModel.CUBE_ALL.upload(ModBlocks.FLUORITE_LAMP, blockStateModelGenerator.modelCollector);
-        Identifier lamp_on_identifier = blockStateModelGenerator.createSubModel(ModBlocks.FLUORITE_LAMP, "_on", Models.CUBE_ALL, TextureMap::all);
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.FLUORITE_LAMP)
-                .coordinate(BlockStateModelGenerator.createBooleanModelMap(FluoriteLampBlock.CLICKED, lamp_on_identifier, lamp_off_identifier)));
+
+        // 1.21.4
+        //Identifier lamp_off_identifier = TexturedModel.CUBE_ALL.upload(ModBlocks.FLUORITE_LAMP, blockStateModelGenerator.modelCollector);
+        //Identifier lamp_on_identifier = blockStateModelGenerator.createSubModel(ModBlocks.FLUORITE_LAMP, "_on", Models.CUBE_ALL, TextureMap::all);
+        //blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.FLUORITE_LAMP)
+                //.coordinate(BlockStateModelGenerator.createBooleanModelMap(FluoriteLampBlock.CLICKED, lamp_on_identifier, lamp_off_identifier)));
+
+        // 1.21.5
+        Identifier lampOffIdentifier = TexturedModel.CUBE_ALL.upload(ModBlocks.FLUORITE_LAMP, blockStateModelGenerator.modelCollector);
+        Identifier lampOnIdentifier = blockStateModelGenerator.createSubModel(ModBlocks.FLUORITE_LAMP, "_on", Models.CUBE_ALL, TextureMap::all);
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(ModBlocks.FLUORITE_LAMP)
+                .with(BlockStateModelGenerator.createBooleanModelMap(FluoriteLampBlock.CLICKED,
+                        new WeightedVariant(Pool.<ModelVariant>builder().add(new ModelVariant(lampOnIdentifier)).build()),
+                        new WeightedVariant(Pool.<ModelVariant>builder().add(new ModelVariant(lampOffIdentifier)).build())
+                )));
+
+        // Another way to do this // From BlockstateModelGenerator registerRedstoneLamp()
+        /*WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(
+                TexturedModel.CUBE_ALL.upload(ModBlocks.FLUORITE_LAMP, blockStateModelGenerator.modelCollector));
+        WeightedVariant weightedVariant2 = BlockStateModelGenerator.createWeightedVariant(
+                blockStateModelGenerator.createSubModel(ModBlocks.FLUORITE_LAMP, "_on", Models.CUBE_ALL, TextureMap::all));
+
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(ModBlocks.FLUORITE_LAMP)
+                        .with(BlockStateModelGenerator.createBooleanModelMap(FluoriteLampBlock.CLICKED, weightedVariant, weightedVariant2)));*/
+
 
         blockStateModelGenerator.registerCrop(ModBlocks.STRAWBERRY_CROP, StrawberryCropBlock.AGE, 0, 1, 2, 3, 4, 5);
-        blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.DAHLIA, ModBlocks.POTTED_DAHLIA, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        // registerFlowerPotPlantAndItem
+        //blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.DAHLIA, ModBlocks.POTTED_DAHLIA, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        blockStateModelGenerator.registerFlowerPotPlantAndItem(ModBlocks.DAHLIA, ModBlocks.POTTED_DAHLIA,
+                BlockStateModelGenerator.CrossType.NOT_TINTED);
 
        // blockStateModelGenerator.registerSingleton(ModBlocks.COLORED_LEAVES, TexturedModel.LEAVES);
         blockStateModelGenerator.registerTintedBlockAndItem(ModBlocks.COLORED_LEAVES, TexturedModel.LEAVES, -12012264);
@@ -74,8 +95,9 @@ public class ModModelProvider extends FabricModelProvider {
         //blockStateModelGenerator.registerNorthDefaultHorizontalRotated(ModBlocks.CRYSTALLIZER, TexturedModel.ORIENTABLE);
         blockStateModelGenerator.registerCooker(ModBlocks.CRYSTALLIZER, TexturedModel.ORIENTABLE);
 
-        blockStateModelGenerator.registerLog(ModBlocks.BLACKWOOD_LOG).log(ModBlocks.BLACKWOOD_LOG).wood(ModBlocks.BLACKWOOD_WOOD);
-        blockStateModelGenerator.registerLog(ModBlocks.STRIPPED_BLACKWOOD_LOG).log(ModBlocks.STRIPPED_BLACKWOOD_LOG).wood(ModBlocks.STRIPPED_BLACKWOOD_WOOD);
+        // registerLog -> createLogTexturePool
+        blockStateModelGenerator.createLogTexturePool(ModBlocks.BLACKWOOD_LOG).log(ModBlocks.BLACKWOOD_LOG).wood(ModBlocks.BLACKWOOD_WOOD);
+        blockStateModelGenerator.createLogTexturePool(ModBlocks.STRIPPED_BLACKWOOD_LOG).log(ModBlocks.STRIPPED_BLACKWOOD_LOG).wood(ModBlocks.STRIPPED_BLACKWOOD_WOOD);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.BLACKWOOD_PLANKS);
         blockStateModelGenerator.registerSingleton(ModBlocks.BLACKWOOD_LEAVES, TexturedModel.LEAVES); // Old leaves in 1.21.1
         //blockStateModelGenerator.registerTintedBlockAndItem(ModBlocks.BLACKWOOD_LEAVES, TexturedModel.LEAVES, -12012264);
@@ -111,13 +133,13 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.FLUORITE_BOOTS, Models.GENERATED);*/
 
         itemModelGenerator.registerArmor(ModItems.FLUORITE_HELMET,
-                ModArmorMaterials.FLUORITE_KEY, "helmet", false);
+                ModArmorMaterials.FLUORITE_KEY, ItemModelGenerator.HELMET_TRIM_ID_PREFIX/*ModArmorMaterials.FLUORITE_KEY*/, false);
         itemModelGenerator.registerArmor(ModItems.FLUORITE_CHESTPLATE,
-                ModArmorMaterials.FLUORITE_KEY, "chestplate", false);
+                ModArmorMaterials.FLUORITE_KEY, ItemModelGenerator.CHESTPLATE_TRIM_ID_PREFIX, false);
         itemModelGenerator.registerArmor(ModItems.FLUORITE_LEGGINGS,
-                ModArmorMaterials.FLUORITE_KEY, "leggings", false);
+                ModArmorMaterials.FLUORITE_KEY, ItemModelGenerator.LEGGINGS_TRIM_ID_PREFIX, false);
         itemModelGenerator.registerArmor(ModItems.FLUORITE_BOOTS,
-                ModArmorMaterials.FLUORITE_KEY, "boots", false);
+                ModArmorMaterials.FLUORITE_KEY, ItemModelGenerator.BOOTS_TRIM_ID_PREFIX, false);
 
         itemModelGenerator.register(ModItems.FLUORITE_HORSE_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.KAUPEN_SMITHING_TEMPLATE, Models.GENERATED);
@@ -137,12 +159,18 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModFluids.FLUORITE_WATER_BUCKET, Models.GENERATED);
         itemModelGenerator.register(ModBlocks.BLACKWOOD_SAPLING.asItem(), Models.GENERATED);
 
-        itemModelGenerator.register(ModItems.DODO_SPAWN_EGG,
+        /*itemModelGenerator.register(ModItems.DODO_SPAWN_EGG, // 1.21.4
                 new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
         itemModelGenerator.register(ModItems.GIRAFFE_SPAWN_EGG ,
                 new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
         itemModelGenerator.register(ModItems.WARTURTLE_SPAWN_EGG ,
-                new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
+                new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));*/
+
+        itemModelGenerator.register(ModItems.DODO_SPAWN_EGG, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GIRAFFE_SPAWN_EGG, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WARTURTLE_SPAWN_EGG, Models.GENERATED);
+
+        //itemModelGenerator.register(ModBlocks.DAHLIA.asItem(), Models.GENERATED); ^ Done in Blockstates generation
 
         itemModelGenerator.register(ModItems.IRON_WARTURTLE_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.GOLD_WARTURTLE_ARMOR, Models.GENERATED);
@@ -157,12 +185,23 @@ public class ModModelProvider extends FabricModelProvider {
 
     public final void registerDataTablet(ItemModelGenerator itemModelGenerator, Item item) {
         // Mirar clase ModelProvider / ItemModelGenerator para ejemplos
-        ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
-        ItemModel.Unbaked unbaked_off = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_off",Models.GENERATED));
-        itemModelGenerator.output.accept(item, new ItemAsset(
+        //ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
+        //ItemModel.Unbaked unbaked_off = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_off",Models.GENERATED));
+        /*itemModelGenerator.output.accept(item, new ItemAsset(
                 new ConditionItemModel.Unbaked(new HasComponentProperty(ModDataComponentTypes.COORDINATES, false),
                 unbaked, unbaked_off), new ItemAsset.Properties(false)
-        ).model());
+        ).model());*/ // Another way to do this (This doesn't work for some reason)
+  //      itemModelGenerator.registerCondition(item, new HasComponentProperty(ModDataComponentTypes.COORDINATES, false),
+   //             unbaked_off, unbaked); // (This doesn't work for some reason)
+        /*itemModelGenerator.output.accept(ItemModels.select(new HasComponentProperty(ModDataComponentTypes.COORDINATES, false),
+                unbaked_off, ItemModels.switchCase(true, unbaked)));*/
+
+        ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
+        ItemModel.Unbaked unbakedOff = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_off", Models.GENERATED));
+        itemModelGenerator.output.accept(item,
+                new ItemAsset(new ConditionItemModel.Unbaked(new HasComponentProperty(ModDataComponentTypes.COORDINATES, false),
+                        unbaked, unbakedOff),
+                        new ItemAsset.Properties(false)).model());
     }
 
     // Outdated in 1.12.4

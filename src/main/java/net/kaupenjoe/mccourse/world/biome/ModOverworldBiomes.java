@@ -27,8 +27,8 @@ public class ModOverworldBiomes {
         // Mob spawns
         SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
         DefaultBiomeFeatures.addBatsAndMonsters(spawnBuilder, 30);
-        spawnBuilder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.ARMADILLO, 20, 2, 3));
-        spawnBuilder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.CAMEL, 10, 1, 2));
+        spawnBuilder.spawn(SpawnGroup.CREATURE, 20,new SpawnSettings.SpawnEntry(EntityType.ARMADILLO,/* 20,*/ 2, 3));
+        spawnBuilder.spawn(SpawnGroup.CREATURE, 10,new SpawnSettings.SpawnEntry(EntityType.CAMEL, /*10,*/ 1, 2));
 
         // Biome features
         GenerationSettings.LookupBackedBuilder biomeBuilder = new GenerationSettings.LookupBackedBuilder(placedFeatureGetter, carverGetter);

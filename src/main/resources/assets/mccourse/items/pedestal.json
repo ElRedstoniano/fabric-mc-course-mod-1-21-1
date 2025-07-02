@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "mccourse:block/pedestal"
+    "model": "mccourse:item/pedestal"
   }
 }

@@ -120,7 +120,7 @@ public class DodoEntity extends AnimalEntity {
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant"));
+        this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("Variant").get());
     }
 
     @Override

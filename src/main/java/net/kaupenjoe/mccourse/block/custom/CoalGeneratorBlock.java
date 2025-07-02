@@ -3,7 +3,6 @@ package net.kaupenjoe.mccourse.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.block.entity.custom.CoalGeneratorBlockEntity;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -28,21 +26,24 @@ public class CoalGeneratorBlock extends BlockWithEntity {
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() { return CODEC; }
 
-    @Override
-    protected BlockRenderType getRenderType(BlockState state) { return BlockRenderType.MODEL; }
+    /*@Override // Not needed as now by default the renderType is BlockRenderType.MODEL
+    protected BlockRenderType getRenderType(BlockState state) { return BlockRenderType.MODEL; }*/
 
-    @Override
+    /*@Override // This method is now called onBlockReplaced and it's on the BlockEntity class
     protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+    //if (!state.isOf(newState.getBlock())) { // Esto también sirve
         if (state.getBlock() != newState.getBlock()) {
             if (world.getBlockEntity(pos) instanceof CoalGeneratorBlockEntity coalGeneratorBlockEntity) {
+            //Inventory inventory = (Inventory)blockEntity;
                 ItemScatterer.spawn(world, pos, coalGeneratorBlockEntity);
-                world.updateComparators(pos,this);
+                world.updateComparators(pos, this);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }
-    }
+        // Mirar clase ItemScatterer
+    }*/
 
-    @Override
+    @Override // onUseWithItems -> onUseWithItem
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             NamedScreenHandlerFactory screenHandlerFactory = ((CoalGeneratorBlockEntity) world.getBlockEntity(pos));

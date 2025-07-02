@@ -80,7 +80,7 @@ public class GiraffeEntity extends AbstractHorseEntity {
             }
             if (!this.isTame()) {
                 this.playAngrySound();
-                return this.getWorld().isClient ? ActionResult.SUCCESS : ActionResult.CONSUME;
+                return ActionResult.SUCCESS;
             }
         }
         return super.interactMob(player, hand);

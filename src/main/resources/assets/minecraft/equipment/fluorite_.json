@@ -1,4 +1,7 @@
 {
+  "__coment__": "This is what is supposed to be inside the datagen generated folder in generated/assets/minecraft/equipment",
+  "__coment__2": "Just a reminder about it",
+  "__coment__3": "Do not include the warturtle layer here, otherwise may be issues with the warturtle helmet colors (they won't work)",
   "layers": {
     "wolf_body": [
       {
@@ -16,11 +19,6 @@
       }
     ],
     "humanoid_leggings": [
-      {
-        "texture": "mccourse:fluorite"
-      }
-    ],
-    "warturtle_body": [
       {
         "texture": "mccourse:fluorite"
       }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:fluorite_from_smelting_fluorite_end_ore"
+        "recipe": "mccourse:fluorite_from_smelting_fluorite_end_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:fluorite_from_smelting_fluorite_end_ore"
+      "mccourse:fluorite_from_smelting_fluorite_end_ore"
     ]
   }
 }

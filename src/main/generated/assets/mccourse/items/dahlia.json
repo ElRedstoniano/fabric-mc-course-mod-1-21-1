@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "mccourse:block/dahlia"
+    "model": "mccourse:item/dahlia"
   }
 }

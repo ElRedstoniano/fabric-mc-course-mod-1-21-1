@@ -4,7 +4,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.ModBlocks;
+import net.kaupenjoe.mccourse.item.ModArmorMaterials;
 import net.kaupenjoe.mccourse.item.ModItems;
+import net.kaupenjoe.mccourse.trim.ModTrimMaterials;
+import net.kaupenjoe.mccourse.trim.ModTrimPatterns;
 import net.kaupenjoe.mccourse.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -205,7 +208,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .offerTo(recipeExporter);
 
                 // Kaupen template armor
-                offerSmithingTrimRecipe(ModItems.KAUPEN_SMITHING_TEMPLATE,
+                offerSmithingTrimRecipe(ModItems.KAUPEN_SMITHING_TEMPLATE, ModTrimPatterns.KAUPEN,
                         RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MCCourseMod.MOD_ID, "kaupen")));
 
                 offerPlanksRecipe(ModBlocks.BLACKWOOD_PLANKS, ModTags.Items.BLACKWOOD_LOGS, 4);

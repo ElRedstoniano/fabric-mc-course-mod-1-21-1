@@ -32,8 +32,8 @@ public abstract class ModEntityDataSaverMixin implements IEntityDataSaver {
 
     @Inject(method = "readNbt", at = @At("HEAD"))
     protected void injectReadMethod(NbtCompound nbt, CallbackInfo info){
-        if (nbt.contains("mccourse.custom_data", 10)){
-            this.persistentData = nbt.getCompound("mccourse.custom_data");
+        if (nbt.contains("mccourse.custom_data"/*, 10*/)){
+            this.persistentData = nbt.getCompoundOrEmpty("mccourse.custom_data");
         }
     }
 }

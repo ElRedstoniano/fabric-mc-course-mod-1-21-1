@@ -4,12 +4,14 @@ import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.item.ModArmorMaterials;
+import net.minecraft.client.data.EquipmentAssetProvider;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.DataWriter;
 import net.minecraft.item.equipment.EquipmentAsset;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +32,22 @@ public class ModEquipmentModelProvider implements DataProvider {
     }
 
     public static void bootstrap(BiConsumer<RegistryKey<EquipmentAsset>, EquipmentModel> consumer) {
-        consumer.accept(ModArmorMaterials.FLUORITE_KEY, createWarturtleOnlyModel("warturtle_body"));
+        consumer.accept(ModArmorMaterials.FLUORITE_KEY, createWarturtleOnlyModel("fluorite"));
     }
 
     public static EquipmentModel createWarturtleOnlyModel(String id) {
-        EquipmentModel.LayerType layerType = ClassTinkerers.getEnum(EquipmentModel.LayerType.class, "WARTURTLE_BODY");
-        return EquipmentModel.builder().addLayers(layerType,
-                new EquipmentModel.Layer(MCCourseMod.id(id), Optional.empty(), false)).build();
+        //EquipmentModel.LayerType layerType = ClassTinkerers.getEnum(EquipmentModel.LayerType.class, "WARTURTLE_BODY");
+        return EquipmentModel.builder()
+                /*.addLayers(layerType,
+                new EquipmentModel.Layer(MCCourseMod.id(id), Optional.empty(), false))*/
+                // I couldn't manage to generate a different file inside generated/assets/mccourse/equipment instead of generated/assets/minecraft/equipment
+                // this is necessary to get warturtle helmet colors working correctly, so I had to manually add the json file of the warturtle layer on
+                // the main resources/assets/mccourse/equipment folder
+                .addLayers(EquipmentModel.LayerType.HORSE_BODY,new EquipmentModel.Layer(MCCourseMod.id(id),
+                        Optional.empty(), false))
+                .addLayers(EquipmentModel.LayerType.WOLF_BODY, new EquipmentModel.Layer(MCCourseMod.id(id)))
+                .addHumanoidLayers(MCCourseMod.id(id))
+                .build();
     }
 
     @Override
@@ -54,5 +65,13 @@ public class ModEquipmentModelProvider implements DataProvider {
     @Override
     public String getName() {
         return "TestMod equipment model generator";
+    }
+
+    // From EquipmentAssetProvider
+    private static EquipmentModel createHumanoidAndHorseModel(String id) {
+        return EquipmentModel.builder()
+                .addHumanoidLayers(Identifier.ofVanilla(id))
+                .addLayers(EquipmentModel.LayerType.HORSE_BODY, EquipmentModel.Layer.createWithLeatherColor(Identifier.ofVanilla(id), false))
+                .build();
     }
 }

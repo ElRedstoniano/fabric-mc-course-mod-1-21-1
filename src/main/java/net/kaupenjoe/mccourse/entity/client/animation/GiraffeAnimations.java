@@ -8,7 +8,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
 public class GiraffeAnimations {
     public static final Animation ANIM_GIRAFFE_IDLE = Animation.Builder.create(1.5f).looping()
             .addBoneAnimation("torso",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN, // TRANSLATE -> MOVE_ORIGIN
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.8343334f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),
@@ -28,7 +28,7 @@ public class GiraffeAnimations {
                             new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("neck",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR)))
             .addBoneAnimation("neck",
@@ -53,7 +53,7 @@ public class GiraffeAnimations {
                                     Transformation.Interpolations.LINEAR))).build();
     public static final Animation ANIM_GIRAFFE_WALK = Animation.Builder.create(1f).looping()
             .addBoneAnimation("torso",
-                    new Transformation(Transformation.Targets.TRANSLATE,
+                    new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(0.3433333f, AnimationHelper.createTranslationalVector(0f, 1f, 0f),

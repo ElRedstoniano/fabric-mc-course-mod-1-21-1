@@ -1,11 +1,8 @@
 package net.kaupenjoe.mccourse.item.custom;
 
-import net.kaupenjoe.mccourse.util.ModTags;
-import net.minecraft.block.Block;
-import net.minecraft.item.MiningToolItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -15,9 +12,10 @@ import net.minecraft.util.math.Direction;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HammerItem extends MiningToolItem {
+public class HammerItem extends /*MiningToolItem*/ Item{
     public HammerItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-        super(material, BlockTags.PICKAXE_MINEABLE, attackDamage, attackSpeed, settings);
+        //super(material, BlockTags.PICKAXE_MINEABLE, attackDamage, attackSpeed, settings); // 1.21.4<
+        super( settings.tool(material, BlockTags.PICKAXE_MINEABLE, attackDamage, attackSpeed, 3)); // 1.21.5+
     }
 
     public static List<BlockPos> getBlocksToBeDestroyed(int range, BlockPos initialBlockPos, ServerPlayerEntity player){

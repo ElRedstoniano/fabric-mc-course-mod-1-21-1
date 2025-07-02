@@ -55,7 +55,7 @@ public class TomahawkProjectileEntity extends PersistentProjectileEntity {
     }
 
     public float getLerpedPitch(float tickDelta) {
-        return tickDelta == 1.0F ? this.getPitch() : MathHelper.lerp(tickDelta, this.prevPitch, this.getPitch());
+        return tickDelta == 1.0F ? this.getPitch() : MathHelper.lerp(tickDelta, this.lastPitch, this.getPitch());
     }
 
     public boolean isEnchanted() {

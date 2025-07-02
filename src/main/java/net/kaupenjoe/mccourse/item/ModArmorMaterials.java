@@ -1,8 +1,6 @@
 package net.kaupenjoe.mccourse.item;
 
-import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.util.ModTags;
-import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.EquipmentAsset;
 import net.minecraft.item.equipment.EquipmentAssetKeys;
@@ -21,6 +19,7 @@ public class ModArmorMaterials {
     private static RegistryKey<? extends Registry<EquipmentAsset>> REGISTRY_KEY = RegistryKey.ofRegistry(Identifier.ofVanilla("equipment_asset"));
 
     public static RegistryKey<EquipmentAsset> FLUORITE_KEY = RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, Identifier.ofVanilla("fluorite"));
+    //public static Identifier FLUORITE_TRIM_PREFIX = MCCourseMod.id("trims/items/" +  + "_trim");
 
     /*public static RegistryKey<EquipmentAsset> register(String name) {
         return RegistryKey.of(EquipmentAssetKeys.REGISTRY_KEY, Identifier.ofVanilla(name));
@@ -33,7 +32,7 @@ public class ModArmorMaterials {
         map.put(EquipmentType.CHESTPLATE, 6);
         map.put(EquipmentType.HELMET, 2);
         map.put(EquipmentType.BODY, 4);
-    }), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, ModTags.Items.REPAIRS_FLUORITE_ARMOR, EquipmentAssetKeys.DIAMOND);
+    }), 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, ModTags.Items.REPAIRS_FLUORITE_ARMOR, FLUORITE_KEY);
     // Mirar la clase ArmorMaterials para ver ejemplos vanilla
 
     /*public static final ArmorMaterial FLUORITE_ARMOR_MATERIAL = registerArmorMaterial("fluorite",

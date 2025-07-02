@@ -20,7 +20,7 @@ public class ReturnHomeCommand {
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         IEntityDataSaver player = (IEntityDataSaver) context.getSource().getPlayer();
 
-        int[] homepos = player.getPersistentData().getIntArray("mccourse.homepos");
+        int[] homepos = player.getPersistentData().getIntArray("mccourse.homepos").get();
 
         if (homepos.length != 0){
             context.getSource().getPlayer().requestTeleport(homepos[0], homepos[1], homepos[2]);

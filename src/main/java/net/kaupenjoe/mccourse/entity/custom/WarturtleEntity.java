@@ -30,7 +30,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.DamageTypeTags;
@@ -222,7 +221,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     public void readCustomDataFromNbt(NbtCompound nbt) { // Sacado de la clase CamelEntity y AbstractDonkeyEntity
         /* CamelEntity */
         super.readCustomDataFromNbt(nbt);
-        long l = nbt.getLong("LastPoseTick");
+        long l = nbt.getLong("LastPoseTick", 0);
         if(l < 0L) {
             this.setPose(EntityPose.SITTING);
         }
@@ -230,11 +229,11 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
         /* AbstractDonkeyEntity */
         this.createInventory();
-        NbtList nbtList = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
+        NbtList nbtList = nbt.getListOrEmpty("Items");
 
         for(int i = 0; i < nbtList.size(); i++) {
-            NbtCompound compoundTag = nbtList.getCompound(i);
-            int j = compoundTag.getByte("Slot") & 255; // Pasar de byte a int
+            NbtCompound compoundTag = nbtList.getCompound(i).get();
+            int j = compoundTag.getByte("Slot", (byte)0) & 255; // Pasar de byte a int
             //if(i == 0) MCCourseMod.LOGGER.info(j + "-read------------------" + i);
             if (j < this.inventory.size()) {
                 this.inventory.setStack(j, ItemStack.fromNbt(this.getRegistryManager(), compoundTag).orElse(ItemStack.EMPTY));
@@ -322,7 +321,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
             return ActionResult.SUCCESS;
         } else if (this.isTamed()) {
             this.openInventory(player); // Se abre el inventario solo si se está agachando el jugador
-            return this.getWorld().isClient ? ActionResult.SUCCESS : ActionResult.CONSUME;
+            return ActionResult.SUCCESS;
         }
 
         return super.interactMob(player, hand);
@@ -482,6 +481,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
             itemStack.damage(MathHelper.ceil(amount), this, EquipmentSlot.BODY);
 
             if (itemStack.getItem() instanceof WarturtleArmorItem warturtleArmorItem) {
+            //if (itemStack.getItem().getComponents().get(DataComponentTypes.EQUIPPABLE) != null) {
                 //int damageReduction = warturtleArmorItem.getProtection() / 2; // depends on what armor
                 //float damageReduction = (float) this.getAttributeInstance(EntityAttributes.ARMOR).getBaseValue();
                 float damageReduction = warturtleArmorItem.getArmorStats()[0] / 2; // depends on what armor

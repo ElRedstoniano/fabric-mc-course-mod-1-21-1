@@ -95,7 +95,7 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
         DyeColor dyeColor = warturtleRenderState.dyeColor;
         Identifier identifier;
         if (dyeColor != null) {
-            identifier = DYE_LOCATION[dyeColor.getId()];
+            identifier = DYE_LOCATION[dyeColor.getIndex()]; // getId() now returns a String, so instead now it's supposed to use getIndex()
         } else {
             identifier = ARMOR_MAP.get(armorItem); // Default
         }

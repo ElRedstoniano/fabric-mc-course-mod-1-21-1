@@ -3,14 +3,12 @@ package net.kaupenjoe.mccourse.item;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.util.ModTags;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -26,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.Optional;
 
-public class PaxelItem extends MiningToolItem {
+public class PaxelItem extends /*MiningToolItem*/Item {
     // Copied from ShovelItem class
     protected static final Map<Block, BlockState> PATH_STATES = Maps.<Block, BlockState>newHashMap(
             new ImmutableMap.Builder()
@@ -65,7 +63,7 @@ public class PaxelItem extends MiningToolItem {
 
 
     public PaxelItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-        super(material, ModTags.Blocks.PAXEL_MINEABLE, attackDamage, attackSpeed, settings);
+        super(settings.tool(material, ModTags.Blocks.PAXEL_MINEABLE, attackDamage, attackSpeed, 0.0f));
     }
 
     // Copied from ShovelItem class

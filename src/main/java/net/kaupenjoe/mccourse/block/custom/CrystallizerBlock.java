@@ -25,7 +25,10 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -85,7 +88,8 @@ public class CrystallizerBlock extends /*HorizontalFacingBlock*/BlockWithEntity 
         double yPos = pos.getY();
         double zPos = (double)pos.getZ() + 0.5;
         if (random.nextDouble() < 0.15) {
-            world.playSound(xPos, yPos, zPos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
+            //world.playSound(xPos, yPos, zPos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
+            world.playSound(null, xPos, yPos, zPos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 1.0f, 1.0f);
         }
 
         Direction direction = state.get(FACING);
@@ -96,10 +100,11 @@ public class CrystallizerBlock extends /*HorizontalFacingBlock*/BlockWithEntity 
         double yOffset = random.nextDouble() * 6.0 / 8.0;
         double zOffset = axis == Direction.Axis.Z ? (double)direction.getOffsetZ() * 0.52 : defaultOffset;
 
-        world.addParticle(ParticleTypes.SMOKE, xPos + xOffsets, yPos + yOffset, zPos + zOffset, 0.0, 0.0, 0.0);
+        // addParticle -> addParticleClient
+        world.addParticleClient(ParticleTypes.SMOKE, xPos + xOffsets, yPos + yOffset, zPos + zOffset, 0.0, 0.0, 0.0);
 
         if(world.getBlockEntity(pos) instanceof CrystallizerBlockEntity crystallizerBlockEntity && !crystallizerBlockEntity.getStack(1).isEmpty()) {
-            world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, crystallizerBlockEntity.getStack(1)),
+            world.addParticleClient(new ItemStackParticleEffect(ParticleTypes.ITEM, crystallizerBlockEntity.getStack(1)),
                     xPos + xOffsets, yPos + yOffset, zPos + zOffset, 0.0, 0.0, 0.0);
         }
 
@@ -111,11 +116,11 @@ public class CrystallizerBlock extends /*HorizontalFacingBlock*/BlockWithEntity 
 
         double offset = random.nextDouble() * 0.6 - 0.3;
 
-        world.addParticle(ParticleTypes.SMOKE, xPos_ + offset, yPos_, zPos_ + offset, 0.0f, 0.0f, 0.0f);
-        world.addParticle(ParticleTypes.FLAME, xPos_ + offset, yPos_, zPos_ + offset, 0.0f, 0.0f, 0.0f);
-        world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, ModBlocks.FLUORITE_BLOCK.getDefaultState()),
+        world.addParticleClient(ParticleTypes.SMOKE, xPos_ + offset, yPos_, zPos_ + offset, 0.0f, 0.0f, 0.0f);
+        world.addParticleClient(ParticleTypes.FLAME, xPos_ + offset, yPos_, zPos_ + offset, 0.0f, 0.0f, 0.0f);
+        world.addParticleClient(new BlockStateParticleEffect(ParticleTypes.BLOCK, ModBlocks.FLUORITE_BLOCK.getDefaultState()),
                 xPos_ + offset, yPos_, zPos_ + offset, 0.0f, 0.0f, 0.0f);
-        world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, Items.COOKED_BEEF.getDefaultStack()),
+        world.addParticleClient(new ItemStackParticleEffect(ParticleTypes.ITEM, Items.COOKED_BEEF.getDefaultStack()),
                 xPos_ + offset, yPos_, zPos_ + offset, 0.0f, 0.0f, 0.0f);
         super.randomDisplayTick(state, world, pos, random);
     }
@@ -130,22 +135,7 @@ public class CrystallizerBlock extends /*HorizontalFacingBlock*/BlockWithEntity 
         return BlockRenderType.MODEL;
     }
 
-    @Override
-    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        //if (!state.isOf(newState.getBlock())) { // Esto también sirve
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof CrystallizerBlockEntity crystallizerBlockEntity) {
-                //Inventory inventory = (Inventory)blockEntity;
-                ItemScatterer.spawn(world, pos, crystallizerBlockEntity);
-                world.updateComparators(pos, this);
-            }
-            super.onStateReplaced(state, world, pos, newState, moved);
-        }
-        // Mirar clase ItemScatterer
-    }
-
-    @Override
+    @Override // onUseWithItems -> onUseWithItem
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient){
             NamedScreenHandlerFactory screenHandlerFactory = ((CrystallizerBlockEntity) world.getBlockEntity(pos));

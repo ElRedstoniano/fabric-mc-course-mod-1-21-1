@@ -20,9 +20,9 @@ public class GiraffeModel/*<T extends GiraffeEntity>*/ extends EntityModel<Giraf
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
-        ModelPartData torso = body.addChild("torso", ModelPartBuilder.create().uv(0, 0).cuboid(-9.0F, -8.0F, -17.0F, 18.0F, 18.0F, 34.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -43.0F, 0.0F));
+        ModelPartData torso = body.addChild("torso", ModelPartBuilder.create().uv(0, 0).cuboid(-9.0F, -8.0F, -17.0F, 18.0F, 18.0F, 34.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -43.0F, 0.0F));
 
         ModelPartData tail = torso.addChild("tail", ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(-5.5F, 0.0F, 0.0F, 11.0F, 33.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, -3.0F, 17.0F, 0.0436F, 0.0F, 0.0F));
 
@@ -33,38 +33,38 @@ public class GiraffeModel/*<T extends GiraffeEntity>*/ extends EntityModel<Giraf
         ModelPartData neck = torso.addChild("neck", ModelPartBuilder.create().uv(99, 93).cuboid(-3.5F, -23.0F, -7.0F, 7.0F, 28.0F, 7.0F, new Dilation(0.0F))
                 .uv(100, 72).cuboid(-3.5F, -38.0F, -7.0F, 7.0F, 15.0F, 6.0F, new Dilation(0.0F))
                 .uv(100, 53).cuboid(-3.5F, -51.0F, -7.0F, 7.0F, 13.0F, 6.0F, new Dilation(0.0F))
-                .uv(0, 52).cuboid(-6.5F, -7.0F, -6.0F, 13.0F, 16.0F, 11.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -5.0F, -13.0F));
+                .uv(0, 52).cuboid(-6.5F, -7.0F, -6.0F, 13.0F, 16.0F, 11.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -5.0F, -13.0F));
 
         ModelPartData head = neck.addChild("head", ModelPartBuilder.create().uv(71, 18).cuboid(-2.5F, -4.0F, -11.5F, 5.0F, 4.0F, 6.0F, new Dilation(0.0F))
-                .uv(70, 0).cuboid(-4.5F, -8.0F, -5.5F, 9.0F, 8.0F, 9.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -51.0F, -3.5F));
+                .uv(70, 0).cuboid(-4.5F, -8.0F, -5.5F, 9.0F, 8.0F, 9.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -51.0F, -3.5F));
 
-        ModelPartData horns = head.addChild("horns", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -8.0F, 0.0F));
+        ModelPartData horns = head.addChild("horns", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -8.0F, 0.0F));
 
         ModelPartData hornL = horns.addChild("hornL", ModelPartBuilder.create().uv(22, 9).cuboid(-0.5F, -4.0F, 4.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.2F))
-                .uv(22, 5).cuboid(-0.5F, -3.0F, 4.5F, 1.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(3.0F, 0.0F, -5.0F));
+                .uv(22, 5).cuboid(-0.5F, -3.0F, 4.5F, 1.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.origin(3.0F, 0.0F, -5.0F));
 
         ModelPartData hornR = horns.addChild("hornR", ModelPartBuilder.create().uv(22, 5).cuboid(-0.5F, -3.0F, 4.5F, 1.0F, 3.0F, 1.0F, new Dilation(0.0F))
-                .uv(22, 9).cuboid(-0.5F, -4.0F, 4.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.2F)), ModelTransform.pivot(-3.0F, 0.0F, -5.0F));
+                .uv(22, 9).cuboid(-0.5F, -4.0F, 4.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.2F)), ModelTransform.origin(-3.0F, 0.0F, -5.0F));
 
-        ModelPartData earL = head.addChild("earL", ModelPartBuilder.create(), ModelTransform.pivot(4.456F, -5.7557F, -2.0F));
+        ModelPartData earL = head.addChild("earL", ModelPartBuilder.create(), ModelTransform.origin(4.456F, -5.7557F, -2.0F));
 
         ModelPartData cube_r1 = earL.addChild("cube_r1", ModelPartBuilder.create().uv(22, 0).mirrored().cuboid(-0.75F, -3.0F, 0.0F, 3.0F, 5.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(1.0F, -0.75F, 0.5F, -0.2618F, 0.0F, 1.0036F));
 
-        ModelPartData earR = head.addChild("earR", ModelPartBuilder.create(), ModelTransform.pivot(-4.456F, -5.7557F, -2.0F));
+        ModelPartData earR = head.addChild("earR", ModelPartBuilder.create(), ModelTransform.origin(-4.456F, -5.7557F, -2.0F));
 
         ModelPartData cube_r2 = earR.addChild("cube_r2", ModelPartBuilder.create().uv(22, 0).cuboid(-2.25F, -3.0F, 0.0F, 3.0F, 5.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-1.0F, -0.75F, 0.5F, -0.2618F, 0.0F, -1.0036F));
 
-        ModelPartData legs = body.addChild("legs", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        ModelPartData legs = body.addChild("legs", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-        ModelPartData legFR = legs.addChild("legFR", ModelPartBuilder.create().uv(76, 52).cuboid(-2.5F, -2.0F, -2.5F, 5.0F, 40.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(8.5F, -38.0F, -11.5F));
+        ModelPartData legFR = legs.addChild("legFR", ModelPartBuilder.create().uv(76, 52).cuboid(-2.5F, -2.0F, -2.5F, 5.0F, 40.0F, 5.0F, new Dilation(0.0F)), ModelTransform.origin(8.5F, -38.0F, -11.5F));
 
-        ModelPartData legFL = legs.addChild("legFL", ModelPartBuilder.create().uv(76, 52).cuboid(-11.0F, -2.0F, -2.5F, 5.0F, 40.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -38.0F, -11.5F));
+        ModelPartData legFL = legs.addChild("legFL", ModelPartBuilder.create().uv(76, 52).cuboid(-11.0F, -2.0F, -2.5F, 5.0F, 40.0F, 5.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -38.0F, -11.5F));
 
         ModelPartData legBR = legs.addChild("legBR", ModelPartBuilder.create().uv(56, 52).cuboid(6.0F, 10.0F, 1.0F, 5.0F, 27.0F, 5.0F, new Dilation(0.0F))
-                .uv(0, 79).cuboid(6.0F, -3.0F, -5.0F, 5.0F, 13.0F, 11.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -37.0F, 10.0F));
+                .uv(0, 79).cuboid(6.0F, -3.0F, -5.0F, 5.0F, 13.0F, 11.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -37.0F, 10.0F));
 
         ModelPartData legBL = legs.addChild("legBL", ModelPartBuilder.create().uv(0, 79).cuboid(-11.0F, -3.0F, -5.0F, 5.0F, 13.0F, 11.0F, new Dilation(0.0F))
-                .uv(56, 52).cuboid(-11.0F, 10.0F, 1.0F, 5.0F, 27.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -37.0F, 10.0F));
+                .uv(56, 52).cuboid(-11.0F, 10.0F, 1.0F, 5.0F, 27.0F, 5.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -37.0F, 10.0F));
         return TexturedModelData.of(modelData, 128, 128);
     }
 
@@ -76,9 +76,9 @@ public class GiraffeModel/*<T extends GiraffeEntity>*/ extends EntityModel<Giraf
     //public void setAngles(GiraffeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     public void setAngles(GiraffeRenderState state) {
         body.traverse().forEach(ModelPart::resetTransform);
-        setHeadAngles(state.yawDegrees, state.pitch);
+        setHeadAngles(state.relativeHeadYaw, state.pitch);
         // animateMovement -> animateWalking
-        this.animateWalking(GiraffeAnimations.ANIM_GIRAFFE_WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 2f, 2.5f);
+        this.animateWalking(GiraffeAnimations.ANIM_GIRAFFE_WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
         this.animate(state.idleAnimationState, GiraffeAnimations.ANIM_GIRAFFE_IDLE, state.age, 1f);
     }
 

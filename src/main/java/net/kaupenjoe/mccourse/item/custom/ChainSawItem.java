@@ -3,6 +3,7 @@ package net.kaupenjoe.mccourse.item.custom;
 import net.kaupenjoe.mccourse.components.ModDataComponentTypes;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -85,22 +86,24 @@ public class ChainSawItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         if(!Screen.hasShiftDown()){
-            tooltip.add((Text.translatable("tooltip.mccourse.chainsaw.tooltip.shift")));
+            textConsumer.accept((Text.translatable("tooltip.mccourse.chainsaw.tooltip.shift")));
         } else{
-            tooltip.add((Text.translatable("tooltip.mccourse.chainsaw.tooltip.1")));
-            tooltip.add((Text.translatable("tooltip.mccourse.chainsaw.tooltip.2")));
+            textConsumer.accept((Text.translatable("tooltip.mccourse.chainsaw.tooltip.1")));
+            textConsumer.accept((Text.translatable("tooltip.mccourse.chainsaw.tooltip.2")));
         }
 
         if (stack.get(ModDataComponentTypes.COORDINATES) != null){ // Si tiene coordenadas registradas se añade un tooltip con el mensaje
             BlockPos blockPos = stack.get(ModDataComponentTypes.COORDINATES);
             Text coordinatesText = Text.of("{" + blockPos.getX() + ", " + blockPos.getY() + ", " + blockPos.getZ() + "}");
 
-            tooltip.add(Text.translatable("tooltip.mccourse.chainsaw.last_chopped_tree",
+            textConsumer.accept(Text.translatable("tooltip.mccourse.chainsaw.last_chopped_tree",
                     coordinatesText.copy().setStyle(Style.EMPTY.withColor(TextColor.fromRgb(Color.CYAN.getRGB())))));
         }
 
-        super.appendTooltip(stack, context, tooltip, type);
+        super.appendTooltip(stack, context,  displayComponent, textConsumer, type);
     }
+
+    // postHit() now returns void instead of boolean
 }

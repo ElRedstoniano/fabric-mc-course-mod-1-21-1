@@ -14,6 +14,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradedItem;
 import net.minecraft.village.VillagerProfession;
@@ -23,11 +24,16 @@ public class ModVillagers {
 
     public static final RegistryKey<PointOfInterestType> MAGIC_POI_KEY = registerPoiKey("magic_poi");
     public static final PointOfInterestType MAGIC_POI = registerPOI("magic_poi", ModBlocks.MAGIC_BLOCK);
+    //
+    public static final RegistryKey<VillagerProfession> KAUPENGER_KEY = RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, MCCourseMod.id("kaupenger"));
     public static final VillagerProfession KAUPENGER = registerProfession("kaupenger", MAGIC_POI_KEY);
+    //public static final  RegistryKey<VillagerProfession> KAUPENGER = RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, MCCourseMod.id("kaupenger"));
+
 
     private static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> type){
         return Registry.register(Registries.VILLAGER_PROFESSION, MCCourseMod.id(name),
-                new VillagerProfession(name, entry -> entry.matchesKey(type),
+                new VillagerProfession(Text.translatable("entity." + KAUPENGER_KEY.getValue().getNamespace() + ".villager." + KAUPENGER_KEY.getValue().getPath()),
+                        entry -> entry.matchesKey(type),
                         entry -> entry.matchesKey(type),
                         ImmutableSet.of(), ImmutableSet.of(), SoundEvents.ENTITY_VILLAGER_WORK_LIBRARIAN));
     }
@@ -60,7 +66,7 @@ public class ModVillagers {
             ));
         });
 
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.KAUPENGER, 1, factories -> {
+        TradeOfferHelper.registerVillagerOffers(/*ModVillagers.KAUPENGER*/KAUPENGER_KEY , 1, factories -> {
             factories.add((entity, random) -> new TradeOffer(
                     new TradedItem(Items.DIAMOND, 6),
                     new ItemStack(ModItems.RAW_FLUORITE, 19), 4, 1, 0.04f
@@ -68,6 +74,13 @@ public class ModVillagers {
             factories.add((entity, random) -> new TradeOffer(
                     new TradedItem(ModItems.FLUORITE, 6),
                     new ItemStack(ModItems.SPECTRE_STAFF, 1), 1, 8, 0.04f
+            ));
+        });
+
+        TradeOfferHelper.registerWanderingTraderOffers(wanderingTraderOffersBuilder -> {
+            wanderingTraderOffersBuilder.addAll(MCCourseMod.id("emeralds_for_fluorite"),(entity, random) -> new TradeOffer(
+                    new TradedItem(Items.EMERALD, 6),
+                    new ItemStack(ModItems.FLUORITE, 19), 4, 1, 0.04f
             ));
         });
     }

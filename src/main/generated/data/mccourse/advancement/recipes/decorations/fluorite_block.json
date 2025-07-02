@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:fluorite_block"
+        "recipe": "mccourse:fluorite_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:fluorite_block"
+      "mccourse:fluorite_block"
     ]
   }
 }

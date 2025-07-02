@@ -13,6 +13,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.StateManager;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -51,10 +52,10 @@ public class MagicBlock extends Block {
         return stack.isIn(ModTags.Items.TRANSFORMABLE_ITEMS);
     }
 
-    @Override
+    /*@Override // 1.21.4< // now this is done with item components// overriding appendTooltip() inside BlockItem(s) object or ItemTooltipCallback.EVENT.register()
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
         tooltip.add(Text.translatable("tooltip.mccourse.magic_block.tooltip.1"));
 
         super.appendTooltip(stack, context, tooltip, options);
-    }
+    }*/
 }

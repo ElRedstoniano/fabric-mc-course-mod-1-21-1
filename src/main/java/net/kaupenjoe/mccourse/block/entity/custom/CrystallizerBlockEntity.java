@@ -31,6 +31,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -236,10 +237,17 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         Inventories.readNbt(nbt, inventory, registryLookup);
-        progress = nbt.getInt("crystallizer.progress");
-        maxProgress = nbt.getInt("crystallizer.max_progress");
-        energyStorage.amount = nbt.getLong("crystallizer.energy");
+        progress = nbt.getInt("crystallizer.progress").get();
+        maxProgress = nbt.getInt("crystallizer.max_progress").get();
+        energyStorage.amount = nbt.getLong("crystallizer.energy").get();
         SingleVariantStorage.readNbt(fluidStorage, FluidVariant.CODEC, FluidVariant::blank ,nbt, registryLookup);
+    }
+
+    @Override
+    public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+        ItemScatterer.spawn(world, pos, this); // Mirar clase ItemScatterer
+        //world.updateComparators(pos, this);
+        super.onBlockReplaced(pos, oldState);
     }
 
     public void tick(World world, BlockPos blockPos, BlockState state){

@@ -2,7 +2,6 @@ package net.kaupenjoe.mccourse.block.entity.renderer;
 
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.block.entity.custom.TankBlockEntity;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
@@ -13,6 +12,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 // Credits to TurtyWurtyº
@@ -24,7 +24,7 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
     }
 
     @Override
-    public void render(TankBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(TankBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
         FluidVariant fluidStack = entity.getFluid();
         if (fluidStack.isBlank())
             return;

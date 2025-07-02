@@ -1,6 +1,5 @@
 package net.kaupenjoe.mccourse.item;
 
-import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.kaupenjoe.mccourse.MCCourseMod;
@@ -8,8 +7,14 @@ import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.item.custom.*;
 import net.kaupenjoe.mccourse.sound.ModSounds;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.EquippableComponent;
+import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
+import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.tooltip.TooltipType;
@@ -17,11 +22,15 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.resource.featuretoggle.FeatureFlags;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class ModItems {
@@ -34,11 +43,12 @@ public class ModItems {
     public static final Item STRAWBERRY = registerItem("strawberry",
             setting -> new Item(
                     setting.food(ModFoodComponents.STRAWBERRY, ModFoodComponents.STRAWBERRY_EFFECT)){
-                @Override
-                public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-                    tooltip.add(Text.translatable("tooltip.mccourse.strawberry.tooltip.1"));
 
-                    super.appendTooltip(stack, context, tooltip, type);
+                @Override
+                public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+                    textConsumer.accept(Text.translatable("tooltip.mccourse.strawberry.tooltip.1"));
+
+                    super.appendTooltip(stack, context, displayComponent, textConsumer, type);
                 }
             });
     public static final Item STARLIGHT_ASHES = registerItem("starlight_ashes", Item::new);
@@ -46,7 +56,9 @@ public class ModItems {
             setting -> new ModEffectSwordItem(ModToolMaterials.FLUORITE,
                     3, -2.4f, setting, StatusEffects.LEVITATION));
     public static final Item FLUORITE_PICKAXE = registerItem("fluorite_pickaxe",
-            setting -> new PickaxeItem(ModToolMaterials.FLUORITE, 1, -2.8f, setting));
+            //setting -> new PickaxeItem(ModToolMaterials.FLUORITE, 1, -2.8f, setting));
+            setting -> new Item(setting.tool(ModToolMaterials.FLUORITE,
+                    BlockTags.PICKAXE_MINEABLE, 1, -2.8f, 0.0f)));
     public static final Item FLUORITE_SHOVEL = registerItem("fluorite_shovel",
             setting -> new ShovelItem(ModToolMaterials.FLUORITE, 1.5f, -3.0f, setting));
     public static final Item FLUORITE_AXE = registerItem("fluorite_axe",
@@ -60,21 +72,21 @@ public class ModItems {
     public static final Item FLUORITE_HAMMER = registerItem("fluorite_hammer",
             setting -> new HammerItem(ModToolMaterials.FLUORITE, 8, -3.5f, setting));
 
-    public static final Item FLUORITE_HELMET = registerItem("fluorite_helmet",
+    /*public static final Item FLUORITE_HELMET = registerItem("fluorite_helmet",
             setting -> new ModArmorItem(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, EquipmentType.HELMET, setting
-                    .maxDamage(EquipmentType.HELMET.getMaxDamage(15))));
+                    .maxDamage(EquipmentType.HELMET.getMaxDamage(15))));*/ // 1.21.4< // ArmorItems are gone
+    public static final Item FLUORITE_HELMET = registerItem("fluorite_helmet", // 1.21.5+
+            setting ->  new ModArmorItem(setting.armor(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, EquipmentType.HELMET)));
     public static final Item FLUORITE_CHESTPLATE = registerItem("fluorite_chestplate",
-            setting -> new ArmorItem(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, EquipmentType.CHESTPLATE, setting
-                    .maxDamage(EquipmentType.CHESTPLATE.getMaxDamage(15))));
+            setting -> new Item(setting.armor(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, EquipmentType.CHESTPLATE)));
     public static final Item FLUORITE_LEGGINGS = registerItem("fluorite_leggings",
-            setting -> new ArmorItem(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, EquipmentType.LEGGINGS, setting
-                    .maxDamage(EquipmentType.LEGGINGS.getMaxDamage(15))));
+            setting ->  new Item(setting.armor(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, EquipmentType.LEGGINGS)));
     public static final Item FLUORITE_BOOTS = registerItem("fluorite_boots",
-            setting -> new ArmorItem(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, EquipmentType.BOOTS, setting
-                    .maxDamage(EquipmentType.BOOTS.getMaxDamage(15))));
+            setting ->  new Item(setting.armor(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, EquipmentType.BOOTS)));
 
     public static final Item FLUORITE_HORSE_ARMOR = registerItem("fluorite_horse_armor",
-            setting -> new AnimalArmorItem(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, AnimalArmorItem.Type.EQUESTRIAN, setting));
+            //setting -> new AnimalArmorItem(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, AnimalArmorItem.Type.EQUESTRIAN, setting));
+            setting -> new Item(setting.horseArmor(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL).maxCount(1)));
 
     public static final Item KAUPEN_SMITHING_TEMPLATE = registerItem("kaupen_armor_trim_smithing_template", SmithingTemplateItem::of);
 
@@ -109,23 +121,48 @@ public class ModItems {
             setting -> new SpawnEggItem(ModEntities.WARTURTLE_ET, /*0xa86518, 0x3b260f,*/ setting));
 
     public static final Item IRON_WARTURTLE_ARMOR = registerItem("iron_warturtle_armor",
-            setting -> new WarturtleArmorItem(ArmorMaterials.IRON, setting.maxDamage(200)));
+            //setting -> new WarturtleArmorItem(ArmorMaterials.IRON, setting.maxDamage(200)));
+                    setting -> new WarturtleArmorItem(
+                            animalBodyArmor(ArmorMaterials.IRON, setting, ModEntities.WARTURTLE_ET, SoundEvents.ITEM_WOLF_ARMOR_BREAK/*, 200*/)));
     public static final Item GOLD_WARTURTLE_ARMOR = registerItem("gold_warturtle_armor",
-            setting -> new WarturtleArmorItem(ArmorMaterials.GOLD, setting.maxDamage(400)));
+            setting -> new WarturtleArmorItem(
+                            animalBodyArmor(ArmorMaterials.GOLD, setting, ModEntities.WARTURTLE_ET, SoundEvents.ITEM_WOLF_ARMOR_BREAK/*, 400*/)));
     public static final Item DIAMOND_WARTURTLE_ARMOR = registerItem("diamond_warturtle_armor",
-            setting -> new WarturtleArmorItem(ArmorMaterials.DIAMOND, setting.maxDamage(600)));
+            setting -> new WarturtleArmorItem(
+                            animalBodyArmor(ArmorMaterials.DIAMOND, setting, ModEntities.WARTURTLE_ET, SoundEvents.ITEM_WOLF_ARMOR_BREAK/*, 600*/)));
     public static final Item NETHERITE_WARTURTLE_ARMOR = registerItem("netherite_warturtle_armor",
-            setting -> new WarturtleArmorItem(ArmorMaterials.NETHERITE, setting.maxDamage(800)));
+            setting -> new WarturtleArmorItem(
+                            animalBodyArmor(ArmorMaterials.NETHERITE, setting, ModEntities.WARTURTLE_ET, SoundEvents.ITEM_WOLF_ARMOR_BREAK/*, 800*/)));
     public static final Item FLUORITE_WARTURTLE_ARMOR = registerItem("fluorite_warturtle_armor",
-            setting -> new WarturtleArmorItem(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, setting.maxDamage(1000)));
-
-
+            setting -> new WarturtleArmorItem(
+                            animalBodyArmor(ModArmorMaterials.FLUORITE_ARMOR_MATERIAL, setting, ModEntities.WARTURTLE_ET, SoundEvents.ITEM_WOLF_ARMOR_BREAK/*, 200*/)));
 
     private static Item registerItem(String name, Function<Item.Settings, Item> function){
         return Registry.register(Registries.ITEM,
                 Identifier.of(MCCourseMod.MOD_ID, name),
                 function.apply(new Item.Settings()
                         .registryKey(RegistryKey.of(RegistryKeys.ITEM, MCCourseMod.id(name)))));
+    }
+
+    // From Item class wolfArmor() method
+    public static Item.Settings animalBodyArmor(ArmorMaterial material, Item.Settings settings, EntityType<?> entityType, RegistryEntry.Reference<SoundEvent> breakSoundReference, int additionalMaxDamage) {
+        return settings.maxDamage(EquipmentType.BODY.getMaxDamage(material.durability() + additionalMaxDamage))
+                .attributeModifiers(material.createAttributeModifiers(EquipmentType.BODY))
+                .repairable(material.repairIngredient())
+                .component(
+                        DataComponentTypes.EQUIPPABLE,
+                        EquippableComponent.builder(EquipmentSlot.BODY)
+                                .equipSound(material.equipSound())
+                                .model(material.assetId())
+                                .allowedEntities(RegistryEntryList.of(entityType.getRegistryEntry()))
+                                .build()
+                )
+                .component(DataComponentTypes.BREAK_SOUND, breakSoundReference/*SoundEvents.ITEM_WOLF_ARMOR_BREAK*/)
+                .maxCount(1);
+    }
+
+    public static Item.Settings animalBodyArmor(ArmorMaterial material, Item.Settings settings, EntityType<?> entityType, RegistryEntry.Reference<SoundEvent> breakSoundReference) {
+        return  animalBodyArmor(material, settings, entityType, breakSoundReference, 0);
     }
 
     private static void customIngredients(FabricItemGroupEntries entries){

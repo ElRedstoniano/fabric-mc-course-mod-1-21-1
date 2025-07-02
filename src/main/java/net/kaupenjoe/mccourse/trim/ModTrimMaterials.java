@@ -1,9 +1,11 @@
 package net.kaupenjoe.mccourse.trim;
 
+import com.google.common.collect.Maps;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.equipment.EquipmentAsset;
+import net.minecraft.item.equipment.trim.ArmorTrimAssets;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registries;
@@ -27,10 +29,16 @@ public class ModTrimMaterials {
                 Style.EMPTY.withColor(TextColor.parse("#b03fe0").getOrThrow()), Map.of());
     }
 
-    private static void register(Registerable<ArmorTrimMaterial> registerable, RegistryKey<ArmorTrimMaterial> armorTrimKey, RegistryEntry<Item> item, Style style,
-                                 Map<RegistryKey<EquipmentAsset>, String> overrideArmorAssets) {
-        ArmorTrimMaterial trimmaterial = new ArmorTrimMaterial(armorTrimKey.getValue().getPath(), item, overrideArmorAssets,
-                Text.translatable(Util.createTranslationKey("trim_material", armorTrimKey.getValue())).fillStyle(style));
+    public static ArmorTrimAssets of(String suffix, Map<RegistryKey<EquipmentAsset>, String> overrides) {
+        return new ArmorTrimAssets(new ArmorTrimAssets.AssetId(suffix), Map.copyOf(Maps.transformValues(overrides, ArmorTrimAssets.AssetId::new)));
+    }
+
+    private static void register(Registerable<ArmorTrimMaterial> registerable, RegistryKey<ArmorTrimMaterial> armorTrimKey,
+                                 RegistryEntry<Item> item, Style style, Map<RegistryKey<EquipmentAsset>, String> overrideArmorAssets) {
+        //ArmorTrimMaterial trimmaterial = new ArmorTrimMaterial(armorTrimKey.getValue().getPath(), item, overrideArmorAssets,
+                //Text.translatable(Util.createTranslationKey("trim_material", armorTrimKey.getValue())).fillStyle(style));
+        Text text = Text.translatable(Util.createTranslationKey("trim_material", armorTrimKey.getValue())).fillStyle(style);
+        ArmorTrimMaterial trimmaterial = new ArmorTrimMaterial(ArmorTrimAssets.of("fluorite", overrideArmorAssets), text);
 
         registerable.register(armorTrimKey, trimmaterial);
     }}

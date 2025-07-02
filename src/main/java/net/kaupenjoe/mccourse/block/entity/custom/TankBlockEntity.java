@@ -25,6 +25,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -143,6 +144,13 @@ public class TankBlockEntity extends BlockEntity implements ExtendedScreenHandle
         super.readNbt(nbt, registryLookup);
         Inventories.readNbt(nbt, inventory, registryLookup);
         SingleVariantStorage.readNbt(this.fluidStorage, FluidVariant.CODEC, FluidVariant::blank, nbt, registryLookup);
+    }
+
+    @Override
+    public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+        ItemScatterer.spawn(world, pos, this); // Mirar clase ItemScatterer
+        //world.updateComparators(pos, this);
+        super.onBlockReplaced(pos, oldState);
     }
 
     @Override

@@ -22,6 +22,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -87,9 +88,9 @@ public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         Inventories.readNbt(nbt, inventory, registryLookup);
-        energyStorage.amount = nbt.getLong("coal_generator.energy");
-        burnProgress = nbt.getInt("coal_generator.burn_progress");
-        maxBurnProgress = nbt.getInt("coal_generator.max_burn_progress");
+        energyStorage.amount = nbt.getLong("coal_generator.energy").get();
+        burnProgress = nbt.getInt("coal_generator.burn_progress").get();
+        maxBurnProgress = nbt.getInt("coal_generator.max_burn_progress").get();
         super.readNbt(nbt, registryLookup);
     }
 
@@ -106,6 +107,13 @@ public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new CoalGeneratorScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+    }
+
+    @Override
+    public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+        ItemScatterer.spawn(world, pos, this); // Mirar clase ItemScatterer
+        //world.updateComparators(pos, this);
+        super.onBlockReplaced(pos, oldState);
     }
 
     @Override

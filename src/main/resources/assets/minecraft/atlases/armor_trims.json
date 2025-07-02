@@ -39,8 +39,8 @@
                 "trims/entity/humanoid_leggings/flow",
                 "trims/entity/humanoid/bolt",
                 "trims/entity/humanoid_leggings/bolt",
-                "mccourse:trims/entity/huamnoid/kaupen",
-                "mccourse:trims/entity/huamnoid_leggings/kaupen"
+                "mccourse:trims/entity/humanoid/kaupen",
+                "mccourse:trims/entity/humanoid_leggings/kaupen"
             ],
             "palette_key": "trims/color_palettes/trim_palette",
             "permutations": {
