@@ -1,7 +1,7 @@
 {
   "model": {
     "type": "minecraft:condition",
-    "component": "mccourse:coordinates",
+    "component": "mccourse:found_block",
     "on_false": {
       "type": "minecraft:model",
       "model": "mccourse:item/data_tablet_off"

@@ -199,7 +199,7 @@ public class ModModelProvider extends FabricModelProvider {
         ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
         ItemModel.Unbaked unbakedOff = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_off", Models.GENERATED));
         itemModelGenerator.output.accept(item,
-                new ItemAsset(new ConditionItemModel.Unbaked(new HasComponentProperty(ModDataComponentTypes.COORDINATES, false),
+                new ItemAsset(new ConditionItemModel.Unbaked(new HasComponentProperty(ModDataComponentTypes.FOUND_BLOCK, false),
                         unbaked, unbakedOff),
                         new ItemAsset.Properties(false)).model());
     }
