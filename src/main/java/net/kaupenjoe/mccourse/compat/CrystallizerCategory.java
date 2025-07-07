@@ -1,6 +1,6 @@
 package net.kaupenjoe.mccourse.compat;
 
-import me.shedaniel.math.Point;
+/*import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
@@ -8,18 +8,11 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
-import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.kaupenjoe.mccourse.MCCourseMod;
-import net.kaupenjoe.mccourse.block.ModBlocks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
-import java.util.LinkedList;
-import java.util.List;
+import me.shedaniel.rei.api.common.util.EntryStacks;*/
 
 // Done with the help:
 // https://github.com/TeamGalacticraft/Galacticraft/tree/main (MIT License)
-public class CrystallizerCategory implements DisplayCategory<BasicDisplay> {
+public class CrystallizerCategory { /*implements DisplayCategory<BasicDisplay> {
     public static final Identifier TEXTURE = MCCourseMod.id("textures/gui/crystallizer/crystallizer_gui.png");
     public static final CategoryIdentifier<CrystallizerDisplay> CRYSTALLIZER = CategoryIdentifier.of(MCCourseMod.id("crystallizer"));
 
@@ -59,5 +52,5 @@ public class CrystallizerCategory implements DisplayCategory<BasicDisplay> {
 
         //return DisplayCategory.super.setupDisplay(display, bounds);
         return widgets;
-    }
+    }*/
 }

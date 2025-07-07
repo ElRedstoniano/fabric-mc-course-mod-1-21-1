@@ -1,11 +1,11 @@
 package net.kaupenjoe.mccourse;
 
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
@@ -22,6 +22,8 @@ import net.kaupenjoe.mccourse.event.AttackEntityHandler;
 import net.kaupenjoe.mccourse.event.PlayerCopyHandler;
 import net.kaupenjoe.mccourse.item.ModItemGroups;
 import net.kaupenjoe.mccourse.item.ModItems;
+import net.kaupenjoe.mccourse.networking.ModPayloadsRegisterer;
+import net.kaupenjoe.mccourse.networking.UpdatePedestalBlockPayload;
 import net.kaupenjoe.mccourse.potion.ModPotionRecipes;
 import net.kaupenjoe.mccourse.potion.ModPotions;
 import net.kaupenjoe.mccourse.recipe.ModRecipes;
@@ -106,6 +108,10 @@ public class MCCourseMod implements ModInitializer, TerraBlenderApi {
 		ModEntitySpawns.addSpawns();
 
 		registerVillagerModifications();
+
+		/* Payloads registration */
+		//PayloadTypeRegistry.playS2C().register(UpdatePedestalBlockPayload.ID, UpdatePedestalBlockPayload.CODEC);
+		ModPayloadsRegisterer.registerPayloads();
 	}
 
 	private void registerVillagerModifications(){

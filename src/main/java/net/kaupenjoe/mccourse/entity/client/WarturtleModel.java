@@ -2,6 +2,7 @@ package net.kaupenjoe.mccourse.entity.client;
 
 import net.kaupenjoe.mccourse.entity.client.animation.WarturtleAnimations;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.util.math.MathHelper;
@@ -14,6 +15,12 @@ public class WarturtleModel/*<T extends WarturtleEntity>*/ extends EntityModel<W
     private final ModelPart tier3;
     private final ModelPart head;
 
+    private final Animation idleAnimation;
+    private final Animation walkingAnimation;
+    private final Animation sittingTransitionAnimation;
+    private final Animation sittingAnimation;
+    private final Animation standingTransitionAnimation;
+
     public WarturtleModel(ModelPart root) {
         super(root);
         this.body = root.getChild("body");
@@ -23,6 +30,11 @@ public class WarturtleModel/*<T extends WarturtleEntity>*/ extends EntityModel<W
         this.tier2 = this.body.getChild("torso").getChild("chests").getChild("tier2");
         this.tier3 = this.body.getChild("torso").getChild("chests").getChild("tier3");
 
+        this.idleAnimation = WarturtleAnimations.ANIM_WARTURTLE_IDLE.createAnimation(root);
+        this.walkingAnimation = WarturtleAnimations.ANIM_WARTURTLE_WALK.createAnimation(root);
+        this.sittingTransitionAnimation = WarturtleAnimations.ANIM_WARTURTLE_HIDE.createAnimation(root);
+        this.sittingAnimation = WarturtleAnimations.ANIM_WARTURTLE_SITTING.createAnimation(root);
+        this.standingTransitionAnimation = WarturtleAnimations.ANIM_WARTURTLE_EMERGE.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -98,13 +110,20 @@ public class WarturtleModel/*<T extends WarturtleEntity>*/ extends EntityModel<W
         body.traverse().forEach(ModelPart::resetTransform);
         setHeadAngles(renderState.relativeHeadYaw, renderState.pitch); // yawDegrees -> relativeHeadYaw
 
-        // limbFrequency -> limbSwingAnimationProgress // limbAmplitudeMultiplier -> limbSwingAmplitude
-        this.animateWalking(WarturtleAnimations.ANIM_WARTURTLE_WALK, renderState.limbSwingAnimationProgress, renderState.limbSwingAmplitude, 2f, 2.5f);
+        // limbFrequency -> limbSwingAnimationProgress // limbAmplitudeMultiplier -> limbSwingAmplitude // 1.21.4-5<
+        /*this.animateWalking(WarturtleAnimations.ANIM_WARTURTLE_WALK, renderState.limbSwingAnimationProgress, renderState.limbSwingAmplitude, 2f, 2.5f);
         this.animate(renderState.idleAnimationState, WarturtleAnimations.ANIM_WARTURTLE_IDLE, renderState.age, 1f);
 
         this.animate(renderState.sittingTransitionAnimationState, WarturtleAnimations.ANIM_WARTURTLE_HIDE, renderState.age, 1f);
         this.animate(renderState.sittingAnimationState, WarturtleAnimations.ANIM_WARTURTLE_SITTING, renderState.age, 1f);
-        this.animate(renderState.standingTransitionAnimationState, WarturtleAnimations.ANIM_WARTURTLE_EMERGE, renderState.age, 1f);
+        this.animate(renderState.standingTransitionAnimationState, WarturtleAnimations.ANIM_WARTURTLE_EMERGE, renderState.age, 1f);*/
+
+        // 1.21.6
+        this.walkingAnimation.applyWalking(renderState.limbSwingAnimationProgress, renderState.limbSwingAmplitude, 2f, 2.5f);;
+        this.idleAnimation.apply(renderState.idleAnimationState, renderState.age, 1f);
+        this.sittingTransitionAnimation.apply(renderState.sittingTransitionAnimationState, renderState.age, 1f);
+        this.sittingAnimation.apply(renderState.sittingAnimationState, renderState.age, 1f);
+        this.standingTransitionAnimation.apply(renderState.standingTransitionAnimationState, renderState.age, 1f);
 
         tier1.visible = renderState.hasTier1Chest;
         tier2.visible = renderState.hasTier2Chest;

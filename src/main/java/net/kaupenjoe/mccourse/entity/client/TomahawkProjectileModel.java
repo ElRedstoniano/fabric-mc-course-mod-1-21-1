@@ -1,7 +1,6 @@
 package net.kaupenjoe.mccourse.entity.client;
 
 
-import net.kaupenjoe.mccourse.MCCourseMod;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;

@@ -1,20 +1,19 @@
 package net.kaupenjoe.mccourse.screen.custom;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.screen.renderer.EnergyInfoArea;
 import net.kaupenjoe.mccourse.screen.renderer.FluidStackRenderer;
 import net.kaupenjoe.mccourse.util.MouseUtil;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.item.Item;
 
 import java.util.Optional;
 
@@ -56,15 +55,16 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
 
     private void renderEnergyAreaTooltips (DrawContext context, int pMouseX, int pMouseY, int x, int y) {
         if(isMouseAboveArea(pMouseX, pMouseY, x, y, 155, 9, 10, 48)) {
-            context.drawTooltip(Screens.getTextRenderer(this), energyInfoArea.getTooltips(),
-                    Optional.empty(), pMouseX - x, pMouseY - y);
+           context.drawTooltip(/*Screens.getTextRenderer(this) 1.21.5<*/this.getTextRenderer(), energyInfoArea.getTooltips(),
+                   Optional.empty(), pMouseX/* - x*/, pMouseY/* - y*/);
+           // In 1.21.5< coordinates needs a difference operation with the x/y values (like pMouseX - x , pMouseY - y)
         }
     }
 
     private void renderFluidTooltip(DrawContext context, int mouseX, int mouseY, int x, int y, int offsetX, int offsetY, FluidStackRenderer renderer) {
         if(isMouseAboveArea(mouseX, mouseY, x, y, offsetX, offsetY, renderer)) {
-            context.drawTooltip(Screens.getTextRenderer(this), renderer.getTooltip(handler.blockEntity.fluidStorage, Item.TooltipContext.DEFAULT),
-                    Optional.empty(), mouseX - x, mouseY - y);
+            context.drawTooltip(this.getTextRenderer(), renderer.getTooltip(handler.blockEntity.fluidStorage, Item.TooltipContext.DEFAULT),
+                    Optional.empty(), mouseX/* - x*/, mouseY/* - y*/);
         }
     }
 
@@ -86,7 +86,8 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(RenderLayer::getGuiTextured, GUI_TEXTURE, x, y, 0, 0,
+        //context.drawTexture(RenderLayer::getGuiTextured, GUI_TEXTURE, x, y, 0, 0, // 1.21.5
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_TEXTURE, x, y, 0, 0, // 1.21.6
                 backgroundWidth, backgroundHeight, 256, 256);
         energyInfoArea.draw(context);
         fluidStackRenderer.drawFluid(context, handler.blockEntity.fluidStorage, x + 8, y + 7, 16, 50,
@@ -98,14 +99,14 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
 
     private void renderProgressArrow(DrawContext context, int x, int y) {
         if (handler.isCrafting()){
-            context.drawTexture(RenderLayer::getGuiTextured, ARROW_TEXTURE, x + 73, y + 35, 0, 0, handler.getScaledArrowProgress(),
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, ARROW_TEXTURE, x + 73, y + 35, 0, 0, handler.getScaledArrowProgress(),
                     16, 24, 16);
         }
     }
 
     private void renderProgressCrystal(DrawContext context, int x, int y) {
         if (handler.isCrafting()){
-            context.drawTexture(RenderLayer::getGuiTextured, CRYSTAL_TEXTURE, x + 104, y + 13 + 16 - handler.getScaledCrystalProgress(),
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, CRYSTAL_TEXTURE, x + 104, y + 13 + 16 - handler.getScaledCrystalProgress(),
                     0, 16 - handler.getScaledCrystalProgress(), 16, handler.getScaledCrystalProgress(),
                     16, 16);
         }

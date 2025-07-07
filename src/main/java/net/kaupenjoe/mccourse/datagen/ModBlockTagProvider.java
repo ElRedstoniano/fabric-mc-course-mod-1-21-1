@@ -18,7 +18,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+        // In 1.21.6 getOrCreateTagBuilder -> valueLookupBuilder
+        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.FLUORITE_BLOCK,
                         ModBlocks.FLUORITE_ORE,
                         ModBlocks.RAW_FLUORITE_BLOCK,
@@ -31,43 +32,43 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         ModBlocks.FLUORITE_STAIRS,
                         ModBlocks.FLUORITE_DOOR,
                         ModBlocks.FLUORITE_TRAPDOOR);
-        getOrCreateTagBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
+        valueLookupBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(ModBlocks.FLUORITE_END_ORE,
                         ModBlocks.FLUORITE_NETHER_ORE);
-        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
+        valueLookupBuilder(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.FLUORITE_DEEPSLATE_ORE)
                 .add(ModBlocks.FLUORITE_DOOR)
                 .add(ModBlocks.FLUORITE_TRAPDOOR);
 
-        getOrCreateTagBuilder(BlockTags.FENCES).add(ModBlocks.FLUORITE_FENCE);
-        getOrCreateTagBuilder(BlockTags.FENCE_GATES).add(ModBlocks.FLUORITE_FENCE_GATE);
-        getOrCreateTagBuilder(BlockTags.WALLS).add(ModBlocks.FLUORITE_WALL);
+        valueLookupBuilder(BlockTags.FENCES).add(ModBlocks.FLUORITE_FENCE);
+        valueLookupBuilder(BlockTags.FENCE_GATES).add(ModBlocks.FLUORITE_FENCE_GATE);
+        valueLookupBuilder(BlockTags.WALLS).add(ModBlocks.FLUORITE_WALL);
 
-        getOrCreateTagBuilder(ModTags.Blocks.PAXEL_MINEABLE)
+        valueLookupBuilder(ModTags.Blocks.PAXEL_MINEABLE)
                 .forceAddTag(BlockTags.PICKAXE_MINEABLE)
                 .forceAddTag(BlockTags.AXE_MINEABLE)
                 .forceAddTag(BlockTags.SHOVEL_MINEABLE);
 
-        getOrCreateTagBuilder(ModTags.Blocks.FLUORITE_ORES)
+        valueLookupBuilder(ModTags.Blocks.FLUORITE_ORES)
                 .add(ModBlocks.FLUORITE_ORE)
                 .add(ModBlocks.FLUORITE_DEEPSLATE_ORE)
                 .add(ModBlocks.FLUORITE_NETHER_ORE)
                 .add(ModBlocks.FLUORITE_END_ORE);
 
-        getOrCreateTagBuilder(ModTags.Blocks.STORAGE_BLOCKS_FLUORITE_C)
+        valueLookupBuilder(ModTags.Blocks.STORAGE_BLOCKS_FLUORITE_C)
                 .forceAddTag(ModTags.Blocks.FLUORITE_ORES)
                 .add(ModBlocks.RAW_FLUORITE_BLOCK);
 
-        getOrCreateTagBuilder(ModTags.Blocks.METAL_DETECTOR_DETECTABLE_BLOCKS)
+        valueLookupBuilder(ModTags.Blocks.METAL_DETECTOR_DETECTABLE_BLOCKS)
                 .forceAddTag(ConventionalBlockTags.ORES)
                 .forceAddTag(ModTags.Blocks.STORAGE_VALUABLE_BLOCKS);
 
-        getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
+        valueLookupBuilder(BlockTags.LOGS_THAT_BURN)
                 .add(ModBlocks.BLACKWOOD_LOG, ModBlocks.BLACKWOOD_WOOD, ModBlocks.STRIPPED_BLACKWOOD_LOG, ModBlocks.STRIPPED_BLACKWOOD_WOOD);
-        getOrCreateTagBuilder(ModTags.Blocks.BLACKWOOD_LOGS)
+        valueLookupBuilder(ModTags.Blocks.BLACKWOOD_LOGS)
                 .add(ModBlocks.BLACKWOOD_LOG, ModBlocks.BLACKWOOD_WOOD, ModBlocks.STRIPPED_BLACKWOOD_LOG, ModBlocks.STRIPPED_BLACKWOOD_WOOD);
 
-        /*getOrCreateTagBuilder(ConventionalBlockTags.ORES)
+        /*valueLookupBuilder(ConventionalBlockTags.ORES)
                 .forceAddTag(ModTags.Blocks.FLUORITE_ORES);*/
     }
 }

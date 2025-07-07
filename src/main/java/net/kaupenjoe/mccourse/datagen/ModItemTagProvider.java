@@ -21,41 +21,42 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(ModTags.Items.TRANSFORMABLE_ITEMS)
+        // In 1.21.6 getOrCreateTagBuilder -> valueLookupBuilder
+        valueLookupBuilder(ModTags.Items.TRANSFORMABLE_ITEMS)
                 .add(ModItems.FLUORITE)
                 .add(ModItems.RAW_FLUORITE)
                 .add(Items.COAL)
                 .add(Items.STICK)
                 .add(Items.APPLE);
 
-        getOrCreateTagBuilder(ModTags.Items.REPAIRS_FLUORITE_ARMOR)
+        valueLookupBuilder(ModTags.Items.REPAIRS_FLUORITE_ARMOR)
                 .add(ModItems.FLUORITE); //
 
-        //getOrCreateTagBuilder(ItemTags.TRIMMABLE_ARMOR).add(ModItems.FLUORITE_HELMET) ...;
-        getOrCreateTagBuilder(ItemTags.HEAD_ARMOR)
+        //valueLookupBuilder(ItemTags.TRIMMABLE_ARMOR).add(ModItems.FLUORITE_HELMET) ...;
+        valueLookupBuilder(ItemTags.HEAD_ARMOR)
                 .add(ModItems.FLUORITE_HELMET);
-        getOrCreateTagBuilder(ItemTags.CHEST_ARMOR)
+        valueLookupBuilder(ItemTags.CHEST_ARMOR)
                 .add(ModItems.FLUORITE_CHESTPLATE);
-        getOrCreateTagBuilder(ItemTags.LEG_ARMOR)
+        valueLookupBuilder(ItemTags.LEG_ARMOR)
                 .add(ModItems.FLUORITE_LEGGINGS);
-        getOrCreateTagBuilder(ItemTags.FOOT_ARMOR)
+        valueLookupBuilder(ItemTags.FOOT_ARMOR)
                 .add(ModItems.FLUORITE_BOOTS);
 
-        getOrCreateTagBuilder(ItemTags.TRIM_MATERIALS)
+        valueLookupBuilder(ItemTags.TRIM_MATERIALS)
                 .add(ModItems.FLUORITE);
-        /*getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES) // Trim templates no longer exist in 1.12.4
+        /*valueLookupBuilder(ItemTags.TRIM_TEMPLATES) // Trim templates no longer exist in 1.12.4
                 .add(ModItems.KAUPEN_SMITHING_TEMPLATE);*/
 
-        getOrCreateTagBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
+        valueLookupBuilder(ItemTags.VILLAGER_PLANTABLE_SEEDS)
                 .add(ModItems.STRAWBERRY_SEEDS);
-        getOrCreateTagBuilder(ItemTags.VILLAGER_PICKS_UP)
+        valueLookupBuilder(ItemTags.VILLAGER_PICKS_UP)
                 .add(ModItems.STRAWBERRY);
 
-        getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN)
+        valueLookupBuilder(ItemTags.LOGS_THAT_BURN)
                 .add(ModBlocks.BLACKWOOD_LOG.asItem(), ModBlocks.BLACKWOOD_WOOD.asItem(),
                         ModBlocks.STRIPPED_BLACKWOOD_LOG.asItem(), ModBlocks.STRIPPED_BLACKWOOD_WOOD.asItem());
 
-        getOrCreateTagBuilder(ItemTags.PLANKS)
+        valueLookupBuilder(ItemTags.PLANKS)
                 .add(ModBlocks.BLACKWOOD_PLANKS.asItem());
 
         this.copy(ModTags.Blocks.BLACKWOOD_LOGS, ModTags.Items.BLACKWOOD_LOGS);

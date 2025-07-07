@@ -2,6 +2,7 @@ package net.kaupenjoe.mccourse.entity.client;
 
 import net.kaupenjoe.mccourse.entity.client.animation.DodoAnimations;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.util.math.MathHelper;
@@ -14,10 +15,16 @@ public class DodoModel extends EntityModel<DodoRenderState> {
     private final ModelPart body;
     private final ModelPart head;
 
+    private final Animation walkingAnimation;
+    private final Animation idlingAnimation;
+
     public DodoModel(ModelPart root) {
         super(root);
         this.body = root.getChild("body");
         this.head = body.getChild("chest").getChild("neck");
+
+        this.walkingAnimation = DodoAnimations.ANIM_DODO_WALK.createAnimation(root);
+        this.idlingAnimation = DodoAnimations.ANIM_DODO_IDLE.createAnimation(root);
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -128,11 +135,14 @@ public class DodoModel extends EntityModel<DodoRenderState> {
         // todas las animaciones al mismo tiempo
         setHeadAngles(renderState.relativeHeadYaw, renderState.pitch);
 
-
-        this.animateWalking(DodoAnimations.ANIM_DODO_WALK,  renderState.limbSwingAnimationProgress, renderState.limbSwingAmplitude, 2f, 2.5f);
+        // 1.21.6
+        //this.animateWalking(DodoAnimations.ANIM_DODO_WALK,  renderState.limbSwingAnimationProgress, renderState.limbSwingAmplitude, 2f, 2.5f);
+        this.walkingAnimation.applyWalking(renderState.limbSwingAnimationProgress, renderState.limbSwingAmplitude, 2f, 2.5f);
         // De nuevo mirar clase CamelModel para saber de donde se sacan los números mágicos
 
-        this.animate(renderState.idleAnimationState, DodoAnimations.ANIM_DODO_IDLE, renderState.age, 1f);
+        // 1.21.6
+        //this.animate(renderState.idleAnimationState, DodoAnimations.ANIM_DODO_IDLE, renderState.age, 1f);
+        this.idlingAnimation.apply(renderState.idleAnimationState, renderState.age, 1f);
     }
 
     private void setHeadAngles(float headYaw, float headPitch) {

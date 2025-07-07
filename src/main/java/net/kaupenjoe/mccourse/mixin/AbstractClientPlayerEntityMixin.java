@@ -1,47 +1,28 @@
 package net.kaupenjoe.mccourse.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.authlib.GameProfile;
 import net.kaupenjoe.mccourse.item.ModItems;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(AbstractClientPlayerEntity.class)
 public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
-    public AbstractClientPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
-        super(world, pos, yaw, gameProfile);
+    public AbstractClientPlayerEntityMixin(World world, GameProfile profile) {
+        super(world, profile);
     }
 
-    @Inject(method = "getFovMultiplier", at = @At(value = "TAIL"), locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true)
-    private void getFovMultiplierMixin(boolean firstPerson, float fovEffectScale, CallbackInfoReturnable<Float> info){
-        Item item = this.getActiveItem().getItem();
-        ItemStack itemStack = this.getActiveItem();
+    //@Inject(method = "getFovMultiplier", at = @At(value = "TAIL"), cancellable = true)
+    //private void getFovMultiplierMixin(boolean firstPerson, float fovEffectScale, CallbackInfoReturnable<Float> cir){
 
-        // Copiado de la clase AbstractClientPlayerEntity
-        if (this.isUsingItem()) {
-            if (itemStack.isOf(ModItems.KAUPEN_BOW)) {
-                int i = this.getItemUseTime();
-                float g = (float)i / 20.0F;
-                if (g > 1.0F) {
-                    g = 1.0F;
-                } else {
-                    g *= g;
-                }
-                fovEffectScale *= 1.0F - g * 0.15F;
-                info.setReturnValue(MathHelper.lerp(MinecraftClient.getInstance().options.getFovEffectScale().getValue().floatValue(),
-                        1.0f, fovEffectScale));
-            }
-        }
+    @WrapOperation(method = "getFovMultiplier(ZF)F", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
+    private boolean getFovMultiplierMixin(ItemStack itemStack, Item item, Operation<Boolean> original){
+        return this.getActiveItem().isOf(ModItems.KAUPEN_BOW) || original.call(itemStack, item);
     }
 }

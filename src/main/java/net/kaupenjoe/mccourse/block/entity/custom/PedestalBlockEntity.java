@@ -17,7 +17,10 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.PlayerAssociatedNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
@@ -66,7 +69,7 @@ public class PedestalBlockEntity extends BlockEntity implements Inventory, /*Blo
         /*ItemStack stack = inventory.get(slot);
         stack.decrement(amount);
         return inventory.set(slot, stack);*/ // No va bien
-        return Inventories.removeStack(inventory, slot); // Este sirve
+        return Inventories.removeStack(inventory, slot); // Este si sirve
     }
 
     @Override
@@ -92,16 +95,16 @@ public class PedestalBlockEntity extends BlockEntity implements Inventory, /*Blo
         inventory.clear();
     }
 
-    @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt, inventory, registryLookup);
+    @Override // In 1.21.6 writeNbt -> writeData
+    protected void writeData(WriteView writeView) {
+        super.writeData(writeView);
+        Inventories.writeData(writeView, inventory);
     }
 
-    @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
-        Inventories.readNbt(nbt, inventory, registryLookup);
+    @Override // In 1.21.6 readNbt -> readData
+    protected void readData(ReadView readView) {
+        super.readData(readView);
+        Inventories.readData(readView, inventory);
     }
 
     @Override
@@ -125,6 +128,8 @@ public class PedestalBlockEntity extends BlockEntity implements Inventory, /*Blo
         //MCCourseMod.LOGGER.info(this.ticks + " s");
         return LEVITATION_SPEED * (float) Math.sin((this.ticks + tickDelta) / LEVITATION_RANGE_DIVISOR);
     }
+
+    // Synchronization // This is inside the blockEntity
 
     @Override
     public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {

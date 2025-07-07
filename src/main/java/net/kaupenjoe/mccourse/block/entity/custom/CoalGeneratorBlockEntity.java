@@ -21,6 +21,8 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
@@ -77,22 +79,40 @@ public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     @Override
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+        Inventories.writeData(view, inventory);
+        view.putLong("coal_generator.energy", energyStorage.amount);
+        view.putInt("coal_generator.burn_progress", burnProgress);
+        view.putInt("coal_generator.max_burn_progress", maxBurnProgress);
+    }
+
+    /*@Override // In 1.21.6 writeNbt -> writeData
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
         Inventories.writeNbt(nbt, inventory, registryLookup);
         nbt.putLong("coal_generator.energy", energyStorage.amount);
         nbt.putInt("coal_generator.burn_progress", burnProgress);
         nbt.putInt("coal_generator.max_burn_progress", maxBurnProgress);
-    }
+    }*/
 
     @Override
+    protected void readData(ReadView view) {
+        Inventories.readData(view, inventory);
+        energyStorage.amount = view.getLong("coal_generator.energy", 0);
+        burnProgress = view.getInt("coal_generator.burn_progress", 0);
+        maxBurnProgress = view.getInt("coal_generator.max_burn_progress", 0);
+        super.readData(view);
+    }
+
+    /*@Override // In 1.26.1 readNbt -> readData
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         Inventories.readNbt(nbt, inventory, registryLookup);
         energyStorage.amount = nbt.getLong("coal_generator.energy").get();
         burnProgress = nbt.getInt("coal_generator.burn_progress").get();
         maxBurnProgress = nbt.getInt("coal_generator.max_burn_progress").get();
         super.readNbt(nbt, registryLookup);
-    }
+    }*/
 
     @Override
     public BlockPos getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {

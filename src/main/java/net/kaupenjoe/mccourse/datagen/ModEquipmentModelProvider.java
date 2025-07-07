@@ -1,10 +1,8 @@
 package net.kaupenjoe.mccourse.datagen;
 
-import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.item.ModArmorMaterials;
-import net.minecraft.client.data.EquipmentAssetProvider;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.DataProvider;

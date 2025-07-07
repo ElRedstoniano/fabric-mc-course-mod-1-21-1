@@ -1,16 +1,7 @@
 package net.kaupenjoe.mccourse.item;
 
-import com.google.common.base.Suppliers;
 import net.kaupenjoe.mccourse.util.ModTags;
-import net.minecraft.block.Block;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-
-import java.util.function.Supplier;
 
 //public enum ModToolMaterials implements ToolMaterial {
 public class ModToolMaterials {

@@ -11,7 +11,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class DataTabletItem extends Item{

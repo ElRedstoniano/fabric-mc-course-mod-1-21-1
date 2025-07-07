@@ -1,6 +1,5 @@
 package net.kaupenjoe.mccourse.entity.custom;
 
-import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.client.util.math.Vector2f;

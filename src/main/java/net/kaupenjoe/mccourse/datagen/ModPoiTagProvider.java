@@ -17,7 +17,8 @@ public class ModPoiTagProvider extends TagProvider<PointOfInterestType> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookup) {
-        this.getOrCreateTagBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE)
-                .add(ModVillagers.MAGIC_POI_KEY);
+        // In 1.21.6 getOrCreateTagBuilder -> getTagBuilder
+        this.getTagBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE)
+                .add(/*ModVillagers.MAGIC_POI_KEY*/ModVillagers.MAGIC_POI_IDENTIFIER); //
     }
 }

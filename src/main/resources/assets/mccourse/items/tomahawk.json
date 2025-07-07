@@ -1,4 +1,5 @@
-{ // Ejemplo
+{
+  "_comment_": "// Ejemplo",
   "model": {
     "type": "minecraft:model",
     "model": "mccourse:item/tomahawk"

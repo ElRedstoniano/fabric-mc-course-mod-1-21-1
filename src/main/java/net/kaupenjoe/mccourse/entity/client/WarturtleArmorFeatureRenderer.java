@@ -61,9 +61,12 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
                     //this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
                     EquipmentModel.LayerType layerType = ClassTinkerers.getEnum(EquipmentModel.LayerType.class, "WARTURTLE_BODY");
                     this.equipmentRenderer.render(layerType, registryKey, warturtleModel, armorItem, matrices, vertexConsumers, light);
+                    // This is not needed at all? ^ idk (apparently it works without this line so maybe the LayerType stuff is not required at all
+                    // but im not sure about it)
 
                     VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())));
-                    this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                    //this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                    warturtleModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
                     renderDyed(matrices, vertexConsumers, light, state, warturtleArmorItem);
                 }
             }

@@ -24,6 +24,8 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
@@ -132,18 +134,18 @@ public class TankBlockEntity extends BlockEntity implements ExtendedScreenHandle
         // Se podría usar la clase FluidUtils de la api de RebornCore pero se usa una clase custom mejorada
     }
 
-    @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt,  inventory,registryLookup);
-        SingleVariantStorage.writeNbt(this.fluidStorage, FluidVariant.CODEC, nbt, registryLookup);
+    @Override // In 1.21.6 writeNbt -> writeData
+    protected void writeData(WriteView writeView) {
+        super.writeData(writeView);
+        Inventories.writeData(writeView,  inventory);
+        SingleVariantStorage.writeData(this.fluidStorage, FluidVariant.CODEC, writeView);
     }
 
-    @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
-        Inventories.readNbt(nbt, inventory, registryLookup);
-        SingleVariantStorage.readNbt(this.fluidStorage, FluidVariant.CODEC, FluidVariant::blank, nbt, registryLookup);
+    @Override // In 1.21.6 readNbt -> readData
+    protected void readData(ReadView readView) {
+        super.readData(readView);
+        Inventories.readData(readView, inventory);
+        SingleVariantStorage.readData(this.fluidStorage, FluidVariant.CODEC, FluidVariant::blank, readView);
     }
 
     @Override

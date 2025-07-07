@@ -4,7 +4,6 @@ import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.custom.WarturtleEntity;
 import net.minecraft.client.render.entity.AgeableMobEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class WarturtleRenderer extends AgeableMobEntityRenderer<WarturtleEntity, WarturtleRenderState, WarturtleModel> {

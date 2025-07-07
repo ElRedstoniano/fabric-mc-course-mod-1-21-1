@@ -5,9 +5,12 @@ import net.kaupenjoe.mccourse.enchantment.custom.LightningStrikerEnchantmentEffe
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.Item;
 import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
-import net.minecraft.registry.*;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.registry.tag.ItemTags;
 

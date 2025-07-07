@@ -10,20 +10,14 @@ import net.kaupenjoe.mccourse.fluid.ModFluids;
 import net.kaupenjoe.mccourse.item.ModArmorMaterials;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.client.data.*;
-import net.minecraft.client.item.ItemAsset;
-import net.minecraft.client.render.item.model.ConditionItemModel;
 import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.item.property.bool.HasComponentProperty;
 import net.minecraft.client.render.model.json.ModelVariant;
 import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.item.Item;
-import net.minecraft.item.equipment.EquipmentAssetKeys;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.Pool;
-
-import java.util.List;
-import java.util.Optional;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -185,23 +179,21 @@ public class ModModelProvider extends FabricModelProvider {
 
     public final void registerDataTablet(ItemModelGenerator itemModelGenerator, Item item) {
         // Mirar clase ModelProvider / ItemModelGenerator para ejemplos
-        //ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
-        //ItemModel.Unbaked unbaked_off = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_off",Models.GENERATED));
-        /*itemModelGenerator.output.accept(item, new ItemAsset(
-                new ConditionItemModel.Unbaked(new HasComponentProperty(ModDataComponentTypes.COORDINATES, false),
-                unbaked, unbaked_off), new ItemAsset.Properties(false)
-        ).model());*/ // Another way to do this (This doesn't work for some reason)
-  //      itemModelGenerator.registerCondition(item, new HasComponentProperty(ModDataComponentTypes.COORDINATES, false),
-   //             unbaked_off, unbaked); // (This doesn't work for some reason)
-        /*itemModelGenerator.output.accept(ItemModels.select(new HasComponentProperty(ModDataComponentTypes.COORDINATES, false),
-                unbaked_off, ItemModels.switchCase(true, unbaked)));*/
-
         ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
+        ItemModel.Unbaked unbaked_off = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_off",Models.GENERATED));
+        /*itemModelGenerator.output.accept(item, new ItemAsset(
+                new ConditionItemModel.Unbaked(new HasComponentProperty(ModDataComponentTypes.FOUND_BLOCK, false),
+                unbaked, unbaked_off), new ItemAsset.Properties(false)
+        ).model());*/ // Another way to do this
+        itemModelGenerator.registerCondition(item, new HasComponentProperty(ModDataComponentTypes.FOUND_BLOCK, false),
+                unbaked, unbaked_off);
+
+        /*ItemModel.Unbaked unbaked = ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED));
         ItemModel.Unbaked unbakedOff = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_off", Models.GENERATED));
         itemModelGenerator.output.accept(item,
                 new ItemAsset(new ConditionItemModel.Unbaked(new HasComponentProperty(ModDataComponentTypes.FOUND_BLOCK, false),
                         unbaked, unbakedOff),
-                        new ItemAsset.Properties(false)).model());
+                        new ItemAsset.Properties(true, false)).model());*/ // Another way to do this
     }
 
     // Outdated in 1.12.4

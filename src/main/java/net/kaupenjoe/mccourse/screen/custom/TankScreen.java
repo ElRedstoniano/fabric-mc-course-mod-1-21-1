@@ -1,19 +1,17 @@
 package net.kaupenjoe.mccourse.screen.custom;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.screen.renderer.FluidStackRenderer;
 import net.kaupenjoe.mccourse.util.MouseUtil;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.item.Item;
 
 import java.util.Optional;
 
@@ -38,8 +36,9 @@ public class TankScreen extends HandledScreen<TankScreenHandler> {
 
     private void renderFluidTooltip(DrawContext context, int mouseX, int mouseY, int x, int y, int offsetX, int offsetY, FluidStackRenderer renderer) {
         if(isMouseAboveArea(mouseX, mouseY, x, y, offsetX, offsetY, renderer)) {
-            context.drawTooltip(Screens.getTextRenderer(this), renderer.getTooltip(handler.blockEntity.fluidStorage, Item.TooltipContext.DEFAULT),
-                    Optional.empty(), mouseX - x, mouseY - y);
+            context.drawTooltip(/*Screens.getTextRenderer(this) 1.21.5<*/this.getTextRenderer(), renderer.getTooltip(handler.blockEntity.fluidStorage, Item.TooltipContext.DEFAULT),
+                    Optional.empty(), mouseX/* - x*/, mouseY/* - y*/);
+            // In 1.21.5< coordinates needs a difference operation with the x/y values (like pMouseX - x , pMouseY - y)
         }
     }
 
@@ -59,7 +58,8 @@ public class TankScreen extends HandledScreen<TankScreenHandler> {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(RenderLayer::getGuiTextured, GUI_TEXTURE, x, y, 0, 0,
+        //context.drawTexture(RenderLayer::getGuiTextured, GUI_TEXTURE, x, y, 0, 0, // 1.21.5
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_TEXTURE, x, y, 0, 0, // 1.21.6
                 backgroundWidth, backgroundHeight, 256, 256);
 
         fluidStackRenderer.drawFluid(context, handler.blockEntity.fluidStorage, x + 80, y + 8, 16, 64,

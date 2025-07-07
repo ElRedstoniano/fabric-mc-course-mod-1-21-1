@@ -4,7 +4,6 @@ import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.custom.GiraffeEntity;
 import net.minecraft.client.render.entity.AgeableMobEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class GiraffeRenderer extends AgeableMobEntityRenderer<GiraffeEntity, GiraffeRenderState, GiraffeModel> {
@@ -50,5 +49,6 @@ public class GiraffeRenderer extends AgeableMobEntityRenderer<GiraffeEntity, Gir
     public void updateRenderState(GiraffeEntity livingEntity, GiraffeRenderState livingEntityRenderState, float f) {
         super.updateRenderState(livingEntity, livingEntityRenderState, f);
         livingEntityRenderState.idleAnimationState.copyFrom(livingEntity.idleAnimationState);
+        livingEntityRenderState.saddled = livingEntity.hasSaddleEquipped();
     }
 }

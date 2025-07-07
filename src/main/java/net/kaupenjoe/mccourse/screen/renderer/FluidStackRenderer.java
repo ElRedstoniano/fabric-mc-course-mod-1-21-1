@@ -1,21 +1,18 @@
 package net.kaupenjoe.mccourse.screen.renderer;
 
 import com.google.common.base.Preconditions;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -88,7 +85,7 @@ public class FluidStackRenderer {
         while (offsetHeight != 0) {
             final int curHeight = Math.min(offsetHeight, iconHeight);
 
-            context.drawSpriteStretched(RenderLayer::getGuiTextured, sprite, x, y - offsetHeight, width, /*height*/curHeight, color);
+            context.drawSpriteStretched(/*RenderLayer::getGuiTextured*/RenderPipelines.GUI_TEXTURED, sprite, x, y - offsetHeight, width, /*height*/curHeight, color);
             offsetHeight -= curHeight;
             iteration++;
             if (iteration > 50) {

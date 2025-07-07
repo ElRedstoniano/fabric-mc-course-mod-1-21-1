@@ -43,7 +43,8 @@ public class ModItems {
     public static final Item STRAWBERRY = registerItem("strawberry",
             setting -> new Item(
                     setting.food(ModFoodComponents.STRAWBERRY, ModFoodComponents.STRAWBERRY_EFFECT)){
-
+                // This should be done using a custom component ( setting.component() ) that Implementes the TooltipAppender interface (see LoreComponent class for examples)
+                // or using the ComponentTooltipAppenderRegistry from fabric api: https://fabricmc.net/2025/06/15/1216.html
                 @Override
                 public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
                     textConsumer.accept(Text.translatable("tooltip.mccourse.strawberry.tooltip.1"));

@@ -30,6 +30,8 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
@@ -223,24 +225,24 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         return new CrystallizerScreenHandler(syncId, playerInventory, this, propertyDelegate);
     }
 
-    @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
-        Inventories.writeNbt(nbt, inventory, registryLookup);
-        nbt.putInt("crystallizer.progress", progress);
-        nbt.putInt("crystallizer.max_progress", maxProgress);
-        nbt.putLong("crystallizer.energy", energyStorage.amount);
-        SingleVariantStorage.writeNbt(fluidStorage, FluidVariant.CODEC, nbt, registryLookup);
+    @Override // In 1.21.6 writeNbt -> writeData
+    protected void writeData(WriteView writeView) {
+        super.writeData(writeView);
+        Inventories.writeData(writeView, inventory);
+        writeView.putInt("crystallizer.progress", progress);
+        writeView.putInt("crystallizer.max_progress", maxProgress);
+        writeView.putLong("crystallizer.energy", energyStorage.amount);
+        SingleVariantStorage.writeData(fluidStorage, FluidVariant.CODEC, writeView);
     }
 
-    @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
-        Inventories.readNbt(nbt, inventory, registryLookup);
-        progress = nbt.getInt("crystallizer.progress").get();
-        maxProgress = nbt.getInt("crystallizer.max_progress").get();
-        energyStorage.amount = nbt.getLong("crystallizer.energy").get();
-        SingleVariantStorage.readNbt(fluidStorage, FluidVariant.CODEC, FluidVariant::blank ,nbt, registryLookup);
+    @Override // In 1.21.6 readNbt -> readData
+    protected void readData(ReadView readView) {
+        super.readData(readView);
+        Inventories.readData(readView, inventory);
+        progress = readView.getInt("crystallizer.progress", 0);
+        maxProgress = readView.getInt("crystallizer.max_progress", 0);
+        energyStorage.amount = readView.getLong("crystallizer.energy", 0);
+        SingleVariantStorage.readData(fluidStorage, FluidVariant.CODEC, FluidVariant::blank ,readView);
     }
 
     @Override

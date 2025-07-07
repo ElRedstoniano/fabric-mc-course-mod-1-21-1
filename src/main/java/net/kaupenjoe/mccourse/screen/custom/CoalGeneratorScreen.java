@@ -1,14 +1,12 @@
 package net.kaupenjoe.mccourse.screen.custom;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.screen.renderer.EnergyInfoArea;
 import net.kaupenjoe.mccourse.util.MouseUtil;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -41,8 +39,9 @@ public class CoalGeneratorScreen extends HandledScreen<CoalGeneratorScreenHandle
 
     private void renderEnergyAreaTooltips (DrawContext context, int pMouseX, int pMouseY, int x, int y) {
         if(isMouseAboveArea(pMouseX, pMouseY, x, y, 156, 11, 8, 64)) {
-            context.drawTooltip(Screens.getTextRenderer(this), energyInfoArea.getTooltips(),
-                    Optional.empty(), pMouseX - x, pMouseY - y);
+            context.drawTooltip(/*Screens.getTextRenderer(this) 1.21.5<*/this.getTextRenderer(), energyInfoArea.getTooltips(),
+                    Optional.empty(), pMouseX/* - x*/, pMouseY/* - y*/);
+            // In 1.21.5< coordinates needs a difference operation with the x/y values (like pMouseX - x , pMouseY - y)
         }
     }
 
@@ -65,7 +64,8 @@ public class CoalGeneratorScreen extends HandledScreen<CoalGeneratorScreenHandle
         int y = (height - backgroundHeight) / 2;
 
         //context.drawTexture(GUI_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
-        context.drawTexture(RenderLayer::getGuiTextured, GUI_TEXTURE,
+        //context.drawTexture(RenderLayer::getGuiTextured, GUI_TEXTURE, // 1.21.5<
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_TEXTURE, // 1.21.6
                 x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
         energyInfoArea.draw(context);
@@ -75,7 +75,7 @@ public class CoalGeneratorScreen extends HandledScreen<CoalGeneratorScreenHandle
     private void renderBurnProgress(DrawContext context, int x, int y){
         if (handler.isBurning()) {
             int l = MathHelper.ceil(this.handler.getFuelProgress() * 13.0f) + 1;
-            context.drawGuiTexture(RenderLayer::getGuiTextured,LIT_PROGRESS_TEXTURE,
+            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED,LIT_PROGRESS_TEXTURE,
                     14, 14, 0, 14 - l, x + 80, y + 18 + 14 - l, 14, l);
         }
     }

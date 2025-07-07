@@ -7,6 +7,7 @@ import net.kaupenjoe.mccourse.datagen.provider.SoundEntryBuilder;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.minecraft.sound.SoundEvent;
 
+// This is obsolete for 1.21.6 as now fabric includes FabricSoundsProvider class, but anyways I'm still using this one at the moment
 public class ModSoundDefinitionProvider extends CustomFabricSoundProvider {
     public ModSoundDefinitionProvider(FabricDataOutput dataOutput) {
         super(dataOutput);

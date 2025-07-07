@@ -1,26 +1,11 @@
 package net.kaupenjoe.mccourse.compat;
 
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.display.Display;
-import me.shedaniel.rei.api.common.display.DisplaySerializer;
-import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
-import me.shedaniel.rei.api.common.util.EntryIngredients;
-import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.kaupenjoe.mccourse.recipe.CrystallizerRecipe;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.RecipeEntry;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
-public class CrystallizerDisplay extends BasicDisplay {
+public class CrystallizerDisplay {/* extends BasicDisplay {
     //public CrystallizerDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
-    /*public CrystallizerDisplay(RecipeEntry<CrystallizerRecipe> recipe) {
-        super(List.of(EntryIngredients.ofIngredient(recipe.value().getIngredients().get(0))),
-                List.of(EntryIngredient.of(EntryStacks.of(recipe.value().output()))));
-    }*/ // 1.21.1
+   // public CrystallizerDisplay(RecipeEntry<CrystallizerRecipe> recipe) {
+   //     super(List.of(EntryIngredients.ofIngredient(recipe.value().getIngredients().get(0))),
+   //             List.of(EntryIngredient.of(EntryStacks.of(recipe.value().output()))));
+   // } // 1.21.1
 
     // Copied from DefaultPathingDisplay class // another example: ClientsidedCookingDisplay
     // The used codec is similar to the CrystallizerRecipe.Serializer.CODEC one
@@ -38,10 +23,10 @@ public class CrystallizerDisplay extends BasicDisplay {
             ));
 
     // Original - 1.21.1
-    /*public CrystallizerDisplay(CrystallizerRecipe crystallizerRecipe) {
-        super(List.of(EntryIngredients.ofIngredient(crystallizerRecipe.getIngredients().get(0))),
-                List.of(EntryIngredient.of(EntryStacks.of(crystallizerRecipe.output()))));
-    }*/
+   // public CrystallizerDisplay(CrystallizerRecipe crystallizerRecipe) {
+   //     super(List.of(EntryIngredients.ofIngredient(crystallizerRecipe.getIngredients().get(0))),
+   //             List.of(EntryIngredient.of(EntryStacks.of(crystallizerRecipe.output()))));
+   // }
 
     public CrystallizerDisplay(RecipeEntry<CrystallizerRecipe> crystallizerRecipe) { // 1.21.2-3+
         super(List.of(EntryIngredients.ofIngredient(crystallizerRecipe.value().getIngredients().get(0))),
@@ -71,5 +56,5 @@ public class CrystallizerDisplay extends BasicDisplay {
 
     public final EntryIngredient getOut() {
         return getOutputEntries().get(0);
-    }
+    }*/
 }

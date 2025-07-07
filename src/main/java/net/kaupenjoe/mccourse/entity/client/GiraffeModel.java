@@ -1,8 +1,8 @@
 package net.kaupenjoe.mccourse.entity.client;
 
-import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.client.animation.GiraffeAnimations;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.ModelTransformer;
 import net.minecraft.util.math.MathHelper;
@@ -12,10 +12,16 @@ public class GiraffeModel/*<T extends GiraffeEntity>*/ extends EntityModel<Giraf
     private final ModelPart body;
     private final ModelPart head;
 
+    private final Animation walkingAnimation;
+    private final Animation idlingAnimation;
+
     public GiraffeModel(ModelPart root) {
         super(root);
         this.body = root.getChild("body");
         this.head = body.getChild("torso").getChild("neck").getChild("head");
+
+        walkingAnimation = GiraffeAnimations.ANIM_GIRAFFE_WALK.createAnimation(root);
+        idlingAnimation = GiraffeAnimations.ANIM_GIRAFFE_IDLE.createAnimation(root);
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
@@ -77,9 +83,12 @@ public class GiraffeModel/*<T extends GiraffeEntity>*/ extends EntityModel<Giraf
     public void setAngles(GiraffeRenderState state) {
         body.traverse().forEach(ModelPart::resetTransform);
         setHeadAngles(state.relativeHeadYaw, state.pitch);
-        // animateMovement -> animateWalking
-        this.animateWalking(GiraffeAnimations.ANIM_GIRAFFE_WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
-        this.animate(state.idleAnimationState, GiraffeAnimations.ANIM_GIRAFFE_IDLE, state.age, 1f);
+        // animateMovement -> animateWalking // 1.21.4-5<
+        //this.animateWalking(GiraffeAnimations.ANIM_GIRAFFE_WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
+        //this.animate(state.idleAnimationState, GiraffeAnimations.ANIM_GIRAFFE_IDLE, state.age, 1f);
+
+        this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2f, 2.5f);
+        this.idlingAnimation.apply(state.idleAnimationState, state.age, 1f);
     }
 
     public void setHeadAngles(float headYaw, float headPitch) {

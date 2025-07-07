@@ -1,13 +1,11 @@
 package net.kaupenjoe.mccourse.screen.custom;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.custom.WarturtleEntity;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -75,7 +73,8 @@ public class WarturtleScreen extends HandledScreen<WarturtleScreenHandler> {
     }
 
     protected void drawTextureContext(DrawContext context, Identifier identifier) {
-        context.drawTexture(RenderLayer::getGuiTextured, identifier,
+        //context.drawTexture(RenderLayer::getGuiTextured, identifier, // 1.21.5
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, identifier, // 1.21.6
                 x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
     }
 }

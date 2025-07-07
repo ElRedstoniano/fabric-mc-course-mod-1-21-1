@@ -26,17 +26,18 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.inventory.StackWithSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
@@ -55,6 +56,9 @@ import java.util.UUID;
 public class WarturtleEntity extends TameableEntity implements InventoryChangedListener, RideableInventory{
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+
+    public static final float HIDING_TRANSITION_TIME = 20f; // This was 40 previously
+    public static final float EMERGING_TRANSITION_TIME = 20f; // This was 52 previously
 
     public static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.changing(ModEntities.WARTURTLE_ET.getWidth(),
             ModEntities.WARTURTLE_ET.getHeight() - 0.5F).withEyeHeight(0.845F);
@@ -123,8 +127,6 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         return ModEntities.WARTURTLE_ET.create(world, SpawnReason.BREEDING);
     }
 
-
-
     private void setUpAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = 20;
@@ -159,7 +161,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     }
 
     private boolean shouldPlaySittingTransitionAnimation() {
-        return this.isSitting() && this.getLastPoseTickDelta() < 40L && this.getLastPoseTickDelta() >= 0L;
+        return this.isSitting() && this.getLastPoseTickDelta() < (long) HIDING_TRANSITION_TIME && this.getLastPoseTickDelta() >= 0L;
     }
 
     public boolean shouldUpdateSittingAnimations() {
@@ -172,7 +174,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     public boolean isChangingPose() {
         long l = this.getLastPoseTickDelta();
-        return l < (long)(this.isSitting() ? 40 : 52);
+        return l < (long)(this.isSitting() ? HIDING_TRANSITION_TIME : EMERGING_TRANSITION_TIME);
     }
 
     public void setLastPoseTick(long lastPoseTick) {
@@ -180,7 +182,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     }
 
     private void initLastPoseTick(long time) {
-        this.setLastPoseTick(Math.max(0L, time - 52L - 1L));
+        this.setLastPoseTick(Math.max(0L, time - (long) EMERGING_TRANSITION_TIME - 1L));
     }
 
     @Override
@@ -195,16 +197,17 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         builder.add(DYE_STACK, ItemStack.EMPTY);
     }
 
+    // 1.21.6 writeCustomDataToNbt -> writeCustomData
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
+    public void writeCustomData(WriteView view) {
         /* CamelEntity */
-        super.writeCustomDataToNbt(nbt);
-        nbt.putLong("LastPoseTick", this.dataTracker.get(LAST_POSE_TICK));
+        super.writeCustomData(view);
+        view.putLong("LastPoseTick", this.dataTracker.get(LAST_POSE_TICK));
 
         /* AbstractDonkeyEntity */
-        NbtList nbtList = new NbtList();
+        /*NbtList nbtList = new NbtList();
 
-        for(int i = 0; i < this.inventory.size(); i++) {
+        for(int i = 0; i < this.inventory.size(); i++) { // 1.21.5
             ItemStack itemStack = this.inventory.getStack(i);
             if (!itemStack.isEmpty()) {
                 //if(i == 0) MCCourseMod.LOGGER.info(itemStack + "-write" + i);
@@ -214,22 +217,35 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
             }
         }
 
-        nbt.put("Items", nbtList);
-    }
+        nbt.put("Items", nbtList);*/
+        //view.putBoolean("ChestedHorse", this.hasChest());
+        WriteView.ListAppender<StackWithSlot> listAppender = view.getListAppender("Items", StackWithSlot.CODEC);
 
-    @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) { // Sacado de la clase CamelEntity y AbstractDonkeyEntity
+        for (int i = 0; i < this.inventory.size(); i++) { // 1.21.6
+            ItemStack itemStack = this.inventory.getStack(i);
+            if (!itemStack.isEmpty()) {
+                listAppender.add(new StackWithSlot(i, itemStack));
+            }
+        }
+    }
+    @Override // 1.21.6 readCustomDataFromNbt -> readCustomData
+    public void readCustomData(ReadView view) { // Sacado de la clase CamelEntity y AbstractDonkeyEntity
         /* CamelEntity */
-        super.readCustomDataFromNbt(nbt);
-        long l = nbt.getLong("LastPoseTick", 0);
+        super.readCustomData(view);
+        long l = view.getLong("LastPoseTick", 0);
         if(l < 0L) {
             this.setPose(EntityPose.SITTING);
         }
         this.setLastPoseTick(l);
 
         /* AbstractDonkeyEntity */
-        this.createInventory();
-        NbtList nbtList = nbt.getListOrEmpty("Items");
+        this.createInventory(); // stays the same on 1.21.6
+        for (StackWithSlot stackWithSlot : view.getTypedListView("Items", StackWithSlot.CODEC)) {
+            if (stackWithSlot.isValidSlot(this.inventory.size())) {
+                this.inventory.setStack(stackWithSlot.slot(), stackWithSlot.stack());
+            }
+        }
+        /*NbtList nbtList = nbt.getListOrEmpty("Items"); // 1.21.5<
 
         for(int i = 0; i < nbtList.size(); i++) {
             NbtCompound compoundTag = nbtList.getCompound(i).get();
@@ -238,7 +254,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
             if (j < this.inventory.size()) {
                 this.inventory.setStack(j, ItemStack.fromNbt(this.getRegistryManager(), compoundTag).orElse(ItemStack.EMPTY));
             }
-        }
+        }*/
     }
 
     @Override
@@ -297,7 +313,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         Item item = itemStack.getItem();
 
         Item itemForTaming = Items.APPLE;
-        //
+
         if(item == itemForTaming && !isTamed()) {
             if (this.getWorld().isClient()) {
                 return ActionResult.CONSUME;
@@ -305,8 +321,8 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
                 if (!player.getAbilities().creativeMode) {
                     itemStack.decrement(1);
                 }
-
-                super.setOwner(player);
+                super.setTamedBy(player); // 1.21.6
+                //super.setOwner(player); // Done in the setTamedBy method
                 this.navigation.recalculatePath();
                 this.setTarget(null);
                 this.getWorld().sendEntityStatus(this, (byte) 7);
@@ -318,6 +334,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
         if(isTamed() && hand == Hand.MAIN_HAND && item != itemForTaming && !isBreedingItem(itemStack) && !player.shouldCancelInteraction()) {
             toggleSitting();
+
             return ActionResult.SUCCESS;
         } else if (this.isTamed()) {
             this.openInventory(player); // Se abre el inventario solo si se está agachando el jugador
@@ -447,7 +464,6 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
             if (serverPlayer.currentScreenHandler != serverPlayer.playerScreenHandler) {
                 serverPlayer.closeHandledScreen();
             }
-
             serverPlayer.openHandledScreen(new ExtendedScreenHandlerFactory<UUID>() {
                 @Nullable
                 @Override
@@ -539,11 +555,58 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     public Vec3d getLeashOffset(float tickDelta) {
         EntityDimensions entityDimensions = this.getDimensions(this.getPose());
         float f = this.getScaleFactor();
-        return new Vec3d(0.0, entityDimensions.height() - (double)(0.18F * f), (entityDimensions.width() * 0.36F));
-        //return super.getLeashOffset(tickDelta);
+        //return new Vec3d(0.0, entityDimensions.height() - (double)(0.18F * f), (entityDimensions.width() * 0.36F));
+        return super.getLeashOffset(tickDelta);
     }
 
-    public boolean beforeLeashTick(Entity leashHolder, float distance) { // Hace que se levante cuando alguien se aleja con la soga
+    // This makes the waturtle to be stationary until the standing transition animation has ended, like in CamelEntity class
+    // beforeLeashTick() was in some way the way to do this in 1.21.5<
+    @Override
+    public void travel(Vec3d movementInput) {
+        if (this.isStationary() && this.isOnGround()) {
+            this.setVelocity(this.getVelocity().multiply(0.0, 1.0, 0.0));
+            movementInput = movementInput.multiply(0.0, 1.0, 0.0);
+        }
+
+        super.travel(movementInput);
+    }
+
+    // Hace que se levante cuando alguien se aleja con la soga
+    @Override
+    public void onLongLeashTick() { // From CamelEntity class
+        super.onLongLeashTick();
+        if (this.isSitting() && !this.isChangingPose() && this.canChangePose()) {
+            this.startStanding();
+        }
+    }
+
+    // This controls the maximum leash distance before the entity starts getting pulled ( when onLongLeashTick() will be called )
+    @Override
+    public double getElasticLeashDistance() {
+        return 6.0; // By default this is 6.0
+    }
+
+    @Override
+    public boolean canUseQuadLeashAttachmentPoint() {
+        return true;
+    }
+
+    @Override
+    public Vec3d[] getQuadLeashOffsets() {
+        return Leashable.createQuadLeashOffsets(this, -0.07, 0.44, 0.34, 0.92);
+    }
+
+    // This is not necessary as this entity is not rideable, but otherwise we could use this to start standing the entity
+    // if the player tries to go forward while mounting the entity
+    /*@Override
+    protected void tickControlled(PlayerEntity controllingPlayer, Vec3d movementInput) {
+        super.tickControlled(controllingPlayer, movementInput);
+        if (controllingPlayer.forwardSpeed > 0.0F && this.isSitting() && !this.isChangingPose()) {
+            this.startStanding();
+        }
+    }*/
+
+    /*public boolean beforeLeashTick(Entity leashHolder, float distance) { // 1.21.5<
         boolean isSitting = this.isSitting();
         if (distance > 6.0F && isSitting && !this.isChangingPose() && this.canChangePose()) {
             this.startStanding();
@@ -552,7 +615,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
         //return false; // No se puede empezar a mover
         return !isSitting; // Se puede empezar a mover solo si no está sentado
-    }
+    }*/
 
     public EntityDimensions getBaseDimensions(EntityPose pose) {
         return pose == EntityPose.SITTING ? SITTING_DIMENSIONS.scaled(this.getScaleFactor()) : super.getBaseDimensions(pose);

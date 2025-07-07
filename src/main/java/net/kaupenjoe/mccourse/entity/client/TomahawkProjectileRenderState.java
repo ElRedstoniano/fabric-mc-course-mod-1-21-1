@@ -1,6 +1,5 @@
 package net.kaupenjoe.mccourse.entity.client;
 
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.render.entity.state.ProjectileEntityRenderState;
 import net.minecraft.client.util.math.Vector2f;
 import net.minecraft.entity.AnimationState;

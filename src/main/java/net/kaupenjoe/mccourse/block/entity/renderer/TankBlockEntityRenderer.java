@@ -1,11 +1,11 @@
 package net.kaupenjoe.mccourse.block.entity.renderer;
 
+import net.fabricmc.fabric.api.renderer.v1.render.RenderLayerHelper;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.kaupenjoe.mccourse.block.entity.custom.TankBlockEntity;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.Sprite;
@@ -36,16 +36,22 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
         final Sprite sprite = FluidVariantRendering.getSprite(fluidStack);
         int color = FluidVariantRendering.getColor(fluidStack);
         FluidState state = fluidStack.getFluid().getDefaultState();
+        //BlockState state = fluidStack.getFluid().getDefaultState().getBlockState();
 
         float height = (((float) entity.fluidStorage.getAmount() / entity.fluidStorage.getCapacity()) * 0.625f) + 0.25f;
 
-        VertexConsumer builder = vertexConsumers.getBuffer(RenderLayers.getFluidLayer(state));
+        //VertexConsumer builder = vertexConsumers.getBuffer(RenderLayers.getFluidLayer(state)); // 1.21.5<
+        //VertexConsumer builder = vertexConsumers.getBuffer(RenderLayers.getEntityBlockLayer(state));
+        //VertexConsumer builder = vertexConsumers.getBuffer(RenderLayers.getMovingBlockLayer(state));
+        //VertexConsumer builder = vertexConsumers.getBuffer(RenderLayerHelper.getMovingBlockLayer(state)); // Just testing this those ones
+        VertexConsumer builder = vertexConsumers.getBuffer(RenderLayerHelper.getMovingBlockLayer(RenderLayers.getFluidLayer(state))); // This one works / 1.21.6+
+
 
         // Top Texture
         drawQuad(builder, matrices, 0.1f, height, 0.1f, 0.9f, height, 0.9f, sprite.getMinU(), sprite.getMinV(), sprite.getMaxU(), sprite.getMaxV(), light, color);
         drawQuad(builder, matrices, 0.1f, 0, 0.1f, 0.9f, height, 0.1f, sprite.getMinU(), sprite.getMinV(), sprite.getMaxU(), sprite.getMaxV(), light, color);
         // North texture ^
-        //MCCourseMod.LOGGER.info(light+"");
+
         // Bottom texture
         matrices.push();
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));

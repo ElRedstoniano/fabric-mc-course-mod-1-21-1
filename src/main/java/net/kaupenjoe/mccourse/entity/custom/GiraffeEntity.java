@@ -1,7 +1,7 @@
 package net.kaupenjoe.mccourse.entity.custom;
 
+import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.ModEntities;
-import net.kaupenjoe.mccourse.item.ModItems;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -70,10 +70,14 @@ public class GiraffeEntity extends AbstractHorseEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         boolean bl;
         boolean bl2 = bl = !this.isBaby() && this.isTame() && player.shouldCancelInteraction();
+        MCCourseMod.LOGGER.info("SSDDSDS" + isTame());
+        MCCourseMod.LOGGER.info("SSDDSDSs" + this.items.size());
+
         if (this.hasPassengers() || bl) {
             return super.interactMob(player, hand);
         }
         ItemStack itemStack = player.getStackInHand(hand);
+        MCCourseMod.LOGGER.info("SSDDSDSssss" + this.canEquip(itemStack, EquipmentSlot.SADDLE));
         if (!itemStack.isEmpty()) {
             if (this.isBreedingItem(itemStack)) {
                 return this.interactHorse(player, itemStack);

@@ -7,7 +7,6 @@ import net.minecraft.block.CropBlock;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
 
 public class StrawberryCropBlock extends CropBlock {
     public static final int MAX_AGE = 5;

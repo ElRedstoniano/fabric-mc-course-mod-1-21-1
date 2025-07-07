@@ -1,12 +1,13 @@
 package net.kaupenjoe.mccourse.entity.client.animation;
 
-import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.AnimationDefinition;
 import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
 public class GiraffeAnimations {
-    public static final Animation ANIM_GIRAFFE_IDLE = Animation.Builder.create(1.5f).looping()
+    // In 1.21.6 Animation -> AnimationDefinition
+    public static final AnimationDefinition ANIM_GIRAFFE_IDLE = AnimationDefinition.Builder.create(1.5f).looping()
             .addBoneAnimation("torso",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN, // TRANSLATE -> MOVE_ORIGIN
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -51,7 +52,7 @@ public class GiraffeAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1.5f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation ANIM_GIRAFFE_WALK = Animation.Builder.create(1f).looping()
+    public static final AnimationDefinition ANIM_GIRAFFE_WALK = AnimationDefinition.Builder.create(1f).looping()
             .addBoneAnimation("torso",
                     new Transformation(Transformation.Targets.MOVE_ORIGIN,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),

@@ -15,6 +15,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradedItem;
 import net.minecraft.village.VillagerProfession;
@@ -22,7 +23,9 @@ import net.minecraft.world.poi.PointOfInterestType;
 
 public class ModVillagers {
 
-    public static final RegistryKey<PointOfInterestType> MAGIC_POI_KEY = registerPoiKey("magic_poi");
+    public static final Identifier MAGIC_POI_IDENTIFIER = MCCourseMod.id("magic_poi");
+    public static final RegistryKey<PointOfInterestType> MAGIC_POI_KEY = registerPoiKey(MAGIC_POI_IDENTIFIER);
+
     public static final PointOfInterestType MAGIC_POI = registerPOI("magic_poi", ModBlocks.MAGIC_BLOCK);
     //
     public static final RegistryKey<VillagerProfession> KAUPENGER_KEY = RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, MCCourseMod.id("kaupenger"));
@@ -43,8 +46,8 @@ public class ModVillagers {
                 1 /*cantidad de aldeanos por estación de trabajo*/, 1, block);
     }
 
-    private static RegistryKey<PointOfInterestType> registerPoiKey(String name){
-        return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, MCCourseMod.id(name));
+    private static RegistryKey<PointOfInterestType> registerPoiKey(Identifier identifier){
+        return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, /*MCCourseMod.id(name)*/identifier);
     }
 
     public static void registerCustomTrades(){
