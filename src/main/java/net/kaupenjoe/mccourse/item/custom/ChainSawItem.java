@@ -2,6 +2,7 @@ package net.kaupenjoe.mccourse.item.custom;
 
 import net.kaupenjoe.mccourse.components.ModDataComponentTypes;
 import net.kaupenjoe.mccourse.sound.ModSounds;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -86,7 +87,8 @@ public class ChainSawItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        if(!Screen.hasShiftDown()){
+        //if(!Screen.hasShiftDown()){
+        if(!MinecraftClient.getInstance().isShiftPressed()){
             textConsumer.accept((Text.translatable("tooltip.mccourse.chainsaw.tooltip.shift")));
         } else{
             textConsumer.accept((Text.translatable("tooltip.mccourse.chainsaw.tooltip.1")));

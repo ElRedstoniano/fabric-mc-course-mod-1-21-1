@@ -45,7 +45,7 @@ public class CoalGeneratorBlock extends BlockWithEntity {
 
     @Override // onUseWithItems -> onUseWithItem
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             NamedScreenHandlerFactory screenHandlerFactory = ((CoalGeneratorBlockEntity) world.getBlockEntity(pos));
 
             if (screenHandlerFactory != null) {

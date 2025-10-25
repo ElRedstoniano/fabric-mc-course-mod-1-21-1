@@ -20,7 +20,7 @@ public class CoalGeneratorScreenHandler extends ScreenHandler {
     public final CoalGeneratorBlockEntity blockEntity;
 
     public CoalGeneratorScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
-        this(syncId, playerInventory, playerInventory.player.getWorld().getBlockEntity(blockPos), new ArrayPropertyDelegate(2));
+        this(syncId, playerInventory, playerInventory.player.getEntityWorld().getBlockEntity(blockPos), new ArrayPropertyDelegate(2));
     }
 
     public CoalGeneratorScreenHandler( int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {

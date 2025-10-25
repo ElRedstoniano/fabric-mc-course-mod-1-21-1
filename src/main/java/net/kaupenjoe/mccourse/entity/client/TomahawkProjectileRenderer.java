@@ -3,14 +3,20 @@ package net.kaupenjoe.mccourse.entity.client;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.custom.TomahawkProjectileEntity;
 import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.RotationAxis;
+
+import java.util.List;
 
 public class TomahawkProjectileRenderer extends EntityRenderer<TomahawkProjectileEntity, TomahawkProjectileRenderState> {
     public static final Identifier TEXTURE = MCCourseMod.id("textures/entity/tomahawk/tomahawk.png");
@@ -36,34 +42,56 @@ public class TomahawkProjectileRenderer extends EntityRenderer<TomahawkProjectil
         state.enchanted = entity.isEnchanted();
         state.groundedOffset = entity.groundedOffset;
         state.shake = entity.shake - tickDelta;
-        //MCCourseMod.LOGGER.info(state.shake + "aaaa" + entity.shake);
+        state.light = entity.getLight();
     }
 
     @Override
-    public void render(TomahawkProjectileRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public void render(TomahawkProjectileRenderState renderState, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraRenderState) {
         matrices.push();
 
-        if(!state.inGround) {
+        if(!renderState.inGround) {
             //matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(state.age, state.prevYaw, state.yawDegrees)));
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(state.yaw));
-            //MCCourseMod.LOGGER.info(state.prevYaw + "-" + state.yawDegrees + state.onGround);
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(state.rotation * 10f + 180));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(renderState.yaw));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(renderState.rotation * 10f + 180));
             matrices.translate(0, -1.0f, 0);
         } else {
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(state.groundedOffset.getY()));
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(state.groundedOffset.getX()));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(renderState.groundedOffset.getY()));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(renderState.groundedOffset.getX()));
             matrices.translate(0, -1.0f, 0);
         }
-
-        // Sacado a medias de la clase TridentEntityRenderer
+        /* 1.21.6<
+        // Took a look from TridentEntityRenderer class
         VertexConsumer vertexConsumer = ItemRenderer.getItemGlintConsumer(
-                vertexConsumers, this.model.getLayer(MCCourseMod.id("textures/entity/tomahawk/tomahawk.png")), false, state.enchanted);
-        this.model.setAngles(state); // This is important for the "shake" effect when the proyectile impacts
-        this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                vertexConsumers, this.model.getLayer(MCCourseMod.id("textures/entity/tomahawk/tomahawk.png")), false, renderState.enchanted);
+        this.model.setAngles(renderState); // This is important for the "shake" effect when the proyectile impacts
+        this.model.render(matrices, vertexConsumer, renderState.light, OverlayTexture.DEFAULT_UV);
         matrices.pop();
+        super.render(renderState, matrices, vertexConsumers, renderState.light);*/
 
-        super.render(state, matrices, vertexConsumers, light);
+        // Took a look from TridentEntityRenderer class
+        List<RenderLayer> list = ItemRenderer.getGlintRenderLayers(this.model.getLayer(TEXTURE), false, renderState.enchanted);
+        this.model.setAngles(renderState); // This is important for the "shake" effect when the proyectile impacts
+        for (int i = 0; i < list.size(); i++) {
+            queue.getBatchingQueue(i)
+                    .submitModel(
+                            this.model,
+                            renderState,
+                            matrices,
+                            list.get(i),
+                            renderState.light,
+                            OverlayTexture.DEFAULT_UV,
+                            -1,
+                            null,
+                            renderState.outlineColor,
+                            null
+                    );
+        }
+        matrices.pop();
+        super.render(renderState, matrices, queue, cameraRenderState);
     }
+
+    /*@Override 1.21.6<
+    public void render(TomahawkProjectileRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {}*/
 
     //public Identifier getTexture(TomahawkProjectileRenderState renderState) { return TEXTURE; }
 }

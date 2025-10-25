@@ -12,6 +12,10 @@ base {
 
 loom {
 	accessWidenerPath = file("src/main/resources/mccourse.accesswidener")
+
+	//(it as net.fabricmc.loom.extension.LoomGradleExtensionApiImpl).intermediaryUrl.set(
+	//		"https://maven2.fabricmc.net/net/fabricmc/intermediary/%1\$s/intermediary-%1\$s-v2.jar"
+	//)
 }
 
 repositories {
@@ -58,7 +62,7 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.21.6-6.0.0.1' // Version is defined in the .jar's name
+	modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.21.9-6.0.0.4' // Version is defined in the .jar's name
 	// https://github.com/Glitchfiend/TerraBlender/wiki/Getting-started
 
 	// https://linkie.shedaniel.dev/dependencies?loader=fabric&version=1.21.4

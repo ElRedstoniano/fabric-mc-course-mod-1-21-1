@@ -26,7 +26,7 @@ public class WarturtleScreenHandler extends ScreenHandler {
     public static WarturtleScreenHandler create(int i, PlayerInventory inventory, UUID uuid) {
         // Es necesario saber la uuid para que al buscar entre todas las entidades cercanas entre la que tenga la uuid correcta, se pueda crear el ScreenHandler
         // En vanilla está hecho de otra manera pero con mods no se puede hacer de otra manera
-        List<WarturtleEntity> turtles = inventory.player.getWorld().getEntitiesByClass(WarturtleEntity.class,
+        List<WarturtleEntity> turtles = inventory.player.getEntityWorld().getEntitiesByClass(WarturtleEntity.class,
                 inventory.player.getBoundingBox().expand(16), test -> test.getUuid().equals(uuid));
         WarturtleEntity warturtleEntity = turtles.isEmpty() ? null : turtles.getFirst();
         return new WarturtleScreenHandler(i, inventory, new SimpleInventory(28), warturtleEntity, 4);

@@ -36,7 +36,7 @@ public class SetHomeCommand {
 
         //ServerWorld serverWorld = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().getPlayer();
-        Vec3d actualPos = context.getSource().getPlayer().getPos();
+        Vec3d actualPos = context.getSource().getPlayer().getEntityPos();
         ModHomeposAttachedData data = player.getAttachedOrElse(ModAttachmentTypes.HOMEPOS_ATTACHMENT_TYPE, ModHomeposAttachedData.DEFAULT);
         player.setAttached(ModAttachmentTypes.HOMEPOS_ATTACHMENT_TYPE, data.setHomePos(actualPos));
 

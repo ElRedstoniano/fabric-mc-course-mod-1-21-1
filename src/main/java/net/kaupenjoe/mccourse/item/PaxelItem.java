@@ -104,14 +104,14 @@ public class PaxelItem extends /*MiningToolItem*/Item {
                     }
 
                     if (blockState3 != null) {
-                        if (!world.isClient) {
+                        if (!world.isClient()) {
                             world.setBlockState(blockPos, blockState3, Block.NOTIFY_ALL_AND_REDRAW);
                             world.emitGameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Emitter.of(playerEntity, blockState3));
                             if (playerEntity != null) {
-                                context.getStack().damage(1, playerEntity, LivingEntity.getSlotForHand(context.getHand()));
+                                context.getStack().damage(1, playerEntity, context.getHand());
                             }
                         }
-                        return world.isClient ? ActionResult.SUCCESS : ActionResult.CONSUME;
+                        return world.isClient() ? ActionResult.SUCCESS : ActionResult.CONSUME;
                     } else {
                         return ActionResult.PASS;
                     }
@@ -127,12 +127,13 @@ public class PaxelItem extends /*MiningToolItem*/Item {
                 world.setBlockState(blockPos, (BlockState)optional.get(), Block.NOTIFY_ALL_AND_REDRAW);
                 world.emitGameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Emitter.of(playerEntity, (BlockState)optional.get()));
                 if (playerEntity != null) {
-                    itemStack.damage(1, playerEntity, LivingEntity.getSlotForHand(context.getHand()));
+                    //itemStack.damage(1, playerEntity,  LivingEntity.getSlotForHand(context.getHand()));
+                    itemStack.damage(1, playerEntity, context.getHand()); // ?
                 }
                 //return ActionResult.success(world.isClient);
             }
         }
-        return world.isClient ? ActionResult.SUCCESS : ActionResult.CONSUME;
+        return world.isClient() ? ActionResult.SUCCESS : ActionResult.CONSUME;
     }
     // Copies from AxeItem class
     private static boolean shouldCancelStripAttempt(ItemUsageContext context) {

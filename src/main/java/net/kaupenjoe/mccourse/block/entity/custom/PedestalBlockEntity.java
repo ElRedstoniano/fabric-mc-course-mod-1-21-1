@@ -17,18 +17,23 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.PlayerAssociatedNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
+import net.minecraft.util.HeldItemContext;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class PedestalBlockEntity extends BlockEntity implements Inventory, /*BlockEntityTicker<PedestalBlockEntity>,*/ TickableBlockEntity,
-        ExtendedScreenHandlerFactory<BlockPos> {
+        ExtendedScreenHandlerFactory<BlockPos>, HeldItemContext {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
     public int ticks = 0;
     //private float rotation = 0;
@@ -36,6 +41,8 @@ public class PedestalBlockEntity extends BlockEntity implements Inventory, /*Blo
     private final float ROTATION_SPEED = 2F;
     private final float LEVITATION_SPEED = 0.05F;
     private final float LEVITATION_RANGE_DIVISOR = 8F;
+
+    private Optional<Integer> itemColor;
 
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PEDESTAL_BE, pos, state);
@@ -104,7 +111,12 @@ public class PedestalBlockEntity extends BlockEntity implements Inventory, /*Blo
     @Override // In 1.21.6 readNbt -> readData
     protected void readData(ReadView readView) {
         super.readData(readView);
+        itemColor = readView.getOptionalInt("color");
         Inventories.readData(readView, inventory);
+    }
+
+    public Optional<Integer> getItemColor(){
+        return itemColor;
     }
 
     @Override
@@ -161,6 +173,21 @@ public class PedestalBlockEntity extends BlockEntity implements Inventory, /*Blo
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new PedestalScreenHandler(syncId, playerInventory, this.pos);
+    }
+
+    @Override
+    public World getEntityWorld() {
+        return world;
+    }
+
+    @Override
+    public Vec3d getEntityPos() {
+        return Vec3d.of(new Vec3i(pos.getX(), pos.getY(), pos.getZ())) ;
+    }
+
+    @Override
+    public float getBodyYaw() {
+        return 0;
     }
 
     //@Override

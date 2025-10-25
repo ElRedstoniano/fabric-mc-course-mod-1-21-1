@@ -14,7 +14,7 @@ public class PedestalScreenHandler extends ScreenHandler {
     private final Inventory inventory;
 
     public PedestalScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos blockPos) {
-        this(syncId, playerInventory, playerInventory.player.getWorld().getBlockEntity(blockPos)); // Client
+        this(syncId, playerInventory, playerInventory.player.getEntityWorld().getBlockEntity(blockPos)); // Client
     }
     public PedestalScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity) {
         super(ModScreenHandlers.PEDESTAL_SCREEN_HANDLER, syncId); // BlockEntity from Server

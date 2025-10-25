@@ -101,7 +101,7 @@ public class PedestalBlock extends BlockWithEntity implements BlockEntityProvide
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         //return TickableBlockEntity.getTicker(world);
-        return world.isClient ? validateTicker(type, ModBlockEntities.PEDESTAL_BE, TickableBlockEntity.getTicker(world)) : null;
+        return world.isClient() ? validateTicker(type, ModBlockEntities.PEDESTAL_BE, TickableBlockEntity.getTicker(world)) : null;
         // Este también sirve ^, es otra manera
     }
 }

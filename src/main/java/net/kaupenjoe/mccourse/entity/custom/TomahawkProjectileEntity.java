@@ -2,6 +2,7 @@ package net.kaupenjoe.mccourse.entity.custom;
 
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.item.ModItems;
+import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.util.math.Vector2f;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -16,6 +17,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
 public class TomahawkProjectileEntity extends PersistentProjectileEntity {
@@ -36,6 +38,12 @@ public class TomahawkProjectileEntity extends PersistentProjectileEntity {
     public TomahawkProjectileEntity(World world, PlayerEntity player) {
         super(ModEntities.TOMAHAWK_ET, player, world, new ItemStack(ModItems.TOMAHAWK), null);
         this.dataTracker.set(ENCHANTED, player.getMainHandStack().hasGlint());
+    }
+
+    public int getLight() {
+        int blockLight = getEntityWorld().getLightLevel(LightType.BLOCK, getBlockPos());
+        int skyLight = getEntityWorld().getLightLevel(LightType.SKY, getBlockPos());
+        return LightmapTextureManager.pack(blockLight, skyLight);
     }
 
     @Override
@@ -76,9 +84,9 @@ public class TomahawkProjectileEntity extends PersistentProjectileEntity {
         super.onEntityHit(entityHitResult); //
         Entity entity = entityHitResult.getEntity();
 
-        if (!this.getWorld().isClient()) {
-            entity.damage(((ServerWorld) this.getWorld()), this.getDamageSources().thrown(this, this.getOwner()), 4);
-            this.getWorld().sendEntityStatus(this, (byte)3);
+        if (!this.getEntityWorld().isClient()) {
+            entity.damage(((ServerWorld) this.getEntityWorld()), this.getDamageSources().thrown(this, this.getOwner()), 4);
+            this.getEntityWorld().sendEntityStatus(this, (byte)3);
             this.discard(); // Eliminar proyectil tras chocar con una entidad
         }
     }

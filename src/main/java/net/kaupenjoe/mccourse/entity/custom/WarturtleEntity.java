@@ -155,7 +155,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     public void tick() {
         super.tick();
 
-        if(this.getWorld().isClient()) {
+        if(this.getEntityWorld().isClient()) {
             this.setUpAnimationStates();
         }
     }
@@ -169,7 +169,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     }
 
     public long getLastPoseTickDelta() {
-        return this.getWorld().getTime() - Math.abs(this.dataTracker.get(LAST_POSE_TICK));
+        return this.getEntityWorld().getTime() - Math.abs(this.dataTracker.get(LAST_POSE_TICK));
     }
 
     public boolean isChangingPose() {
@@ -270,7 +270,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         this.playSound(SoundEvents.ENTITY_CAMEL_SIT);
         this.setPose(EntityPose.SITTING);
         this.emitGameEvent(GameEvent.ENTITY_ACTION);
-        this.setLastPoseTick(-this.getWorld().getTime());
+        this.setLastPoseTick(-this.getEntityWorld().getTime());
 
         setInSittingPose(true);
         setSitting(true);
@@ -283,7 +283,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         this.playSound(SoundEvents.ENTITY_CAMEL_STAND);
         this.setPose(EntityPose.STANDING);
         this.emitGameEvent(GameEvent.ENTITY_ACTION);
-        this.setLastPoseTick(this.getWorld().getTime());
+        this.setLastPoseTick(this.getEntityWorld().getTime());
 
         setInSittingPose(false);
         setSitting(false);
@@ -292,7 +292,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
     public void setStanding() {
         this.setPose(EntityPose.STANDING);
         this.emitGameEvent(GameEvent.ENTITY_ACTION);
-        this.initLastPoseTick(this.getWorld().getTime());
+        this.initLastPoseTick(this.getEntityWorld().getTime());
     }
 
     public void toggleSitting() {
@@ -315,7 +315,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         Item itemForTaming = Items.APPLE;
 
         if(item == itemForTaming && !isTamed()) {
-            if (this.getWorld().isClient()) {
+            if (this.getEntityWorld().isClient()) {
                 return ActionResult.CONSUME;
             } else {
                 if (!player.getAbilities().creativeMode) {
@@ -325,7 +325,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
                 //super.setOwner(player); // Done in the setTamedBy method
                 this.navigation.recalculatePath();
                 this.setTarget(null);
-                this.getWorld().sendEntityStatus(this, (byte) 7);
+                this.getEntityWorld().sendEntityStatus(this, (byte) 7);
                 toggleSitting();
 
                 return ActionResult.SUCCESS;
@@ -388,22 +388,22 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     private void dropChestInventory(int slot) {
         if (slot == TIER_1_CHEST_SLOT) {
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(5, 64));
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(6, 64));
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(7, 64));
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(8, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(5, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(6, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(7, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(8, 64));
         }
         if (slot == TIER_2_CHEST_SLOT) {
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(9, 64));
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(10, 64));
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(11, 64));
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(12, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(9, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(10, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(11, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(12, 64));
         }
         if (slot == TIER_3_CHEST_SLOT) {
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(13, 64));
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(14, 64));
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(15, 64));
-            ItemScatterer.spawn(getWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(16, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(13, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(14, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(15, 64));
+            ItemScatterer.spawn(getEntityWorld(), this.getX(), this.getY(), this.getZ(), inventory.removeStack(16, 64));
         }
     }
 
@@ -459,7 +459,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     @Override
     public void openInventory(PlayerEntity player) {
-        if(!this.getWorld().isClient() && isTamed()) {
+        if(!this.getEntityWorld().isClient() && isTamed()) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             if (serverPlayer.currentScreenHandler != serverPlayer.playerScreenHandler) {
                 serverPlayer.closeHandledScreen();

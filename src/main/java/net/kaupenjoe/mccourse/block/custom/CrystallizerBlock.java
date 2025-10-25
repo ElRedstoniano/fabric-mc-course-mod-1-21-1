@@ -137,7 +137,7 @@ public class CrystallizerBlock extends /*HorizontalFacingBlock*/BlockWithEntity 
 
     @Override // onUseWithItems -> onUseWithItem
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient){
+        if (!world.isClient()){
             NamedScreenHandlerFactory screenHandlerFactory = ((CrystallizerBlockEntity) world.getBlockEntity(pos));
 
             if (screenHandlerFactory != null){

@@ -8,6 +8,7 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
@@ -29,7 +30,7 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
     private final WarturtleModel model; // Mirar clase clase WolfArmorFeatureRenderer
     private final WarturtleModel babyModel;
     private final EquipmentRenderer equipmentRenderer;
-    private Map<Item, Identifier> ARMOR_MAP = Map.of(
+    private final Map<Item, Identifier> ARMOR_MAP = Map.of(
             ModItems.IRON_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/warturtle/armor/iron_warturtle.png"),
             ModItems.GOLD_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/warturtle/armor/gold_warturtle.png"),
             ModItems.DIAMOND_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/warturtle/armor/diamond_warturtle.png"),
@@ -43,34 +44,6 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
         this.model = new WarturtleModel(loader.getModelPart(ModEntityModelLayers.WARTURTLE_ARMOR));
         this.babyModel = new WarturtleModel(loader.getModelPart(ModEntityModelLayers.WARTURTLE_BABY_ARMOR));
         this.equipmentRenderer = equipmentRenderer;
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WarturtleRenderState state, float limbAngle, float limbDistance) {
-        if (!state.bodyArmor.isEmpty()) {
-            if(state.bodyArmor.getItem() instanceof WarturtleArmorItem warturtleArmorItem){
-                ItemStack armorItem = state.bodyArmor;
-                EquippableComponent equippableComponent = armorItem.get(DataComponentTypes.EQUIPPABLE);
-                //if (itemStack.getItem() instanceof WarturtleArmorItem armorItem) {
-                if (armorItem != ItemStack.EMPTY && equippableComponent != null && !equippableComponent.assetId().isEmpty()) {
-                    WarturtleModel warturtleModel = state.baby ? babyModel : model;
-                    //this.getContextModel().copyStateTo(this.model);
-                    RegistryKey<EquipmentAsset> registryKey = equippableComponent.assetId().get();
-                    warturtleModel.setAngles(state);
-                    //this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);
-                    //this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-                    EquipmentModel.LayerType layerType = ClassTinkerers.getEnum(EquipmentModel.LayerType.class, "WARTURTLE_BODY");
-                    this.equipmentRenderer.render(layerType, registryKey, warturtleModel, armorItem, matrices, vertexConsumers, light);
-                    // This is not needed at all? ^ idk (apparently it works without this line so maybe the LayerType stuff is not required at all
-                    // but im not sure about it)
-
-                    VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())));
-                    //this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
-                    warturtleModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
-                    renderDyed(matrices, vertexConsumers, light, state, warturtleArmorItem);
-                }
-            }
-        }
     }
 
     private static final Identifier[] DYE_LOCATION = new Identifier[]{
@@ -93,20 +66,56 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
     };
 
     public void renderDyed(
-            MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WarturtleRenderState warturtleRenderState, WarturtleArmorItem armorItem) {
+            MatrixStack matrices, /*VertexConsumerProvider vertexConsumers*/ VertexConsumer vertexConsumer, int light, WarturtleRenderState warturtleRenderState, WarturtleArmorItem armorItem) {
         WarturtleModel warturtleModel = warturtleRenderState.baby ? babyModel : model;
-        DyeColor dyeColor = warturtleRenderState.dyeColor;
-        Identifier identifier;
+        //DyeColor dyeColor = warturtleRenderState.dyeColor; // 1.21.6<
+        /*Identifier identifier;
         if (dyeColor != null) {
             identifier = DYE_LOCATION[dyeColor.getIndex()]; // getId() now returns a String, so instead now it's supposed to use getIndex()
         } else {
             identifier = ARMOR_MAP.get(armorItem); // Default
-        }
+        }*/
 
         //this.model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(identifier)), light, OverlayTexture.DEFAULT_UV);
-        warturtleModel.render(matrices, vertexConsumers.getBuffer(
-                RenderLayer.getEntityCutoutNoCull(identifier)), light, OverlayTexture.DEFAULT_UV);
+        /*warturtleModel.render(matrices, vertexConsumers.getBuffer(
+                RenderLayer.getEntityCutoutNoCull(identifier)), light, OverlayTexture.DEFAULT_UV);*/
+        warturtleModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
     }
 
 
+    @Override
+    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, WarturtleRenderState state, float limbAngle, float limbDistance) {
+        if (!state.bodyArmor.isEmpty()) {
+            if(state.bodyArmor.getItem() instanceof WarturtleArmorItem warturtleArmorItem){
+                ItemStack armorItem = state.bodyArmor;
+                EquippableComponent equippableComponent = armorItem.get(DataComponentTypes.EQUIPPABLE);
+                //if (itemStack.getItem() instanceof WarturtleArmorItem armorItem) {
+                if (armorItem != ItemStack.EMPTY && equippableComponent != null && !equippableComponent.assetId().isEmpty()) {
+                    WarturtleModel warturtleModel = state.baby ? babyModel : model;
+                    //this.getContextModel().copyStateTo(this.model);
+                    RegistryKey<EquipmentAsset> registryKey = equippableComponent.assetId().get();
+                    warturtleModel.setAngles(state);
+                    //this.model.animateModel(entity, limbAngle, limbDistance, tickDelta);
+                    //this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+                    EquipmentModel.LayerType layerType = ClassTinkerers.getEnum(EquipmentModel.LayerType.class, "WARTURTLE_BODY");
+                    //.equipmentRenderer.render(layerType, registryKey, warturtleModel, armorItem, matrices, vertexConsumers, light);
+                    this.equipmentRenderer.render(layerType, registryKey, warturtleModel, state, armorItem, matrices, queue, light, 0);
+                    // This is not needed at all? ^ idk (apparently it works without this line so maybe the LayerType stuff is not required at all
+                    // but im not sure about it)
+
+                    // 1.21.9+
+                    queue.getBatchingQueue(0).submitCustom(matrices, RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())),
+                            (matricesEntry, vertexConsumer) -> {
+                                this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                                warturtleModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                                renderDyed(matrices, vertexConsumer, light, state, warturtleArmorItem);
+                            });
+                    /*VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())));
+                    //this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                    warturtleModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                    renderDyed(matrices, vertexConsumers, light, state, warturtleArmorItem);*/// 1.21.6<
+                }
+            }
+        }
+    }
 }

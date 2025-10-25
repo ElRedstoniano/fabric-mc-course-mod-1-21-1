@@ -19,7 +19,7 @@ public class CrystallizerScreenHandler extends ScreenHandler {
     public final CrystallizerBlockEntity blockEntity;
 
     public CrystallizerScreenHandler(int syncId, PlayerInventory inventory, BlockPos pos) {
-        this(syncId, inventory,inventory.player.getWorld().getBlockEntity(pos), new ArrayPropertyDelegate(2));
+        this(syncId, inventory,inventory.player.getEntityWorld().getBlockEntity(pos), new ArrayPropertyDelegate(2));
     }
 
     public CrystallizerScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate){
