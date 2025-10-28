@@ -48,15 +48,15 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
     }
 
     private void assignEnergyInfoArea() {
-        energyInfoArea = new EnergyInfoArea(((width - backgroundWidth) / 2) + 155,
-                ((height - backgroundHeight) / 2) + 9, handler.blockEntity.energyStorage, 10, 48);
+        /*energyInfoArea = new EnergyInfoArea(((width - backgroundWidth) / 2) + 155,
+                ((height - backgroundHeight) / 2) + 9, handler.blockEntity.energyStorage, 10, 48);*/
         //MCCourseMod.LOGGER.info(width + " " + backgroundWidth);
     }
 
     private void renderEnergyAreaTooltips (DrawContext context, int pMouseX, int pMouseY, int x, int y) {
         if(isMouseAboveArea(pMouseX, pMouseY, x, y, 155, 9, 10, 48)) {
-           context.drawTooltip(/*Screens.getTextRenderer(this) 1.21.5<*/this.getTextRenderer(), energyInfoArea.getTooltips(),
-                   Optional.empty(), pMouseX/* - x*/, pMouseY/* - y*/);
+           /*context.drawTooltip(this.getTextRenderer(), energyInfoArea.getTooltips(),
+                   Optional.empty(), pMouseX, pMouseY);*/
            // In 1.21.5< coordinates needs a difference operation with the x/y values (like pMouseX - x , pMouseY - y)
         }
     }
@@ -89,7 +89,7 @@ public class CrystallyzerScreen extends HandledScreen<CrystallizerScreenHandler>
         //context.drawTexture(RenderLayer::getGuiTextured, GUI_TEXTURE, x, y, 0, 0, // 1.21.5
         context.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_TEXTURE, x, y, 0, 0, // 1.21.6
                 backgroundWidth, backgroundHeight, 256, 256);
-        energyInfoArea.draw(context);
+        //energyInfoArea.draw(context);
         fluidStackRenderer.drawFluid(context, handler.blockEntity.fluidStorage, x + 8, y + 7, 16, 50,
                 (FluidConstants.BUCKET / 81) * 16);
 

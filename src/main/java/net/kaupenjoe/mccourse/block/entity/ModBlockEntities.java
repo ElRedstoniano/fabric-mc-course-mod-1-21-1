@@ -10,7 +10,7 @@ import net.kaupenjoe.mccourse.block.entity.custom.TankBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import team.reborn.energy.api.EnergyStorage;
+//import team.reborn.energy.api.EnergyStorage;
 
 public class ModBlockEntities {
     public static BlockEntityType<PedestalBlockEntity> PEDESTAL_BE =
@@ -29,8 +29,8 @@ public class ModBlockEntities {
     public static void registerBlockEntities(){
         MCCourseMod.LOGGER.info("Registering Block Entities for " + MCCourseMod.MOD_ID);
 
-        EnergyStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.energyStorage, COAL_GENERATOR_BE);
-        EnergyStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.energyStorage, CRYSTALLYZER_BE);
+       /* EnergyStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.energyStorage, COAL_GENERATOR_BE);
+        EnergyStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.energyStorage, CRYSTALLYZER_BE);*/
         // Es necesario para que aparatos como cables se conecten a generadores
     }
 }

@@ -38,7 +38,7 @@ public class WarturtleScreen extends HandledScreen<WarturtleScreenHandler> {
         this.xMouse = (float) mouseX;
         this.yMouse = (float) mouseY;
 
-        renderBackground(context, mouseX, mouseY, delta);
+        //renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);
     }
@@ -67,7 +67,7 @@ public class WarturtleScreen extends HandledScreen<WarturtleScreenHandler> {
             //RenderSystem.setShaderTexture(0, GUI_TEXTURE_T3);
             drawTextureContext(context, GUI_TEXTURE_T3);
         }
-        /* X1 + Y1 -> Bottom left corner -- X2 + Y2 -> Top Rigth corner */
+        /* X1 + Y1 -> Bottom left corner -- X2 + Y2 -> Top Right corner */
         InventoryScreen.drawEntity(context, x + 8, y + 9, x + 60, y + 58, 20, 0.05F,
                 this.xMouse, this.yMouse, this.warturtle);
     }

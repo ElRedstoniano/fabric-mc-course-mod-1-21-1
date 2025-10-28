@@ -4,11 +4,13 @@ import com.chocohead.mm.api.ClassTinkerers;
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.kaupenjoe.mccourse.item.custom.WarturtleArmorItem;
+import net.minecraft.block.DyedCarpetBlock;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
@@ -31,11 +33,11 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
     private final WarturtleModel babyModel;
     private final EquipmentRenderer equipmentRenderer;
     private final Map<Item, Identifier> ARMOR_MAP = Map.of(
-            ModItems.IRON_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/warturtle/armor/iron_warturtle.png"),
-            ModItems.GOLD_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/warturtle/armor/gold_warturtle.png"),
-            ModItems.DIAMOND_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/warturtle/armor/diamond_warturtle.png"),
-            ModItems.NETHERITE_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/warturtle/armor/netherite_warturtle.png"),
-            ModItems.FLUORITE_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/warturtle/armor/fluorite_warturtle.png")
+            ModItems.IRON_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/iron_warturtle.png"),
+            ModItems.GOLD_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/gold_warturtle.png"),
+            ModItems.DIAMOND_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/diamond_warturtle.png"),
+            ModItems.NETHERITE_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/netherite_warturtle.png"),
+            ModItems.FLUORITE_WARTURTLE_ARMOR, MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/fluorite_warturtle.png")
     );
 
     public WarturtleArmorFeatureRenderer(FeatureRendererContext<WarturtleRenderState, WarturtleModel> context, LoadedEntityModels loader,
@@ -47,39 +49,54 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
     }
 
     private static final Identifier[] DYE_LOCATION = new Identifier[]{
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/white.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/orange.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/magenta.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/light_blue.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/yellow.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/lime.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/pink.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/gray.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/light_gray.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/cyan.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/purple.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/blue.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/brown.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/green.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/red.png"),
-            MCCourseMod.id("textures/entity/warturtle/armor/blankies/black.png")
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/white.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/orange.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/magenta.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/light_blue.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/yellow.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/lime.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/pink.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/gray.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/light_gray.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/cyan.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/purple.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/blue.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/brown.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/green.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/red.png"),
+            MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/black.png")
     };
 
-    public void renderDyed(
-            MatrixStack matrices, /*VertexConsumerProvider vertexConsumers*/ VertexConsumer vertexConsumer, int light, WarturtleRenderState warturtleRenderState, WarturtleArmorItem armorItem) {
-        WarturtleModel warturtleModel = warturtleRenderState.baby ? babyModel : model;
-        //DyeColor dyeColor = warturtleRenderState.dyeColor; // 1.21.6<
-        /*Identifier identifier;
+    public void renderDyed(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, WarturtleRenderState state) {
+            //MatrixStack matrices, /*VertexConsumerProvider vertexConsumers*/ VertexConsumer vertexConsumer, int light, WarturtleRenderState state, WarturtleArmorItem armorItem) {
+        //WarturtleModel warturtleModel = state.baby ? babyModel : model;
+        DyeColor dyeColor = state.dyeColor;
         if (dyeColor != null) {
-            identifier = DYE_LOCATION[dyeColor.getIndex()]; // getId() now returns a String, so instead now it's supposed to use getIndex()
-        } else {
+            //Identifier identifier = DYE_LOCATION[dyeColor.getIndex()]; // getId() now returns a String, so instead now it's supposed to use getIndex()
+
+            //this.model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(identifier)), light, OverlayTexture.DEFAULT_UV);
+            /*warturtleModel.render(matrices, vertexConsumers.getBuffer(
+                RenderLayer.getEntityCutoutNoCull(identifier)), light, OverlayTexture.DEFAULT_UV);*/
+            //warturtleModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV); // < 1.21.8
+
+            queue.getBatchingQueue(2)
+                    .submitModel(
+                            this.getContextModel(),
+                            state,
+                            matrices,
+                            RenderLayer.getEntityCutoutNoCull(
+                                    MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/" + dyeColor.getId() + ".png")
+                            ),
+                            light,
+                            LivingEntityRenderer.getOverlay(state, 0.0F),
+                            -1,
+                            null,
+                            0,
+                            null
+                    ); // DYED
+        }/* else {
             identifier = ARMOR_MAP.get(armorItem); // Default
         }*/
-
-        //this.model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(identifier)), light, OverlayTexture.DEFAULT_UV);
-        /*warturtleModel.render(matrices, vertexConsumers.getBuffer(
-                RenderLayer.getEntityCutoutNoCull(identifier)), light, OverlayTexture.DEFAULT_UV);*/
-        warturtleModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
     }
 
 
@@ -104,12 +121,28 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
                     // but im not sure about it)
 
                     // 1.21.9+
-                    queue.getBatchingQueue(0).submitCustom(matrices, RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())),
+                    queue.getBatchingQueue(1)
+                            .submitModel(
+                                    this.getContextModel(),
+                                    state,
+                                    matrices,
+                                    RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())),
+                                    light,
+                                    LivingEntityRenderer.getOverlay(state, 0.0F),
+                                    -1,
+                                    null,
+                                    0,
+                                    null
+                            ); // Base layer
+                    renderDyed(matrices, queue, light, state);
+
+                    // Not the way to do this actually
+                    /*queue.getBatchingQueue(2).submitCustom(matrices, RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())),
                             (matricesEntry, vertexConsumer) -> {
                                 this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
                                 warturtleModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
                                 renderDyed(matrices, vertexConsumer, light, state, warturtleArmorItem);
-                            });
+                            });*/
                     /*VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())));
                     //this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
                     warturtleModel.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);

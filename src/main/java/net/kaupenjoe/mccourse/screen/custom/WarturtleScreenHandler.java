@@ -1,5 +1,6 @@
 package net.kaupenjoe.mccourse.screen.custom;
 
+import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.entity.custom.WarturtleEntity;
 import net.kaupenjoe.mccourse.item.custom.WarturtleArmorItem;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,13 +32,17 @@ public class WarturtleScreenHandler extends ScreenHandler {
                 inventory.player.getBoundingBox().expand(16), test -> test.getUuid().equals(uuid));
         WarturtleEntity warturtleEntity = turtles.isEmpty() ? null : turtles.getFirst();
         return new WarturtleScreenHandler(i, inventory, new SimpleInventory(28), warturtleEntity, 4);
+        //return new WarturtleScreenHandler(i, inventory, warturtleEntity, 4);
     }
 
     public WarturtleScreenHandler(int containerId, PlayerInventory inventory, Inventory warturtleContainer, final WarturtleEntity warturtleEntity, int columns) {
+    //public WarturtleScreenHandler(int containerId, PlayerInventory inventory, final WarturtleEntity warturtleEntity, int columns) {
         super(ModScreenHandlers.WARTURTLE_SCREEN_HANDLER, containerId);
+        //this.warturtleContainer = warturtleContainer;
+        //this.warturtleContainer = warturtleEntity.getInventory();
         this.warturtleContainer = warturtleContainer;
         this.warturtle = warturtleEntity;
-        warturtleContainer.onOpen(inventory.player);
+        warturtleContainer.onOpen(inventory.player);//
 
         // Armor Slot
         this.addSlot(new Slot(warturtleContainer, 0, 8, 63) {
@@ -45,6 +51,7 @@ public class WarturtleScreenHandler extends ScreenHandler {
                 return stack.getItem() instanceof WarturtleArmorItem;
             }
         });
+
         // Dye Slot
         this.addSlot(new Slot(warturtleContainer, 1, 44, 63) {
             @Override
@@ -156,6 +163,9 @@ public class WarturtleScreenHandler extends ScreenHandler {
         for (int j1 = 0; j1 < 9; j1++) {
             this.addSlot(new Slot(inventory, j1, 8 + j1 * 18, 142));
         }
+
+        // Another way to add player slots is by using this new method in 1.21.9:
+        //this.addPlayerSlots(warturtleContainer, 8, 84);
     }
 
     @Override

@@ -245,8 +245,8 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
                 this.inventory.setStack(stackWithSlot.slot(), stackWithSlot.stack());
             }
         }
-        /*NbtList nbtList = nbt.getListOrEmpty("Items"); // 1.21.5<
-
+        /*
+        NbtList nbtList = nbt.getListOrEmpty("Items"); // 1.21.5<
         for(int i = 0; i < nbtList.size(); i++) {
             NbtCompound compoundTag = nbtList.getCompound(i).get();
             int j = compoundTag.getByte("Slot", (byte)0) & 255; // Pasar de byte a int
@@ -341,7 +341,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
             return ActionResult.SUCCESS;
         }
 
-        return super.interactMob(player, hand);
+        return ActionResult.SUCCESS;
     }
 
     /* INVENTORY */ // Principalmente sacado de la clase AbstractHorseEntity
@@ -433,12 +433,15 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
         SimpleInventory simpleInventory = this.inventory;
         this.inventory = new SimpleInventory(this.getInventorySize());
         if (simpleInventory != null) {
-            simpleInventory.removeListener(this);
+            //simpleInventory.removeListener(this); //< 1.21.9 ?
+
             int i = Math.min(simpleInventory.size(), this.inventory.size());
 
             for(int j = 0; j < i; ++j) {
                 ItemStack itemStack = simpleInventory.getStack(j);
+
                 if (itemStack.isEmpty()) continue;
+
                 this.inventory.setStack(j, itemStack.copy());
             }
         }
@@ -447,6 +450,10 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     public final int getInventorySize() {
         return getInventorySize(4);
+    }
+
+    public SimpleInventory getInventory() {
+        return this.inventory;
     }
 
     public static int getInventorySize(int columns) {
@@ -459,7 +466,7 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
 
     @Override
     public void openInventory(PlayerEntity player) {
-        if(!this.getEntityWorld().isClient() && isTamed()) {
+        if(!this.getEntityWorld().isClient() && (!this.hasPassengers() || this.hasPassenger(player)) && isTamed()) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             if (serverPlayer.currentScreenHandler != serverPlayer.playerScreenHandler) {
                 serverPlayer.closeHandledScreen();
@@ -469,11 +476,13 @@ public class WarturtleEntity extends TameableEntity implements InventoryChangedL
                 @Override
                 public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
                     return new WarturtleScreenHandler(syncId, playerInventory, WarturtleEntity.this.inventory, WarturtleEntity.this, 4);
+                    //return new WarturtleScreenHandler(syncId, playerInventory, WarturtleEntity.this, 4);
                 }
 
                 @Override
                 public Text getDisplayName() {
-                    return Text.translatable("entity.mccourse.warturtle");
+                    return WarturtleEntity.this.hasCustomName() ?
+                            WarturtleEntity.this.getCustomName() : Text.translatable("entity.mccourse.warturtle");
                 }
 
                 @Override

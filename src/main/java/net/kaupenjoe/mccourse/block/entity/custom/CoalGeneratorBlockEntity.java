@@ -29,9 +29,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.EnergyStorage;
+/*import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import team.reborn.energy.api.base.SimpleEnergyStorage;*/
 
 public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
@@ -45,13 +45,13 @@ public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScr
 
     private static final int ENERGY_TRANSFER_AMOUNT = 320;
 
-    public final SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(128000, ENERGY_TRANSFER_AMOUNT, ENERGY_TRANSFER_AMOUNT) {
+    /*public final SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(128000, ENERGY_TRANSFER_AMOUNT, ENERGY_TRANSFER_AMOUNT) {
         @Override
         protected void onFinalCommit() {
             markDirty();
             getWorld().updateListeners(pos, getCachedState(), getCachedState(), 3);
         }
-    };
+    };*/
 
     public CoalGeneratorBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.COAL_GENERATOR_BE, pos, state);
@@ -82,7 +82,7 @@ public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     protected void writeData(WriteView view) {
         super.writeData(view);
         Inventories.writeData(view, inventory);
-        view.putLong("coal_generator.energy", energyStorage.amount);
+        //view.putLong("coal_generator.energy", energyStorage.amount);
         view.putInt("coal_generator.burn_progress", burnProgress);
         view.putInt("coal_generator.max_burn_progress", maxBurnProgress);
     }
@@ -99,7 +99,7 @@ public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     @Override
     protected void readData(ReadView view) {
         Inventories.readData(view, inventory);
-        energyStorage.amount = view.getLong("coal_generator.energy", 0);
+        //energyStorage.amount = view.getLong("coal_generator.energy", 0);
         burnProgress = view.getInt("coal_generator.burn_progress", 0);
         maxBurnProgress = view.getInt("coal_generator.max_burn_progress", 0);
         super.readData(view);
@@ -146,7 +146,7 @@ public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScr
             return;
         }
 
-        if (hasFuelItemInSlot() && energyStorage.amount < energyStorage.capacity) {
+        if (hasFuelItemInSlot()/* && energyStorage.amount < energyStorage.capacity*/) {
             if(!isBurningFuel()) {
                 startBurning();
             }
@@ -164,13 +164,13 @@ public class CoalGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     private void pushEnergyToAboveNeighbours() {
-        EnergyStorageUtil.move(this.energyStorage, EnergyStorage.SIDED.find(world, pos.up(), null),
-                Long.MAX_VALUE, null);
+        /*EnergyStorageUtil.move(this.energyStorage, EnergyStorage.SIDED.find(world, pos.up(), null),
+                Long.MAX_VALUE, null);*/
     }
 
     private void fillUpOnEnergy() {
         try (Transaction transaction = Transaction.openOuter()) {
-            this.energyStorage.insert(320, transaction);
+            //this.energyStorage.insert(320, transaction);
             transaction.commit();
         }
     }

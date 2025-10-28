@@ -2,7 +2,8 @@ pluginManagement {
 	repositories {
 		maven {
 			name = 'Fabric'
-			url = 'https://maven.fabricmc.net/'
+			//url = 'https://maven.fabricmc.net/'
+			url = 'https://maven3.fabricmc.net/'
 		}
 		// https://www.cursemaven.com/
 		exclusiveContent {
