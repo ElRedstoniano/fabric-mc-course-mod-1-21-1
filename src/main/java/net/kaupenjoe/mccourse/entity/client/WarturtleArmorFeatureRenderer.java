@@ -150,5 +150,6 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
                 }
             }
         }
+        // test
     }
 }
