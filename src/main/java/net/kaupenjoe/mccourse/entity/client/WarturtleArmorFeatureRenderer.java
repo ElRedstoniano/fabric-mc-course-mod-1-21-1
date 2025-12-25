@@ -149,6 +149,6 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
                     renderDyed(matrices, vertexConsumers, light, state, warturtleArmorItem);*/// 1.21.6<
                 }
             }
-        }
+        }//
     }
 }
