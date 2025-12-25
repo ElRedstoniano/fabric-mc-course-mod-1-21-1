@@ -37,6 +37,7 @@ public class WarturtleRenderer extends AgeableMobEntityRenderer<WarturtleEntity,
         super.updateRenderState(warturtleEntity, warturtleRenderState, f);
         warturtleRenderState.bodyArmor = warturtleEntity.getBodyArmor();
         warturtleRenderState.dyeColor = warturtleEntity.getSwag();
+        //
         warturtleRenderState.hasTier1Chest = warturtleEntity.hasTier1Chest();
         warturtleRenderState.hasTier2Chest = warturtleEntity.hasTier2Chest();
         warturtleRenderState.hasTier3Chest = warturtleEntity.hasTier3Chest();
