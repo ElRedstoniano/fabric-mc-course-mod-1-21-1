@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.11-SNAPSHOT'
+	id 'fabric-loom' version '1.14-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -8,7 +8,7 @@ group = project.maven_group
 
 base {
 	archivesName = project.archives_base_name
-}
+}//
 
 loom {
 	accessWidenerPath = file("src/main/resources/mccourse.accesswidener")
@@ -76,16 +76,16 @@ dependencies {
 
 	// Api TechReborn
 	// https://github.com/TechReborn/Energy
-	/*include modApi('teamreborn:energy:4.2.0') {
+	include modApi('teamreborn:energy:4.2.0') {
 		exclude(group: "net.fabricmc.fabric-api")
-	}*/
+	}
 
 	// Testing
 	// https://www.curseforge.com/minecraft/mc-mods/techreborn
-	//modImplementation "curse.maven:techreborn-233564:6712578"
+	modImplementation "curse.maven:techreborn-233564:7209665"
 
 	// https://www.curseforge.com/minecraft/mc-mods/reborncore
-	//modImplementation "curse.maven:reborncore-237903:6712577"
+	modImplementation "curse.maven:reborncore-237903:7209664"
 
 	// From https://jitpack.io/#Chocohead/Fabric-ASM/v2.3 // Needed for new enums on existent enums
 	implementation 'com.github.Chocohead:Fabric-ASM:v2.3'
