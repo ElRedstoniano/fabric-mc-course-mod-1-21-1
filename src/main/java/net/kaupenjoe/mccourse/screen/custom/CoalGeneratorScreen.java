@@ -33,14 +33,14 @@ public class CoalGeneratorScreen extends HandledScreen<CoalGeneratorScreenHandle
     }
 
     private void assignEnergyInfoArea() {
-        /*energyInfoArea = new EnergyInfoArea(((width - backgroundWidth) / 2) + 156,
-                ((height - backgroundHeight) / 2) + 11, handler.blockEntity.energyStorage);*/
+        energyInfoArea = new EnergyInfoArea(((width - backgroundWidth) / 2) + 156,
+                ((height - backgroundHeight) / 2) + 11, handler.blockEntity.energyStorage);
     }
 
     private void renderEnergyAreaTooltips (DrawContext context, int pMouseX, int pMouseY, int x, int y) {
         if(isMouseAboveArea(pMouseX, pMouseY, x, y, 156, 11, 8, 64)) {
-            /*context.drawTooltip(this.getTextRenderer(), energyInfoArea.getTooltips(),
-                    Optional.empty(), pMouseX, pMouseY);*/
+            context.drawTooltip(this.getTextRenderer(), energyInfoArea.getTooltips(),
+                    Optional.empty(), pMouseX, pMouseY);
             // In 1.21.5< coordinates needs a difference operation with the x/y values (like pMouseX - x , pMouseY - y)
         }
     }
@@ -68,7 +68,7 @@ public class CoalGeneratorScreen extends HandledScreen<CoalGeneratorScreenHandle
         context.drawTexture(RenderPipelines.GUI_TEXTURED, GUI_TEXTURE, // 1.21.6
                 x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
-        //energyInfoArea.draw(context);
+        energyInfoArea.draw(context);
         renderBurnProgress(context, x, y);
     }
 
