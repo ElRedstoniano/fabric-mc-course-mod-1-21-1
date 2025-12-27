@@ -1,6 +1,21 @@
 package net.kaupenjoe.mccourse.compat;
 
-public class CrystallizerDisplay {/* extends BasicDisplay {
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.display.DisplaySerializer;
+import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.kaupenjoe.mccourse.recipe.CrystallizerRecipe;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.recipe.RecipeEntry;
+
+import java.util.List;
+
+public class CrystallizerDisplay  extends BasicDisplay {
     //public CrystallizerDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
    // public CrystallizerDisplay(RecipeEntry<CrystallizerRecipe> recipe) {
    //     super(List.of(EntryIngredients.ofIngredient(recipe.value().getIngredients().get(0))),
@@ -56,5 +71,5 @@ public class CrystallizerDisplay {/* extends BasicDisplay {
 
     public final EntryIngredient getOut() {
         return getOutputEntries().get(0);
-    }*/
+    }
 }
