@@ -182,5 +182,8 @@
   "entity.mccourse.dodo": "Dodo",
   "entity.mccourse.giraffe": "Giraffe",
   "entity.mccourse.tomahawk": "Tomahawk",
-  "entity.mccourse.warturtle": "Warturtle"
+  "entity.mccourse.warturtle": "Warturtle",
+
+  // KeyBinds
+  "key.mccourse.k": "Kaupenjoe key"
 }

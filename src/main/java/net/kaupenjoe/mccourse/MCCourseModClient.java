@@ -2,6 +2,7 @@ package net.kaupenjoe.mccourse;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
@@ -17,6 +18,7 @@ import net.kaupenjoe.mccourse.block.entity.renderer.TankBlockEntityRenderer;
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.*;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
+import net.kaupenjoe.mccourse.keybind.ModKeyBinds;
 import net.kaupenjoe.mccourse.networking.UpdatePedestalBlockPayload;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.kaupenjoe.mccourse.screen.custom.*;
@@ -26,6 +28,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.GrassColors;
 
@@ -107,5 +110,13 @@ public class MCCourseModClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.WARTURTLE_ARMOR, WarturtleModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.WARTURTLE_BABY_ARMOR, WarturtleModel::getTexturedBabyModelData);
         //
+
+        // KeyBinds
+        ModKeyBinds.registerKeys();
+        ClientTickEvents.END_CLIENT_TICK.register(minecraftClient -> {
+            while (ModKeyBinds.K_KEYBIND.wasPressed()) {
+                minecraftClient.player.sendMessage(Text.literal("I just pressed the K Key! - " + minecraftClient.player.getStringifiedName()), false);
+            }
+        });
     }
 }
