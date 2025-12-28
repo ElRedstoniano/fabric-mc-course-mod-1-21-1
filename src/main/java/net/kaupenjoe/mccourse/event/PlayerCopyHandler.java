@@ -1,9 +1,6 @@
 package net.kaupenjoe.mccourse.event;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.kaupenjoe.mccourse.block.entity.attachments.ModHomeposAttachedData;
-import net.kaupenjoe.mccourse.block.entity.attachments.types.ModAttachmentTypes;
-import net.kaupenjoe.mccourse.util.IEntityDataSaver;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class PlayerCopyHandler implements ServerPlayerEvents.CopyFrom{

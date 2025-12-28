@@ -3,15 +3,12 @@ package net.kaupenjoe.mccourse.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.Codec;
-import net.kaupenjoe.mccourse.block.entity.attachments.ModHomeposAttachedData;
-import net.kaupenjoe.mccourse.block.entity.attachments.types.ModAttachmentTypes;
-import net.kaupenjoe.mccourse.util.IEntityDataSaver;
+import net.kaupenjoe.mccourse.data.attachments.ModHomeposAttachedData;
+import net.kaupenjoe.mccourse.data.attachments.types.ModAttachmentTypes;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 

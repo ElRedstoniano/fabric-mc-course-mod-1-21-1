@@ -2,16 +2,14 @@ package net.kaupenjoe.mccourse.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
-import net.kaupenjoe.mccourse.block.entity.attachments.ModHomeposAttachedData;
-import net.kaupenjoe.mccourse.block.entity.attachments.types.ModAttachmentTypes;
+import net.kaupenjoe.mccourse.data.attachments.ModHomeposAttachedData;
+import net.kaupenjoe.mccourse.data.attachments.types.ModAttachmentTypes;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 // Saving data to entities is no longer with nbt components.
 public class SetHomeCommand {

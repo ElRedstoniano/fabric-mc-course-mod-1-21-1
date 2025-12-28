@@ -1,4 +1,4 @@
-package net.kaupenjoe.mccourse.block.entity.attachments;
+package net.kaupenjoe.mccourse.data.attachments;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

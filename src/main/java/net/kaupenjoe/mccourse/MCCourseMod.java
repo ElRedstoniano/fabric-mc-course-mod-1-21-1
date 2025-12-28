@@ -14,10 +14,12 @@ import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.command.ReturnHomeCommand;
 import net.kaupenjoe.mccourse.command.SetHomeCommand;
 import net.kaupenjoe.mccourse.components.ModDataComponentTypes;
+import net.kaupenjoe.mccourse.data.attachments.types.ModAttachmentTypes;
 import net.kaupenjoe.mccourse.effect.ModEffects;
 import net.kaupenjoe.mccourse.enchantment.ModEnchantmentEffects;
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.event.AttackEntityHandler;
+import net.kaupenjoe.mccourse.event.ModServerEvents;
 import net.kaupenjoe.mccourse.event.PlayerCopyHandler;
 import net.kaupenjoe.mccourse.item.ModItemGroups;
 import net.kaupenjoe.mccourse.item.ModItems;
@@ -79,7 +81,7 @@ public class MCCourseMod implements ModInitializer, TerraBlenderApi {
 
 		CommandRegistrationCallback.EVENT.register(SetHomeCommand::register);
 		CommandRegistrationCallback.EVENT.register(ReturnHomeCommand::register);
-		ServerPlayerEvents.COPY_FROM.register(new PlayerCopyHandler());
+		ModServerEvents.runServerEvents();
 
 		ModEffects.registerEffects();
 
@@ -110,6 +112,8 @@ public class MCCourseMod implements ModInitializer, TerraBlenderApi {
 		/* Payloads registration */
 		//PayloadTypeRegistry.playS2C().register(UpdatePedestalBlockPayload.ID, UpdatePedestalBlockPayload.CODEC);
 		ModPayloadsRegisterer.registerPayloads();
+
+		ModAttachmentTypes.registerModData();
 	}
 
 	private void registerVillagerModifications(){

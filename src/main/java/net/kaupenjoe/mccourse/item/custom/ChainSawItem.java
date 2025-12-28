@@ -1,6 +1,7 @@
 package net.kaupenjoe.mccourse.item.custom;
 
 import net.kaupenjoe.mccourse.components.ModDataComponentTypes;
+import net.kaupenjoe.mccourse.data.attachments.types.ModAttachmentTypes;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -38,7 +39,7 @@ public class ChainSawItem extends Item {
         World world = context.getWorld();
 
         if(!world.isClient()){ // Lado del servidor
-            if(world.getBlockState(context.getBlockPos()).isIn(BlockTags.LOGS)){
+            if(world.getBlockState(context.getBlockPos()).isIn(BlockTags.LOGS) && context.getPlayer().getAttached(ModAttachmentTypes.MANA) > 0){
                 world.breakBlock(context.getBlockPos(), true, context.getPlayer());
 
                 Consumer<Item> itemConsumer = item -> Objects.requireNonNull(context.getPlayer())
@@ -64,6 +65,8 @@ public class ChainSawItem extends Item {
                 BlockPos blockPos = context.getBlockPos();
                 ((ServerWorld) context.getWorld()).spawnParticles(ParticleTypes.SMOKE, blockPos.getX() + 0.5f,
                         blockPos.getY() + 1.0f, + blockPos.getZ() + 0.5f, 25, 0.0, 0.05, 0.0, 0.15f);
+
+                context.getPlayer().setAttached(ModAttachmentTypes.MANA, context.getPlayer().getAttached(ModAttachmentTypes.MANA) - 1);
             } else {
                 context.getWorld().playSound(null, context.getBlockPos(), ModSounds.CHAINSAW_PULL, SoundCategory.BLOCKS, 1f, 1f);
             }
