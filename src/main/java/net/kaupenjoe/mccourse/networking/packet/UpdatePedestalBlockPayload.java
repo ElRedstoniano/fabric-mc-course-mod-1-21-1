@@ -1,4 +1,4 @@
-package net.kaupenjoe.mccourse.networking;
+package net.kaupenjoe.mccourse.networking.packet;
 
 import net.kaupenjoe.mccourse.MCCourseMod;
 import net.minecraft.network.RegistryByteBuf;

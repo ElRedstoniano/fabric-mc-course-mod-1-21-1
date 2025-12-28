@@ -185,5 +185,8 @@
   "entity.mccourse.warturtle": "Warturtle",
 
   // KeyBinds
-  "key.mccourse.k": "Kaupenjoe key"
+  "key.mccourse.k": "Kaupenjoe key",
+
+  // Kaupender Ender-Chest
+  "mccourse.container.kaupender_chest": "Kaupender Ender-Chest"
 }

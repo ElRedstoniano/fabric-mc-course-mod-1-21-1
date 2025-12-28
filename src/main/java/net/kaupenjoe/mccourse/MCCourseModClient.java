@@ -1,7 +1,6 @@
 package net.kaupenjoe.mccourse;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
@@ -10,6 +9,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.block.entity.custom.PedestalBlockEntity;
@@ -19,7 +19,9 @@ import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.*;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
 import net.kaupenjoe.mccourse.keybind.ModKeyBinds;
-import net.kaupenjoe.mccourse.networking.UpdatePedestalBlockPayload;
+import net.kaupenjoe.mccourse.networking.ModServerboundPackets;
+import net.kaupenjoe.mccourse.networking.packet.KaupenPayload;
+import net.kaupenjoe.mccourse.networking.packet.UpdatePedestalBlockPayload;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.kaupenjoe.mccourse.screen.custom.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -44,30 +46,12 @@ public class MCCourseModClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(ModBlocks.BLACKWOOD_SAPLING, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.TANK, /*RenderLayer.getTranslucent() 1.21.5*/ BlockRenderLayer.TRANSLUCENT);
 
-        /* Netowrking - registering client payload reciever*/
-        ClientPlayNetworking.registerGlobalReceiver(UpdatePedestalBlockPayload.ID,
-                (payload, context) -> {
-                    ClientWorld world = context.client().world;
-
-                    if (world == null) {
-                        return;
-                    }
-                    BlockPos pos = payload.blockpos();
-
-                    // Clearing the block entity inventory on the client side
-                    BlockEntity blockEntity = world.getBlockEntity(pos);
-
-                    if (blockEntity instanceof PedestalBlockEntity pedestalBlockEntity) {
-                        pedestalBlockEntity.clear();
-                    }
-        });
-
         /* Block colors */
 
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) ->
                 world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : GrassColors.getDefaultColor(), ModBlocks.COLORED_LEAVES);
         //ColorProviderRegistry.ITEM.register((stack, tintIndex) -> GrassColors.getDefaultColor(), ModBlocks.COLORED_LEAVES);
-        // Mirar clases BlockColors e ItemColor para más ejemplos
+        // Mirar clases BlockColors e ItemColor for more examples
 
         //ModModelPredicates.registerModelPredicates(); // Gone in 1.12.4
 
@@ -78,7 +62,7 @@ public class MCCourseModClient implements ClientModInitializer {
 
         //BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_FLUORITE_WATER, ModFluids.FLOWING_FLUORITE_WATER); // 1.21.5
         BlockRenderLayerMap.putFluids(BlockRenderLayer.TRANSLUCENT, ModFluids.STILL_FLUORITE_WATER, ModFluids.FLOWING_FLUORITE_WATER);
-        // https://wiki.fabricmc.net/tutorial:fluids para más ejemplos
+        // https://wiki.fabricmc.net/tutorial:fluids for more examples
 
         /* Block entity Renderers */
         BlockEntityRendererFactories.register(ModBlockEntities.PEDESTAL_BE, PedestalBlockEntityRenderer::new);
@@ -109,14 +93,18 @@ public class MCCourseModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.WARTURTLE_ET, WarturtleRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.WARTURTLE_ARMOR, WarturtleModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.WARTURTLE_BABY_ARMOR, WarturtleModel::getTexturedBabyModelData);
-        //
 
         // KeyBinds
         ModKeyBinds.registerKeys();
         ClientTickEvents.END_CLIENT_TICK.register(minecraftClient -> {
             while (ModKeyBinds.K_KEYBIND.wasPressed()) {
                 minecraftClient.player.sendMessage(Text.literal("I just pressed the K Key! - " + minecraftClient.player.getStringifiedName()), false);
+                ClientPlayNetworking.send(new KaupenPayload("Kaupenjoe", 67));
             }
         });
+
+        /* Networking - registering client payload reciever */
+        //ClientPlayNetworking.registerGlobalReceiver(UpdatePedestalBlockPayload.ID, ModServerboundPackets::handleUpdatePedestalBlockPayload);
+        // Actually done in ModPayloadsRegisterer class
     }
 }

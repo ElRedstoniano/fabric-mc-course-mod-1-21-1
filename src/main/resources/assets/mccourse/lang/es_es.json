@@ -183,5 +183,8 @@
   "entity.mccourse.warturtle": "Tortuga de guerra",
 
   // KeyBinds
-  "key.mccourse.k": "Tecla Kaupenjoe"
+  "key.mccourse.k": "Tecla Kaupenjoe",
+
+  // Kaupender Ender-Chest
+  "mccourse.container.kaupender_chest": "Kaupender Ender-Chest"
 }
