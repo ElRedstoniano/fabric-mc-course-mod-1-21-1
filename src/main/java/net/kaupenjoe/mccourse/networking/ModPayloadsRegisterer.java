@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.kaupenjoe.mccourse.networking.packet.KaupenPayload;
+import net.kaupenjoe.mccourse.networking.packet.ManaPayload;
 import net.kaupenjoe.mccourse.networking.packet.UpdatePedestalBlockPayload;
 import net.minecraft.network.RegistryByteBuf;
 
@@ -13,6 +14,9 @@ public class ModPayloadsRegisterer {
         registry.register(UpdatePedestalBlockPayload.ID, UpdatePedestalBlockPayload.CODEC);
         ClientPlayNetworking.registerGlobalReceiver(UpdatePedestalBlockPayload.ID, ModClientboundPackets::handleUpdatePedestalBlockPayload);
         // ^^ This was previously indicated on the MCCourseModClient class but for refactoring it also can be declared here
+
+        registry.register(ManaPayload.ID, ManaPayload.CODEC);
+        ClientPlayNetworking.registerGlobalReceiver(ManaPayload.ID, ModClientboundPackets::handleManaPayload);
     }
     private static void registerServerbound(PayloadTypeRegistry<RegistryByteBuf> registry) {
         // This payload is sent to the server

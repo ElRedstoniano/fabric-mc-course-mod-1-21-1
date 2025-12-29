@@ -2,6 +2,8 @@ package net.kaupenjoe.mccourse.networking;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.kaupenjoe.mccourse.block.entity.custom.PedestalBlockEntity;
+import net.kaupenjoe.mccourse.data.attachments.types.ModAttachmentTypes;
+import net.kaupenjoe.mccourse.networking.packet.ManaPayload;
 import net.kaupenjoe.mccourse.networking.packet.UpdatePedestalBlockPayload;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -23,5 +25,9 @@ public class ModClientboundPackets {
         if (blockEntity instanceof PedestalBlockEntity pedestalBlockEntity) {
             pedestalBlockEntity.clear();
         }
+    }
+
+    public static void handleManaPayload(ManaPayload manaPayload, ClientPlayNetworking.Context context) {
+        context.player().setAttached(ModAttachmentTypes.MANA, manaPayload.newValue());
     }
 }

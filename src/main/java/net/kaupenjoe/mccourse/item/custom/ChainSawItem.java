@@ -2,6 +2,7 @@ package net.kaupenjoe.mccourse.item.custom;
 
 import net.kaupenjoe.mccourse.components.ModDataComponentTypes;
 import net.kaupenjoe.mccourse.data.attachments.types.ModAttachmentTypes;
+import net.kaupenjoe.mccourse.mana.ManaHandler;
 import net.kaupenjoe.mccourse.sound.ModSounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -66,7 +67,8 @@ public class ChainSawItem extends Item {
                 ((ServerWorld) context.getWorld()).spawnParticles(ParticleTypes.SMOKE, blockPos.getX() + 0.5f,
                         blockPos.getY() + 1.0f, + blockPos.getZ() + 0.5f, 25, 0.0, 0.05, 0.0, 0.15f);
 
-                context.getPlayer().setAttached(ModAttachmentTypes.MANA, context.getPlayer().getAttached(ModAttachmentTypes.MANA) - 1);
+                ManaHandler.removeMana((ServerPlayerEntity) context.getPlayer(), 1);
+                // Mana is reseted at rejoining the game, for further implementations like restoring when eating a food, looking at Item.finishUsing would be the way
             } else {
                 context.getWorld().playSound(null, context.getBlockPos(), ModSounds.CHAINSAW_PULL, SoundCategory.BLOCKS, 1f, 1f);
             }

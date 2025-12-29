@@ -5,16 +5,16 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.block.entity.ModBlockEntities;
 import net.kaupenjoe.mccourse.block.entity.custom.PedestalBlockEntity;
 import net.kaupenjoe.mccourse.block.entity.renderer.PedestalBlockEntityRenderer;
 import net.kaupenjoe.mccourse.block.entity.renderer.TankBlockEntityRenderer;
+import net.kaupenjoe.mccourse.data.attachments.types.ModAttachmentTypes;
 import net.kaupenjoe.mccourse.entity.ModEntities;
 import net.kaupenjoe.mccourse.entity.client.*;
 import net.kaupenjoe.mccourse.fluid.ModFluids;
@@ -25,9 +25,13 @@ import net.kaupenjoe.mccourse.networking.packet.UpdatePedestalBlockPayload;
 import net.kaupenjoe.mccourse.screen.ModScreenHandlers;
 import net.kaupenjoe.mccourse.screen.custom.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.text.Text;
@@ -106,5 +110,30 @@ public class MCCourseModClient implements ClientModInitializer {
         /* Networking - registering client payload reciever */
         //ClientPlayNetworking.registerGlobalReceiver(UpdatePedestalBlockPayload.ID, ModServerboundPackets::handleUpdatePedestalBlockPayload);
         // Actually done in ModPayloadsRegisterer class
+
+
+        // Rendering Mana Icons
+        // This was done with HudRenderCallback until 1.21.3
+        // https://docs.fabricmc.net/1.21.10/develop/rendering/hud
+        HudElementRegistry.attachElementBefore(VanillaHudElements.ARMOR_BAR, MCCourseMod.id("mana_display"), MCCourseModClient::render);
+    }
+
+    private static void render(DrawContext drawContext, RenderTickCounter renderTickCounter) {
+        int x = drawContext.getScaledWindowWidth() / 2; // X centered
+        int y = drawContext.getScaledWindowHeight();
+
+        if (!MinecraftClient.getInstance().player.isInCreativeMode()
+                && MinecraftClient.getInstance().player.hasAttached(ModAttachmentTypes.MANA)) {
+            // Mana background icons
+            for (int i = 0; i < 5; i++) {
+                drawContext.drawGuiTexture(RenderPipelines.GUI_TEXTURED, MCCourseMod.id("mana_icon_bg"),
+                        16, 16, 0, 0, x - 95 + i * 18, y - 55, 16, 16);
+            }
+            // Actual mana capacity
+            for (int i = 0; i < MinecraftClient.getInstance().player.getAttached(ModAttachmentTypes.MANA); i++) {
+                drawContext.drawGuiTexture(RenderPipelines.GUI_TEXTURED, MCCourseMod.id("mana_icon"),
+                        16, 16, 0, 0, x - 95 + i * 18, y - 55, 16, 16);
+            }
+        }
     }
 }
