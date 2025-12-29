@@ -4,7 +4,6 @@ package net.kaupenjoe.mccourse.screen.renderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.Rect2i;
 import net.minecraft.text.Text;
-import team.reborn.energy.api.EnergyStorage;
 //import team.reborn.energy.api.EnergyStorage;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
  *  Modified for Fabric by: Kaupenjoe
  */
 public class EnergyInfoArea {
-    private final Rect2i area;
+    /*private final Rect2i area;
     private final EnergyStorage energy;
 
     public EnergyInfoArea(int xMin, int yMin)  {
@@ -45,5 +44,5 @@ public class EnergyInfoArea {
                 area.getX() + area.getWidth(), area.getY() + area.getHeight(),
                 0xffb51500, 0xff600b00
         );
-    }
+    }*/
 }

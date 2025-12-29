@@ -52,36 +52,36 @@ public class ModVillagers {
 
     public static void registerCustomTrades(){
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, 1, factories -> {
-            factories.add((entity, random) -> new TradeOffer(
+            factories.add((serverworld, entity, random) -> new TradeOffer(
                     new TradedItem(Items.EMERALD, 2),
                     new ItemStack(ModItems.STRAWBERRY, 6), 6, 2, 0.04f
             ));
-            factories.add((entity, random) -> new TradeOffer(
+            factories.add((serverworld, entity, random) -> new TradeOffer(
                     new TradedItem(Items.EMERALD, 9),
                     new ItemStack(ModItems.CHAINSAW, 1), 1, 6, 0.09f
             ));
         });
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.TOOLSMITH, 2, factories -> {
-            factories.add((entity, random) -> new TradeOffer(
+            factories.add((serverworld, entity, random) -> new TradeOffer(
                     new TradedItem(Items.DIAMOND, 6),
                     new ItemStack(ModItems.FLUORITE, 19), 4, 1, 0.04f
             ));
         });
 
         TradeOfferHelper.registerVillagerOffers(/*ModVillagers.KAUPENGER*/KAUPENGER_KEY , 1, factories -> {
-            factories.add((entity, random) -> new TradeOffer(
+            factories.add((serverworld, entity, random) -> new TradeOffer(
                     new TradedItem(Items.DIAMOND, 6),
                     new ItemStack(ModItems.RAW_FLUORITE, 19), 4, 1, 0.04f
             ));
-            factories.add((entity, random) -> new TradeOffer(
+            factories.add((serverworld, entity, random) -> new TradeOffer(
                     new TradedItem(ModItems.FLUORITE, 6),
                     new ItemStack(ModItems.SPECTRE_STAFF, 1), 1, 8, 0.04f
             ));
         });
 
         TradeOfferHelper.registerWanderingTraderOffers(wanderingTraderOffersBuilder -> {
-            wanderingTraderOffersBuilder.addAll(MCCourseMod.id("emeralds_for_fluorite"),(entity, random) -> new TradeOffer(
+            wanderingTraderOffersBuilder.addAll(MCCourseMod.id("emeralds_for_fluorite"),(serverworld, entity, random) -> new TradeOffer(
                     new TradedItem(Items.EMERALD, 6),
                     new ItemStack(ModItems.FLUORITE, 19), 4, 1, 0.04f
             ));

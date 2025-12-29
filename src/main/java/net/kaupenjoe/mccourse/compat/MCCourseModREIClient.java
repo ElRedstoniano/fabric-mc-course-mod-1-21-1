@@ -7,16 +7,16 @@ import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;*/
 
-import me.shedaniel.math.Rectangle;
+/*#import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
-import me.shedaniel.rei.api.common.util.EntryStacks;
+import me.shedaniel.rei.api.common.util.EntryStacks;*/
 import net.kaupenjoe.mccourse.block.ModBlocks;
 import net.kaupenjoe.mccourse.screen.custom.CrystallyzerScreen;
 
-public class MCCourseModREIClient implements REIClientPlugin {
+public class MCCourseModREIClient {/*# implements REIClientPlugin {
 
     @Override
     public void registerCategories(CategoryRegistry registry) {
@@ -48,5 +48,5 @@ public class MCCourseModREIClient implements REIClientPlugin {
                 CrystallyzerScreen.class, CrystallizerCategory.CRYSTALLIZER);
 
         // Añade un área clickable encima del icono de la flecha para que al hacerle click se puedan ver las recetas registradas
-    }
+    }*/
 }

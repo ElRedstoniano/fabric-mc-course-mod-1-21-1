@@ -5,10 +5,7 @@ import net.kaupenjoe.mccourse.MCCourseMod;
 import net.kaupenjoe.mccourse.item.ModItems;
 import net.kaupenjoe.mccourse.item.custom.WarturtleArmorItem;
 import net.minecraft.block.DyedCarpetBlock;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
@@ -83,8 +80,8 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
                     .submitModel(
                             this.getContextModel(),
                             state,
-                            matrices,
-                            RenderLayer.getEntityCutoutNoCull(
+                            matrices, /* vv RenderLayer.getEntityCutoutNoCull in < 1.21.11*/
+                            RenderLayers.entityCutoutNoCull(
                                     MCCourseMod.id("textures/entity/equipment/warturtle_body/armor/blankies/" + dyeColor.getId() + ".png")
                             ),
                             light,
@@ -126,7 +123,7 @@ public class WarturtleArmorFeatureRenderer extends FeatureRenderer<WarturtleRend
                                     this.getContextModel(),
                                     state,
                                     matrices,
-                                    RenderLayer.getEntityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())),
+                                    RenderLayers.entityCutoutNoCull(ARMOR_MAP.get(armorItem.getItem())),
                                     light,
                                     LivingEntityRenderer.getOverlay(state, 0.0F),
                                     -1,

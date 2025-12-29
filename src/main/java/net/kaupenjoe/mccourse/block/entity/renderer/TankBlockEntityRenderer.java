@@ -70,7 +70,7 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
         });*/ // This is another way to do this, but using a custom method I made
 
         // Took a look trom LightningEntityRenderer as an example
-        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(RenderLayers.getFluidLayer(state)),
+        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(/*RenderLayers.getFluidLayer(state) < 1.21.10*/ BlockRenderLayers.getFluidLayer(state)),
                 (matricesEntry, vertexConsumer) -> {
             // Top Texture
             drawQuad(vertexConsumer, matricesEntry, 0.1f, height, 0.1f, 0.9f, height, 0.9f, sprite.getMinU(), sprite.getMinV(),
@@ -84,7 +84,7 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
         matrices.push();
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
         matrices.translate(0, 0f, -1f);
-        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(RenderLayers.getFluidLayer(state)),
+        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(BlockRenderLayers.getFluidLayer(state)),
                 (matricesEntry, vertexConsumer) -> {
                     drawQuad(vertexConsumer, matricesEntry, 0.1f, -0.01f, 0.1f, 0.9f, -0.01f, 0.9f,
                             sprite.getMinU(), sprite.getMinV(), sprite.getMaxU(), sprite.getMaxV(), light, color);
@@ -95,7 +95,7 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
         matrices.push();
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180));
         matrices.translate(-1f, 0, -1.8f);
-        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(RenderLayers.getFluidLayer(state)),
+        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(BlockRenderLayers.getFluidLayer(state)),
                 (matricesEntry, vertexConsumer) -> {
                     drawQuad(vertexConsumer, matricesEntry, 0.1f, 0, 0.9f, 0.9f, height, 0.9f,
                             sprite.getMinU(), sprite.getMinV(), sprite.getMaxU(), sprite.getMaxV(), light, color);
@@ -106,7 +106,7 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
         matrices.push();
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90));
         matrices.translate(-1f, 0, 0);
-        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(RenderLayers.getFluidLayer(state)),
+        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(BlockRenderLayers.getFluidLayer(state)),
                 (matricesEntry, vertexConsumer) -> {
                     drawQuad(vertexConsumer, matricesEntry, 0.1f, 0, 0.1f, 0.9f, height, 0.1f,
                             sprite.getMinU(), sprite.getMinV(), sprite.getMaxU(), sprite.getMaxV(), light, color);
@@ -117,7 +117,7 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
         matrices.push();
         matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(90));
         matrices.translate(0, 0, -1f);
-        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(RenderLayers.getFluidLayer(state)),
+        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(BlockRenderLayers.getFluidLayer(state)),
                 (matricesEntry, vertexConsumer) -> {
                     drawQuad(vertexConsumer, matricesEntry, 0.1f, 0, 0.1f, 0.9f, height, 0.1f,
                             sprite.getMinU(), sprite.getMinV(), sprite.getMaxU(), sprite.getMaxV(), light, color);
@@ -126,7 +126,7 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
     }
 
     private static <T> void renderQuads(OrderedRenderCommandQueue queue, MatrixStack matrices, FluidState state, float height, int light, int color, Sprite sprite, OrderedRenderCommandQueue.Custom quadsRenderer) {
-        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(RenderLayers.getFluidLayer(state)), quadsRenderer);
+        queue.submitCustom(matrices, RenderLayerHelper.getMovingBlockLayer(BlockRenderLayers.getFluidLayer(state)), quadsRenderer);
     }
 
     @Override

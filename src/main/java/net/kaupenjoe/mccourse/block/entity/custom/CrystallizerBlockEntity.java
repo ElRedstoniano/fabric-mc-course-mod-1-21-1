@@ -39,7 +39,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+//#import team.reborn.energy.api.base.SimpleEnergyStorage;
 //import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.Optional;
@@ -78,13 +78,13 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         }
     };
 
-    public final SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(64000, ENERGY_TRANSFER_AMOUNT, ENERGY_TRANSFER_AMOUNT) {
+    /*#public final SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(64000, ENERGY_TRANSFER_AMOUNT, ENERGY_TRANSFER_AMOUNT) {
         @Override
         protected void onFinalCommit() {
             markDirty();
             getWorld().updateListeners(pos, getCachedState(), getCachedState(), 3);
         }
-    };
+    };*/
 
     public CrystallizerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CRYSTALLYZER_BE, pos, state);
@@ -232,7 +232,7 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         Inventories.writeData(writeView, inventory);
         writeView.putInt("crystallizer.progress", progress);
         writeView.putInt("crystallizer.max_progress", maxProgress);
-        writeView.putLong("crystallizer.energy", energyStorage.amount);
+        //#writeView.putLong("crystallizer.energy", energyStorage.amount);
         SingleVariantStorage.writeData(fluidStorage, FluidVariant.CODEC, writeView);
     }
 
@@ -242,7 +242,7 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
         Inventories.readData(readView, inventory);
         progress = readView.getInt("crystallizer.progress", 0);
         maxProgress = readView.getInt("crystallizer.max_progress", 0);
-        energyStorage.amount = readView.getLong("crystallizer.energy", 0);
+        //#energyStorage.amount = readView.getLong("crystallizer.energy", 0);
         SingleVariantStorage.readData(fluidStorage, FluidVariant.CODEC, FluidVariant::blank ,readView);
     }
 
@@ -318,7 +318,7 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
     private void useEnergyForCrafting() {
 
         try (Transaction transaction = Transaction.openOuter()) {
-            this.energyStorage.extract(ENERGY_CRAFTING_AMOUNT, transaction);
+            //#this.energyStorage.extract(ENERGY_CRAFTING_AMOUNT, transaction);
             markDirty();
             transaction.commit();
         }
@@ -377,7 +377,8 @@ public class CrystallizerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     private boolean hasEnoughEnergyToCraft() {
-        return energyStorage.amount >= (long) ENERGY_CRAFTING_AMOUNT * maxProgress;
+        //#return energyStorage.amount >= (long) ENERGY_CRAFTING_AMOUNT * maxProgress;
+        return true;
     }
 
     private Optional<RecipeEntry<CrystallizerRecipe>> getCurrentRecipe() {

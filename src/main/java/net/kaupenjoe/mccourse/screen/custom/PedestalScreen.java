@@ -43,7 +43,12 @@ public class PedestalScreen extends HandledScreen<PedestalScreenHandler> {
     }
 
     @Override
+    protected void drawSlot(DrawContext context, Slot slot, int mouseX, int mouseY) {
+        super.drawSlot(context, slot, mouseX, mouseY);
+    }
+
+    /*@Override // <= 1.21.10
     protected void drawSlot(DrawContext context, Slot slot) {
         super.drawSlot(context, slot);
-    }
+    }*/
 }

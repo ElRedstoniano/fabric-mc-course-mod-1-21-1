@@ -54,9 +54,9 @@ public class TomahawkProjectileRenderer extends EntityRenderer<TomahawkProjectil
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(renderState.yaw));
             matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(renderState.rotation * 10f + 180));
             matrices.translate(0, -1.0f, 0);
-        } else {
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(renderState.groundedOffset.getY()));
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(renderState.groundedOffset.getX()));
+        } else {                                                                        /*.getY() -> y() in 1.21.11*/
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(renderState.groundedOffset.y()));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(renderState.groundedOffset.x()));
             matrices.translate(0, -1.0f, 0);
         }
         /* 1.21.6<
